@@ -1,0 +1,22 @@
+ProjectDto:
+  type:
+  required:
+    - id
+    - description
+    - idImageIllustration
+
+  properties:
+    id:
+      type: integer
+      format: int32
+      description: project ID
+    description:
+      type: string
+      description: project description
+    idImageIllustration:
+      type: integer
+      format: int32
+      description: ID from Image_Illustration table
+
+
+  

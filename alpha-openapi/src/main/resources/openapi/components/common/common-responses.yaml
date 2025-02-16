@@ -1,0 +1,26 @@
+components:
+  responses:
+    '400':
+      description: Request error
+      content:
+        application/json:
+          schema:
+            $ref: '../model/errors/ErrorAPIDto.yaml'
+    '403':
+      description: The resource is not authorized
+      content:
+        application/json:
+          schema:
+            $ref: '../model/errors/ErrorAPIDto.yaml'
+    '404':
+      description: Resource no found
+      content:
+        application/json:
+          schema:
+            $ref: '../model/errors/ErrorAPIDto.yaml'
+    '500':
+      description: An error has occurred
+      content:
+        application/json:
+          schema:
+            $ref: '../model/errors/ErrorAPIDto.yaml'

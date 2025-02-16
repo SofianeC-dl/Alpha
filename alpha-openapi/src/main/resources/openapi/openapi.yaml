@@ -1,0 +1,13 @@
+openapi: 3.0.3
+
+info:
+  title: API Alpha
+  version: "1.0"
+  description: Génération des endpoints de Alpha
+
+servers:
+  - url: http://localhost:8080/alpha-web/service/api
+
+paths:
+  /project/{idProject}:
+    $ref: './components/api/project.yaml#/ProjectPath'

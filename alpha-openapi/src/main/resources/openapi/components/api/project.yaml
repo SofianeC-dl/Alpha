@@ -1,0 +1,30 @@
+ProjectPath:
+    get:
+      tags:
+        - Project
+      summary: Get Project details
+      operationId: getProject
+      parameters:
+        - name: idProject
+          in: path
+          description: Project object in DB
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: SUCCESS
+          content:
+            'application/json':
+              schema:
+                $ref: '../model/ProjectDto.yaml#/ProjectDto'
+        '400':
+          $ref: '../common/common-responses.yaml#/components/responses/400'
+        '403':
+          $ref: '../common/common-responses.yaml#/components/responses/403'
+        '404':
+          $ref: '../common/common-responses.yaml#/components/responses/404'
+        '500':
+          $ref: '../common/common-responses.yaml#/components/responses/500'
+
+  

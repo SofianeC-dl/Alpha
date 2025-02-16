@@ -1,0 +1,23 @@
+Image
+	- id_image
+	- datas (en base 64)
+	- id_project
+
+Project
+	- id_project
+	- theme (varchar)
+
+Project_tag
+	- id_project
+	- id_tag
+	
+Image_tag
+	- id_image
+	- id_tag
+	
+Tag
+	- id_tag
+	- labelle (varchar)
+	- tag_type  (varchar)
+	
+	
