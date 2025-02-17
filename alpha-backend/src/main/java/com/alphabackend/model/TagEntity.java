@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 public class TagEntity {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

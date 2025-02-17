@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "image_project", schema = "alpha_db_schema")
 public class ImageProjectEntity {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

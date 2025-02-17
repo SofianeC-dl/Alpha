@@ -20,16 +20,21 @@ public class ProjectController implements ProjectApi {
     }
 
     @Override
+    @CrossOrigin
     public ResponseEntity<ProjectDto> _addProject(ProjectDto projectDto) {
-        return null;
+        ProjectDto projectDtoAdded = this.projectService.addProject(projectDto);
+
+        return ResponseEntity.ok(projectDtoAdded);
     }
 
     @Override
+    @CrossOrigin
     public ResponseEntity<ProjectDto> _deleteProject(String idProject) {
         return null;
     }
 
     @Override
+    @CrossOrigin
     public ResponseEntity<ProjectList> _getAllProject() {
         return null;
     }
@@ -37,17 +42,12 @@ public class ProjectController implements ProjectApi {
     @Override
     @CrossOrigin
     public ResponseEntity<ProjectDto> _getProject(String idProject) {
-        ProjectEntity projectEntity = this.projectService.getProject(Long.parseLong(idProject));
-
-        ProjectDto projectDto = new ProjectDto();
-        projectDto.setId(projectEntity.getId().intValue());
-        projectDto.setDescription(projectEntity.getDescription());
-        projectDto.setIdImageIllustration(projectEntity.getImageIllustration().getId().intValue());
-
+        ProjectDto projectDto = this.projectService.getProject(Long.parseLong(idProject));
         return ResponseEntity.ok(projectDto);
     }
 
     @Override
+    @CrossOrigin
     public ResponseEntity<ProjectDto> _modifyProject(String idProject, ProjectDto projectDto) {
         return null;
     }

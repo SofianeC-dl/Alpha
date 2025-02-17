@@ -20,6 +20,7 @@ public class SecurityConfig {
                         .antMatchers("/project/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .csrf().disable()
                 .formLogin(Customizer.withDefaults());
         return http.build();
     }

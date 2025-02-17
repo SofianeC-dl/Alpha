@@ -1,7 +1,6 @@
 ImageProjectDto:
   type: object
   required:
-    - id
     - datas
     - idProject
 
@@ -12,6 +11,7 @@ ImageProjectDto:
       description: Project ID
     datas:
       type: string
+      format: byte
       description: Image stocké en Base64
     idProject:
       type: integer

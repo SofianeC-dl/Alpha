@@ -1,7 +1,6 @@
 ProjectDto:
   type: object
   required:
-    - id
     - description
     - idImageIllustration
 
