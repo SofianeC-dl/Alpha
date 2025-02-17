@@ -1,0 +1,25 @@
+TagDto:
+  type: object
+  required:
+    - id
+    - labelle
+
+  properties:
+    id:
+      type: integer
+      format: int32
+      description: Tag ID
+    label:
+      type: string
+      description: Labelle du tag
+
+TagList:
+  type: object
+  required:
+    - tagList
+  properties:
+    tagList:
+      type: array
+      description: List d'objet tag
+      items:
+        $ref: './TagDto.yaml#/TagDto'

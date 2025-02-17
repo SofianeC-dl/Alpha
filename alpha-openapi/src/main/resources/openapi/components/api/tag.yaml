@@ -1,45 +1,23 @@
-projectGetById:
-    get:
-      tags:
-        - Project
-      summary: Retourne le projet par son ID
-      operationId: getProject
-      parameters:
-        - name: idProject
-          in: path
-          description: ID du projet
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: SUCCESS
-          content:
-            'application/json':
-              schema:
-                $ref: '../model/ProjectDto.yaml#/ProjectDto'
-        '400':
-          $ref: '../common/common-responses.yaml#/components/responses/400'
-        '403':
-          $ref: '../common/common-responses.yaml#/components/responses/403'
-        '404':
-          $ref: '../common/common-responses.yaml#/components/responses/404'
-        '500':
-          $ref: '../common/common-responses.yaml#/components/responses/500'
-
-projectGetAll:
+tagGetById:
   get:
     tags:
-      - Project
-    summary: Retourne tous les projets
-    operationId: getAllProject
+      - Tag
+    summary: Retourne le tag par son ID
+    operationId: getTag
+    parameters:
+      - name: idTag
+        in: path
+        description: ID du tag
+        required: true
+        schema:
+          type: string
     responses:
       '200':
         description: SUCCESS
         content:
           'application/json':
             schema:
-              $ref: '../model/ProjectDto.yaml#/ProjectList'
+              $ref: '../model/TagDto.yaml#/TagDto'
       '400':
         $ref: '../common/common-responses.yaml#/components/responses/400'
       '403':
@@ -49,24 +27,46 @@ projectGetAll:
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
 
-projectAdd:
+tagGetAll:
+  get:
+    tags:
+      - tag
+    summary: Retourne tous les tags
+    operationId: getAllTag
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/TagDto.yaml#/TagList'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
+tagAdd:
   post:
     tags:
-      - Project
-    summary: Ajoute un projet à la bdd
-    operationId: addProject
+      - Tag
+    summary: Ajoute un tag à la bdd
+    operationId: addTag
     requestBody:
       content:
         application/json:
           schema:
-            $ref: '../model/ProjectDto.yaml#/ProjectDto'
+            $ref: '../model/TagDto.yaml#/TagDto'
     responses:
       '200':
         description: SUCCESS
         content:
           'application/json':
             schema:
-              $ref: '../model/ProjectDto.yaml#/ProjectDto'
+              $ref: '../model/TagDto.yaml#/TagDto'
       '400':
         $ref: '../common/common-responses.yaml#/components/responses/400'
       '403':
@@ -76,16 +76,16 @@ projectAdd:
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
 
-projectModify:
+tagModify:
   put:
     tags:
-      - Project
-    summary: Modifie un projet
-    operationId: modifyProject
+      - Tag
+    summary: Modifie un tag
+    operationId: modifyTag
     parameters:
-      - name: idProject
+      - name: idTag
         in: path
-        description: ID du projet
+        description: ID du tag
         required: true
         schema:
           type: string
@@ -93,14 +93,14 @@ projectModify:
       content:
         application/json:
           schema:
-            $ref: '../model/ProjectDto.yaml#/ProjectDto'
+            $ref: '../model/TagDto.yaml#/TagDto'
     responses:
       '200':
         description: SUCCESS
         content:
           'application/json':
             schema:
-              $ref: '../model/ProjectDto.yaml#/ProjectDto'
+              $ref: '../model/TagDto.yaml#/TagDto'
       '400':
         $ref: '../common/common-responses.yaml#/components/responses/400'
       '403':
@@ -109,17 +109,17 @@ projectModify:
         $ref: '../common/common-responses.yaml#/components/responses/404'
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
-  
-projectDeleteById:
+        
+tagDeleteById:
   delete:
     tags:
-      - Project
-    summary: Supprime le projet par son ID
-    operationId: deleteProject
+      - Tag
+    summary: Supprime le tag par son ID
+    operationId: deleteTag
     parameters:
-      - name: idProject
+      - name: idTag
         in: path
-        description: ID du projet
+        description: ID du tag
         required: true
         schema:
           type: string
@@ -129,7 +129,7 @@ projectDeleteById:
         content:
           'application/json':
             schema:
-              $ref: '../model/ProjectDto.yaml#/ProjectDto'
+              $ref: '../model/TagDto.yaml#/TagDto'
       '400':
         $ref: '../common/common-responses.yaml#/components/responses/400'
       '403':

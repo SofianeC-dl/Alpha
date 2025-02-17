@@ -1,0 +1,30 @@
+ImageProjectDto:
+  type: object
+  required:
+    - id
+    - datas
+    - idProject
+
+  properties:
+    id:
+      type: integer
+      format: int32
+      description: Project ID
+    datas:
+      type: string
+      description: Image stocké en Base64
+    idProject:
+      type: integer
+      format: int32
+      description: Clé étrangère de la table project
+
+ImageProjectList:
+  type: object
+  required:
+    - tagList
+  properties:
+    tagList:
+      type: array
+      description: List d'objet tag
+      items:
+        $ref: './ImageProjectDto.yaml#/ImageProjectDto'

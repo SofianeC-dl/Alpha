@@ -15,7 +15,7 @@
     <properties>
         <node.version>v18.20.6</node.version>
         <npm.version>10.9.2</npm.version>
-        <frontend.source.directory>${project.basedir}/src/main/webapp/app</frontend.source.directory>
+        <frontend.source.directory>${projectEntity.basedir}/src/main/webapp/app</frontend.source.directory>
         <frontend.build.directory>${frontend.source.directory}/dist</frontend.build.directory>
     </properties>
 
@@ -82,7 +82,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.basedir}/../alpha-backend/src/main/resources/static</outputDirectory>
+                            <outputDirectory>${projectEntity.basedir}/../alpha-backend/src/main/resources/static</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${frontend.build.directory}</directory>

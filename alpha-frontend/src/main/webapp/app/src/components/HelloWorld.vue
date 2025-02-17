@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ProjectApi, ProjectDto } from '../generated/api.ts'
+import {ProjectApi, type ProjectApiGetProjectRequest, type ProjectDto} from '../generated/api.ts'
+import type {AxiosPromise} from "axios";
 
 defineProps<{ msg: string }>()
 
@@ -9,13 +10,13 @@ const count = ref(0)
 const test = () => {
   const projetApi = new ProjectApi();
 
-  const project: ProjectDto = ref({
-    id: 1,
-    description: 'test',
-    idImageIllustration: 1
-  });
+  const projectId: ProjectApiGetProjectRequest = { idProject: '1'};
 
-  projetApi.getProject(project);
+  const projectResult: AxiosPromise<ProjectDto> = projetApi.getProject(projectId);
+
+  projectResult.then(axiosData => {
+    console.log(axiosData.data);
+  });
 }
 
 
