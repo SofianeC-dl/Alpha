@@ -1,0 +1,14 @@
+CREATE USER alpha_user WITH PASSWORD 'alpha-pass';
+CREATE DATABASE alpha_db OWNER alpha_user;
+CREATE SCHEMA alpha_db_schema AUTHORIZATION alpha_user;
+
+GRANT USAGE, CREATE ON SCHEMA alpha_db_schema TO alpha_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA alpha_db_schema TO alpha_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA alpha_db_schema TO alpha_user;
+GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA alpha_db_schema TO alpha_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA alpha_db_schema
+GRANT ALL ON TABLES TO alpha_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA alpha_db_schema
+GRANT ALL ON SEQUENCES TO alpha_user;

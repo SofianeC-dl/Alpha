@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
-@SpringBootTest
+@SpringBootTest(classes = AlphaBackendApplication.class)
 @ActiveProfiles("test")
 @TestPropertySource(properties = {"spring.flyway.enabled=false"})
 class AlphaBackendApplicationTests {

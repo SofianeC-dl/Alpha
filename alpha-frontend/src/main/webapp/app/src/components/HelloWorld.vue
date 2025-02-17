@@ -1,16 +1,31 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { ProjectApi, ProjectDto } from '../generated/api.ts'
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+
+const test = () => {
+  const projetApi = new ProjectApi();
+
+  const project: ProjectDto = ref({
+    id: 1,
+    description: 'test',
+    idImageIllustration: 1
+  });
+
+  projetApi.getProject(project);
+}
+
+
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
+    <button type="button" @click="test()">count is {{ count }}</button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
