@@ -1,7 +1,6 @@
 ProjectDto:
-  type:
+  type: object
   required:
-    - id
     - description
     - idImageIllustration
 
@@ -9,14 +8,23 @@ ProjectDto:
     id:
       type: integer
       format: int32
-      description: project ID
+      description: Project ID
     description:
       type: string
-      description: project description
+      description: Description du projet
     idImageIllustration:
       type: integer
       format: int32
-      description: ID from Image_Illustration table
+      description: Clé étrangère de la table image_illustration
 
-
+ProjectList:
+  type: object
+  required:
+    - projectList
+  properties:
+    projectList:
+      type: array
+      description: List d'objet project
+      items:
+        $ref: './ProjectDto.yaml#/ProjectDto'
   

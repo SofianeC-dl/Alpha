@@ -6,8 +6,76 @@ info:
   description: Génération des endpoints de Alpha
 
 servers:
-  - url: http://localhost:8080/alpha-web/service/api
+  - url: "http://localhost:9090/alpha-web"
 
 paths:
-  /project/{idProject}:
-    $ref: './components/api/project.yaml#/ProjectPath'
+
+################# Project API #################
+  /project/get/{idProject}:
+    $ref: './components/api/project.yaml#/projectGetById'
+
+  /projects/get:
+    $ref: './components/api/project.yaml#/projectGetAll'
+
+  /project/post:
+    $ref: './components/api/project.yaml#/projectAdd'
+
+  /project/put/{idProject}:
+    $ref: './components/api/project.yaml#/projectModify'
+
+  /project/delete/{idProject}:
+    $ref: './components/api/project.yaml#/projectDeleteById'
+
+################# Tag API #################
+  /tag/get/{idTag}:
+    $ref: './components/api/tag.yaml#/tagGetById'
+
+  /tags/get:
+    $ref: './components/api/tag.yaml#/tagGetAll'
+
+  /tag/post:
+    $ref: './components/api/tag.yaml#/tagAdd'
+
+  /tag/put/{idTag}:
+    $ref: './components/api/tag.yaml#/tagModify'
+
+  /tag/delete/{idTag}:
+    $ref: './components/api/tag.yaml#/tagDeleteById'
+
+################# ImageIllustration API #################
+  /imageIllustration/get/{idImageIllustration}:
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationGetById'
+
+  /imageIllustration/get/{idProject}:
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationGetByIdProject'
+
+  /imageIllustrations/get:
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationGetAll'
+
+  /imageIllustration/post:
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationAdd'
+
+  /imageIllustration/put/{idImageIllustration}:
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationModify'
+
+  /imageIllustration/delete/{idImageIllustration}:
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationDeleteById'
+
+################# ImageProject API #################
+  /imageProject/get/{idImageProject}:
+    $ref: './components/api/imageProject.yaml#/imageProjectGetById'
+
+  /imageProjects/get/{idProject}:
+    $ref: './components/api/imageProject.yaml#/imageProjectGetAll'
+
+  /imageProjects/get:
+    $ref: './components/api/imageProject.yaml#/imageProjectGetAllByIdProject'
+
+  /imageProject/post:
+    $ref: './components/api/imageProject.yaml#/imageProjectAdd'
+
+  /imageProject/put/{idImageProject}:
+    $ref: './components/api/imageProject.yaml#/imageProjectModify'
+
+  /imageProject/delete/{idImageProject}:
+    $ref: './components/api/imageProject.yaml#/imageProjectDeleteById'

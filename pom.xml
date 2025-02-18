@@ -23,17 +23,9 @@
     <module>alpha-frontend</module>
   </modules>
 
-<!--  <dependencyManagement>-->
-<!--    <dependencies>-->
-<!--      <dependency>-->
-<!--        <groupId>org.springframework.boot</groupId>-->
-<!--        <artifactId>spring-boot-dependencies</artifactId>-->
-<!--        <version>2.7.9</version>-->
-<!--        <type>pom</type>-->
-<!--        <scope>import</scope>-->
-<!--      </dependency>-->
-<!--    </dependencies>-->
-<!--  </dependencyManagement>-->
+  <properties>
+    <listening.port.variable>9090</listening.port.variable>
+  </properties>
 
   <build>
     <pluginManagement>
@@ -42,7 +34,27 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.2.0</version>
+          <configuration>
+            <delimiters>
+              <delimiter>@</delimiter>
+            </delimiters>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.yaml</include>
+          <include>**/*.yml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 </project>

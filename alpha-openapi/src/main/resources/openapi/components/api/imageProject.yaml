@@ -1,0 +1,169 @@
+imageProjectGetById:
+  get:
+    tags:
+      - ImageProject
+    summary: Retourne une image du projet par son ID
+    operationId: getImageProject
+    parameters:
+      - name: idImageProject
+        in: path
+        description: ID de l'image du projet
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
+imageProjectGetAllByIdProject:
+  get:
+    tags:
+      - ImageProject
+    summary: Retourne toutes les images d'un projet par l'ID du projet
+    operationId: getAllImageProjectByIdProject
+    parameters:
+      - name: idProject
+        in: path
+        description: ID du projet
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectList'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
+imageProjectGetAll:
+  get:
+    tags:
+      - ImageProject
+    summary: Retourne tous les images du projets
+    operationId: getAllImageProject
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectList'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
+imageProjectAdd:
+  post:
+    tags:
+      - ImageProject
+    summary: Ajoute une image du projet à la bdd
+    operationId: addImageProject
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
+imageProjectModify:
+  put:
+    tags:
+      - ImageProject
+    summary: Modifie une image du projet
+    operationId: modifyImageProject
+    parameters:
+      - name: idImageProject
+        in: path
+        description: ID de l'image du projet
+        required: true
+        schema:
+          type: string
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
+imageProjectDeleteById:
+  delete:
+    tags:
+      - ImageProject
+    summary: Supprime une image du projet par son ID
+    operationId: deleteImageProject
+    parameters:
+      - name: idImageProject
+        in: path
+        description: ID de l'image du projet
+        required: true
+        schema:
+          type: string
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
