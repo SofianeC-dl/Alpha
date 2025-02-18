@@ -3,6 +3,7 @@ package com.alphabackend.controller;
 import com.alpha.generated.api.ProjectApi;
 import com.alpha.generated.model.ProjectDto;
 import com.alpha.generated.model.ProjectList;
+import com.alpha.generated.model.ResultDto;
 import com.alphabackend.model.ProjectEntity;
 import com.alphabackend.repository.ProjectRepository;
 import com.alphabackend.service.ProjectService;
@@ -29,14 +30,14 @@ public class ProjectController implements ProjectApi {
 
     @Override
     @CrossOrigin
-    public ResponseEntity<ProjectDto> _deleteProject(String idProject) {
-        return null;
+    public ResponseEntity<ResultDto> _deleteProject(String idProject) {
+        return ResponseEntity.ok(this.projectService.deleteProject(Long.parseLong(idProject)));
     }
 
     @Override
     @CrossOrigin
     public ResponseEntity<ProjectList> _getAllProject() {
-        return null;
+        return ResponseEntity.ok(new ProjectList(projectService.getAllProjects()));
     }
 
     @Override

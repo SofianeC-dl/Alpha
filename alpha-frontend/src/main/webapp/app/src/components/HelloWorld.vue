@@ -10,7 +10,7 @@ const count = ref(0)
 const test = () => {
   const projetApi = new ProjectApi();
 
-  const projectId: ProjectApiGetProjectRequest = { idProject: '1'};
+  const projectId: ProjectApiGetProjectRequest = { idProject: '18'};
 
   const projectResult: AxiosPromise<ProjectDto> = projetApi.getProject(projectId);
 

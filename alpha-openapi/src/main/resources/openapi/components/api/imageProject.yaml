@@ -158,7 +158,7 @@ imageProjectDeleteById:
         content:
           'application/json':
             schema:
-              $ref: '../model/ImageProjectDto.yaml#/ImageProjectDto'
+              $ref: '../model/ResultDto.yaml#/ResultDto'
       '400':
         $ref: '../common/common-responses.yaml#/components/responses/400'
       '403':

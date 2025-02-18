@@ -1,0 +1,8 @@
+ResultDto:
+  type: object
+  required:
+    - labelle
+
+  properties:
+    result:
+      $ref: './enums/ResultEnum.yaml#/ResultEnum'

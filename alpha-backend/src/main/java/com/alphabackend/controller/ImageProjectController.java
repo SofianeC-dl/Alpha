@@ -4,6 +4,7 @@ import com.alpha.generated.api.ImageProjectApi;
 import com.alpha.generated.model.ImageIllustrationDto;
 import com.alpha.generated.model.ImageProjectDto;
 import com.alpha.generated.model.ImageProjectList;
+import com.alpha.generated.model.ResultDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class ImageProjectController implements ImageProjectApi {
     }
 
     @Override
-    public ResponseEntity<ImageProjectDto> _deleteImageProject(String idImageProject) {
+    public ResponseEntity<ResultDto> _deleteImageProject(String idImageProject) {
         return null;
     }
 

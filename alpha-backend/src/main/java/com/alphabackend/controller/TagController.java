@@ -1,6 +1,7 @@
 package com.alphabackend.controller;
 
 import com.alpha.generated.api.TagApi;
+import com.alpha.generated.model.ResultDto;
 import com.alpha.generated.model.TagDto;
 import com.alpha.generated.model.TagList;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class TagController implements TagApi {
     }
 
     @Override
-    public ResponseEntity<TagDto> _deleteTag(String idTag) {
+    public ResponseEntity<ResultDto> _deleteTag(String idTag) {
         return null;
     }
 

@@ -129,7 +129,7 @@ tagDeleteById:
         content:
           'application/json':
             schema:
-              $ref: '../model/TagDto.yaml#/TagDto'
+              $ref: '../model/ResultDto.yaml#/ResultDto'
       '400':
         $ref: '../common/common-responses.yaml#/components/responses/400'
       '403':

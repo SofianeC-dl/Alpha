@@ -1,0 +1,6 @@
+ResultEnum:
+  type: string
+  enum:
+    - Validate
+    - Invalidate
+    - Error

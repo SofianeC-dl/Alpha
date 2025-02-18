@@ -1,28 +1,32 @@
 package com.alphabackend.mapper;
 
 import com.alpha.generated.model.ProjectDto;
-import com.alphabackend.controller.ProjectController;
 import com.alphabackend.model.ImageIllustrationEntity;
 import com.alphabackend.model.ProjectEntity;
-import com.alphabackend.service.ProjectService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {
 
-    @Mapping(source = "imageIllustration.id", target = "idImageIllustration")
+    @Mapping(source = "imageIllustrationEntity.id", target = "idImageIllustration")
     ProjectDto mapProjectEntityToProjectDto(ProjectEntity projectEntity);
 
-    @Mapping(source = "idImageIllustration", target = "imageIllustration")
-    ProjectEntity mapProjectDtoToProjectEnity(ProjectDto projectDto);
+    @Mapping(source = "idImageIllustration", target = "imageIllustrationEntity")
+    ProjectEntity mapProjectDtoToProjectEntity(ProjectDto projectDto);
 
-    default ImageIllustrationEntity map(Long idImageIllustration) {
+    List<ProjectEntity> mapProjectDtoListToProjectEntityList(List<ProjectDto> projectDtoList);
+
+    List<ProjectDto> mapProjectEntityListToProjectDtoList(List<ProjectEntity> projectEntityList);
+
+    default ImageIllustrationEntity mapIdImageIllustrationToImageIllustrationEntity(Integer idImageIllustration) {
         if (idImageIllustration == null) {
             return null;
         }
         ImageIllustrationEntity sub = new ImageIllustrationEntity();
-        sub.setId(idImageIllustration);
+        sub.setId(idImageIllustration.longValue());
         return sub;
     }
 }
