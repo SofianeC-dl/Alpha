@@ -10,7 +10,8 @@ imageIllustrationGetById:
         description: ID de l'image d'illustration
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     responses:
       '200':
         description: SUCCESS
@@ -30,7 +31,7 @@ imageIllustrationGetById:
 imageIllustrationGetByIdProject:
   get:
     tags:
-      - ImageProject
+      - ImageIllustration
     summary: Retourne toutes les images d'un projet par l'ID du projet
     operationId: getImageIllustrationByIdProject
     parameters:
@@ -39,7 +40,8 @@ imageIllustrationGetByIdProject:
         description: ID du projet
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     responses:
       '200':
         description: SUCCESS
@@ -105,19 +107,20 @@ imageIllustrationAdd:
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
 
-imageIllustrationModify:
+imageIllustrationUpdate:
   put:
     tags:
       - ImageIllustration
     summary: Modifie une image d'illustration
-    operationId: modifyImageIllustration
+    operationId: updateImageIllustration
     parameters:
       - name: idImageIllustration
         in: path
         description: ID de l'image d'illustration
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     requestBody:
       content:
         application/json:
@@ -151,7 +154,8 @@ imageIllustrationDeleteById:
         description: ID de l'image d'illustration
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     responses:
       '200':
         description: SUCCESS

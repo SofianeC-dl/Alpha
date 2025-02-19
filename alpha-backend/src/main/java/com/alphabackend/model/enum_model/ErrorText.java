@@ -6,9 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorText{
-    OBJECT_NOT_FOUND("{0} object id {1} : Not found in database"),
-    ALL_OBJECTS_NOT_FOUND("No {0} objects found in database"),
-    OBJECT_NOT_DELETE("{0} object id {1} : Could not be deleted");
+    OBJECT_NOT_FOUND("{0}: {1} object id {2} : Not found in database"),
+    ALL_OBJECTS_NOT_FOUND("{0}: No {1} objects found in database"),
+    OBJECT_NONEXISTENT_DELETE("{0}: {1} object id {2} : Not found, could not be deleted"),
+    OBJECT_NONEXISTENT_UPDATE("{0}: {1} object id {2} : Not found, could not be update");
 
     private final String text;
 }

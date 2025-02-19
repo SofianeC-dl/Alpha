@@ -21,7 +21,7 @@ paths:
     $ref: './components/api/project.yaml#/projectAdd'
 
   /project/put/{idProject}:
-    $ref: './components/api/project.yaml#/projectModify'
+    $ref: './components/api/project.yaml#/projectUpdate'
 
   /project/delete/{idProject}:
     $ref: './components/api/project.yaml#/projectDeleteById'
@@ -37,7 +37,7 @@ paths:
     $ref: './components/api/tag.yaml#/tagAdd'
 
   /tag/put/{idTag}:
-    $ref: './components/api/tag.yaml#/tagModify'
+    $ref: './components/api/tag.yaml#/tagUpdate'
 
   /tag/delete/{idTag}:
     $ref: './components/api/tag.yaml#/tagDeleteById'
@@ -56,7 +56,7 @@ paths:
     $ref: './components/api/imageIllustration.yaml#/imageIllustrationAdd'
 
   /imageIllustration/put/{idImageIllustration}:
-    $ref: './components/api/imageIllustration.yaml#/imageIllustrationModify'
+    $ref: './components/api/imageIllustration.yaml#/imageIllustrationUpdate'
 
   /imageIllustration/delete/{idImageIllustration}:
     $ref: './components/api/imageIllustration.yaml#/imageIllustrationDeleteById'
@@ -66,16 +66,16 @@ paths:
     $ref: './components/api/imageProject.yaml#/imageProjectGetById'
 
   /imageProjects/get/{idProject}:
-    $ref: './components/api/imageProject.yaml#/imageProjectGetAll'
+    $ref: './components/api/imageProject.yaml#/imageProjectGetAllByIdProject'
 
   /imageProjects/get:
-    $ref: './components/api/imageProject.yaml#/imageProjectGetAllByIdProject'
+    $ref: './components/api/imageProject.yaml#/imageProjectGetAll'
 
   /imageProject/post:
     $ref: './components/api/imageProject.yaml#/imageProjectAdd'
 
   /imageProject/put/{idImageProject}:
-    $ref: './components/api/imageProject.yaml#/imageProjectModify'
+    $ref: './components/api/imageProject.yaml#/imageProjectUpdate'
 
   /imageProject/delete/{idImageProject}:
     $ref: './components/api/imageProject.yaml#/imageProjectDeleteById'

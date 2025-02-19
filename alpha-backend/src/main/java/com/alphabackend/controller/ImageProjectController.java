@@ -1,49 +1,54 @@
 package com.alphabackend.controller;
 
 import com.alpha.generated.api.ImageProjectApi;
-import com.alpha.generated.model.ImageIllustrationDto;
 import com.alpha.generated.model.ImageProjectDto;
 import com.alpha.generated.model.ImageProjectList;
 import com.alpha.generated.model.ResultDto;
+import com.alphabackend.service.ImageProjectService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.Table;
-
 @RestController
+@AllArgsConstructor
 public class ImageProjectController implements ImageProjectApi {
+
+    private final ImageProjectService imageProjectService;
+
     @Override
+    @CrossOrigin
     public ResponseEntity<ImageProjectDto> _addImageProject(ImageProjectDto imageProjectDto) {
-        return null;
+        return ResponseEntity.ok(this.imageProjectService.addImageProject(imageProjectDto));
     }
 
     @Override
-    public ResponseEntity<ResultDto> _deleteImageProject(String idImageProject) {
-        return null;
+    @CrossOrigin
+    public ResponseEntity<ResultDto> _deleteImageProject(Long idImageProject) {
+        return ResponseEntity.ok(this.imageProjectService.deleteImageProject(idImageProject));
     }
 
     @Override
+    @CrossOrigin
     public ResponseEntity<ImageProjectList> _getAllImageProject() {
-        return null;
+        return ResponseEntity.ok(new ImageProjectList(this.imageProjectService.getAllImageProjects()));
     }
 
     @Override
-    public ResponseEntity<ImageProjectList> _getAllImageProjectByIdProject(String idProject) {
-        return null;
+    @CrossOrigin
+    public ResponseEntity<ImageProjectList> _getAllImageProjectByIdProject(Long idProject) {
+        return ResponseEntity.ok(new ImageProjectList(this.imageProjectService.getAllImageProjectByProjectId(idProject)));
     }
 
     @Override
-    public ResponseEntity<ImageIllustrationDto> _getImageIllustrationByIdProject(String idProject) {
-        return null;
+    @CrossOrigin
+    public ResponseEntity<ImageProjectDto> _getImageProject(Long idImageProject) {
+        return ResponseEntity.ok(this.imageProjectService.getImageProject(idImageProject));
     }
 
     @Override
-    public ResponseEntity<ImageProjectDto> _getImageProject(String idImageProject) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<ImageProjectDto> _modifyImageProject(String idImageProject, ImageProjectDto imageProjectDto) {
-        return null;
+    @CrossOrigin
+    public ResponseEntity<ImageProjectDto> _updateImageProject(Long idImageProject, ImageProjectDto imageProjectDto) {
+        return ResponseEntity.ok(this.imageProjectService.updateImageProject(idImageProject, imageProjectDto));
     }
 }

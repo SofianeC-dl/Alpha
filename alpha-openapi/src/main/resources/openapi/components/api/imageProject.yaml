@@ -10,7 +10,8 @@ imageProjectGetById:
         description: ID de l'image du projet
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     responses:
       '200':
         description: SUCCESS
@@ -39,7 +40,8 @@ imageProjectGetAllByIdProject:
         description: ID du projet
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     responses:
       '200':
         description: SUCCESS
@@ -105,19 +107,20 @@ imageProjectAdd:
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
 
-imageProjectModify:
+imageProjectUpdate:
   put:
     tags:
       - ImageProject
     summary: Modifie une image du projet
-    operationId: modifyImageProject
+    operationId: updateImageProject
     parameters:
       - name: idImageProject
         in: path
         description: ID de l'image du projet
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     requestBody:
       content:
         application/json:
@@ -151,7 +154,8 @@ imageProjectDeleteById:
         description: ID de l'image du projet
         required: true
         schema:
-          type: string
+          type: integer
+          format: int64
     responses:
       '200':
         description: SUCCESS

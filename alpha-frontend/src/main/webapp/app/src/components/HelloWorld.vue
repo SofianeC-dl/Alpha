@@ -1,6 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import {ProjectApi, type ProjectApiGetProjectRequest, type ProjectApiAddProjectRequest, type ProjectDto} from '../generated/api.ts'
+import {ref} from 'vue'
+import {
+  ProjectApi,
+  type ProjectApiAddProjectRequest,
+  type ProjectApiDeleteProjectRequest,
+  type ProjectApiGetProjectRequest,
+  type ProjectApiUpdateProjectRequest,
+  type ProjectDto,
+  type ProjectList,
+  type ResultDto
+} from '../generated'
+
 import type {AxiosPromise} from "axios";
 
 defineProps<{ msg: string }>()
@@ -10,7 +20,7 @@ const count = ref(0)
 const test = () => {
   const projetApi = new ProjectApi();
 
-  const projectId: ProjectApiGetProjectRequest = { idProject: '18'};
+  const projectId: ProjectApiGetProjectRequest = { idProject: 18};
 
   const projectResult: AxiosPromise<ProjectDto> = projetApi.getProject(projectId);
 
@@ -29,6 +39,37 @@ const test = () => {
 
   projectAddResult.then(axiosData => {
     console.log(axiosData.data);
+  })
+
+  const projectDeleteId: ProjectApiDeleteProjectRequest = {
+    idProject: 18
+  };
+
+  const projectDeleteResult: AxiosPromise<ResultDto> = projetApi.deleteProject(projectDeleteId);
+
+  projectDeleteResult.then(axiosData => {
+    console.log(axiosData.data);
+  })
+
+  const projectUpdate: ProjectApiUpdateProjectRequest = {
+    idProject: 18,
+    projectDto: {
+      id: 3,
+      description: 'GOOD',
+      idImageIllustration: 1
+    }
+  };
+
+  const projectUpdateResult: AxiosPromise<ProjectDto> = projetApi.updateProject(projectUpdate);
+
+  projectUpdateResult.then(axiosData => {
+    console.log(axiosData.data);
+  })
+
+  const projectAllResult: AxiosPromise<ProjectList> = projetApi.getAllProject();
+
+  projectAllResult.then(axiosData => {
+    console.log(axiosData.data.projectList);
   })
 }
 

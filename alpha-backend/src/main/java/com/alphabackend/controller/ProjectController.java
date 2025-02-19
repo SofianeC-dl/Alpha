@@ -4,34 +4,28 @@ import com.alpha.generated.api.ProjectApi;
 import com.alpha.generated.model.ProjectDto;
 import com.alpha.generated.model.ProjectList;
 import com.alpha.generated.model.ResultDto;
-import com.alphabackend.model.ProjectEntity;
-import com.alphabackend.repository.ProjectRepository;
 import com.alphabackend.service.ProjectService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@AllArgsConstructor
 public class ProjectController implements ProjectApi {
 
     private final ProjectService projectService;
 
-    public ProjectController(ProjectService projectService) {
-        this.projectService = projectService;
-    }
-
     @Override
     @CrossOrigin
     public ResponseEntity<ProjectDto> _addProject(ProjectDto projectDto) {
-        ProjectDto projectDtoAdded = this.projectService.addProject(projectDto);
-
-        return ResponseEntity.ok(projectDtoAdded);
+        return ResponseEntity.ok(this.projectService.addProject(projectDto));
     }
 
     @Override
     @CrossOrigin
-    public ResponseEntity<ResultDto> _deleteProject(String idProject) {
-        return ResponseEntity.ok(this.projectService.deleteProject(Long.parseLong(idProject)));
+    public ResponseEntity<ResultDto> _deleteProject(Long idProject) {
+        return ResponseEntity.ok(this.projectService.deleteProject(idProject));
     }
 
     @Override
@@ -42,14 +36,13 @@ public class ProjectController implements ProjectApi {
 
     @Override
     @CrossOrigin
-    public ResponseEntity<ProjectDto> _getProject(String idProject) {
-        ProjectDto projectDto = this.projectService.getProject(Long.parseLong(idProject));
-        return ResponseEntity.ok(projectDto);
+    public ResponseEntity<ProjectDto> _getProject(Long idProject) {
+        return ResponseEntity.ok(this.projectService.getProject(idProject));
     }
 
     @Override
     @CrossOrigin
-    public ResponseEntity<ProjectDto> _modifyProject(String idProject, ProjectDto projectDto) {
-        return null;
+    public ResponseEntity<ProjectDto> _updateProject(Long idProject, ProjectDto projectDto) {
+        return ResponseEntity.ok(this.projectService.updateProject(idProject, projectDto));
     }
 }
