@@ -20,7 +20,7 @@ const count = ref(0)
 const test = () => {
   const projetApi = new ProjectApi();
 
-  const projectId: ProjectApiGetProjectRequest = { idProject: 18};
+  const projectId: ProjectApiGetProjectRequest = { idProject: 17};
 
   const projectResult: AxiosPromise<ProjectDto> = projetApi.getProject(projectId);
 
@@ -42,7 +42,7 @@ const test = () => {
   })
 
   const projectDeleteId: ProjectApiDeleteProjectRequest = {
-    idProject: 18
+    idProject: 3
   };
 
   const projectDeleteResult: AxiosPromise<ResultDto> = projetApi.deleteProject(projectDeleteId);
@@ -52,9 +52,9 @@ const test = () => {
   })
 
   const projectUpdate: ProjectApiUpdateProjectRequest = {
-    idProject: 18,
+    idProject: 5,
     projectDto: {
-      id: 3,
+      id: 5,
       description: 'GOOD',
       idImageIllustration: 1
     }

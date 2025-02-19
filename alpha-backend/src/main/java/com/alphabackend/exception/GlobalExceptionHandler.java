@@ -1,6 +1,5 @@
-package com.alphabackend.controller;
+package com.alphabackend.exception;
 
-import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.model.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

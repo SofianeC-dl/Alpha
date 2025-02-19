@@ -15,5 +15,4 @@ class AlphaBackendApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
