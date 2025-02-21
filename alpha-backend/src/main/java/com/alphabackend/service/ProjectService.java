@@ -69,7 +69,7 @@ public class ProjectService {
     /**
      * Supprime l'objet "Project" de la table "Project"
      * @param id ID de l'object" Project" à supprimer
-     * @return "Validate" si l'objet "Projetc" à bien été supprimé, sinon "Invalidate" si non supprimé
+     * @return "Validate" si l'objet "Project" à bien été supprimé, sinon "Invalidate" si non supprimé
      */
     public ResultDto deleteProject(Long id) {
         this.projectRepository.findById(id).ifPresentOrElse(
@@ -80,7 +80,7 @@ public class ProjectService {
 
         ResultDto resultDto = new ResultDto();
 
-        resultDto.setResult(this.projectRepository.existsById(id) ? ResultEnum.VALIDATE : ResultEnum.INVALIDATE);
+        resultDto.setResult(!this.projectRepository.existsById(id) ? ResultEnum.VALIDATE : ResultEnum.INVALIDATE);
 
         return resultDto;
     }

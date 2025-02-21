@@ -77,7 +77,7 @@ public class ImageIllustrationService {
     /**
      * Supprime l'objet "ImageIllustration" de la table "ImageIllustration"
      * @param id ID de l'object" ImageIllustration" à supprimer
-     * @return "Validate" si l'objet "Projetc" à bien été supprimé, sinon "Invalidate" si non supprimé
+     * @return "Validate" si l'objet "ImageIllustration" à bien été supprimé, sinon "Invalidate" si non supprimé
      */
     public ResultDto deleteImageIllustration(Long id) {
         this.imageIllustrationRepository.findById(id).ifPresentOrElse(

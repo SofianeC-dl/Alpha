@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,4 +26,13 @@ public class ProjectEntity {
     @JoinColumn(name = "id_image_illustration")
     @NotNull
     private ImageIllustrationEntity imageIllustrationEntity;
+
+    @ManyToMany
+    @JoinTable(
+            name = "project_xxxx_tag",
+            schema = "alpha_db_schema",
+            joinColumns = @JoinColumn(name = "id_project"),
+            inverseJoinColumns = @JoinColumn(name = "id_tag")
+    )
+    private Set<TagEntity> tagEntitySet;
 }

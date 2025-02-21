@@ -3,6 +3,7 @@ ImageIllustrationDto:
   required:
     - datas
     - idProject
+    - tagSet
 
   properties:
     id:
@@ -13,6 +14,10 @@ ImageIllustrationDto:
       type: string
       format: byte
       description: Image stocké en Base64
+    tagSet:
+      type: array
+      items:
+        $ref: './TagDto.yaml#/TagDto'
 
 ImageIllustrationList:
   type: object

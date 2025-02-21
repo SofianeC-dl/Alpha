@@ -3,6 +3,7 @@ ImageProjectDto:
   required:
     - datas
     - idProject
+    - tagSet
 
   properties:
     id:
@@ -13,10 +14,18 @@ ImageProjectDto:
       type: string
       format: byte
       description: Image stocké en Base64
+    uploadDate:
+      type: string
+      format: date-time
+      description: Date de l'upload avec les fuseaux horaires
     idProject:
       type: integer
       format: int32
       description: Clé étrangère de la table project
+    tagSet:
+      type: array
+      items:
+        $ref: './TagDto.yaml#/TagDto'
 
 ImageProjectList:
   type: object

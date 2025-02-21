@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,5 +21,14 @@ public class TagEntity {
     @NotNull
     @Size(max = 100)
     private String label;
+
+    @ManyToMany(mappedBy = "tagEntitySet")
+    private Set<ImageIllustrationEntity> imageIllustrationEntitySet;
+
+    @ManyToMany(mappedBy = "tagEntitySet")
+    private Set<ImageProjectEntity> imageProjectEntitySet;
+
+    @ManyToMany(mappedBy = "tagEntitySet")
+    private Set<ProjectEntity> projectEntitySet;
 
 }

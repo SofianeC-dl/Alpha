@@ -3,6 +3,7 @@ ProjectDto:
   required:
     - description
     - idImageIllustration
+    - tagSet
 
   properties:
     id:
@@ -16,6 +17,10 @@ ProjectDto:
       type: integer
       format: int32
       description: Clé étrangère de la table image_illustration
+    tagSet:
+      type: array
+      items:
+        $ref: './TagDto.yaml#/TagDto'
 
 ProjectList:
   type: object

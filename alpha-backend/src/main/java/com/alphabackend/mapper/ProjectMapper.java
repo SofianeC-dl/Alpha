@@ -11,9 +11,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {
 
+    @Mapping(target = "tagSet", source = "tagEntitySet")
     @Mapping(source = "imageIllustrationEntity.id", target = "idImageIllustration")
     ProjectDto mapProjectEntityToProjectDto(ProjectEntity projectEntity);
 
+    @Mapping(target = "tagEntitySet", source = "tagSet")
     @Mapping(source = "idImageIllustration", target = "imageIllustrationEntity")
     ProjectEntity mapProjectDtoToProjectEntity(ProjectDto projectDto);
 

@@ -93,10 +93,10 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${projectEntity.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <cleanupOutput>true</cleanupOutput>
-                            <output>${projectEntity.build.directory}/generated-sources/spring</output>
+                            <output>${project.build.directory}/generated-sources/spring</output>
                             <apiPackage>com.alpha.generated.api</apiPackage>
                             <modelPackage>com.alpha.generated.model</modelPackage>
                             <invokerPackage>com.alpha.generated.invoker</invokerPackage>
@@ -122,9 +122,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${projectEntity.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
                             <generatorName>typescript-axios</generatorName>
-                            <output>${projectEntity.basedir}/../alpha-frontend/src/main/webapp/app/src/generated</output>
+                            <output>${project.basedir}/../alpha-frontend/src/main/webapp/app/src/generated</output>
                             <configOptions>
                                 <modelPropertyNaming>camelCase</modelPropertyNaming>
                                 <supportsES6>true</supportsES6>

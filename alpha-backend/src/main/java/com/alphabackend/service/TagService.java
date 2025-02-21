@@ -48,11 +48,11 @@ public class TagService {
 
     /**
      * Ajoute un objet "Tag" dans la table "Tag"
-     * @param projectDto Objet "Tag" à ajouter dans la table "Tag"
+     * @param tagDto Objet "Tag" à ajouter dans la table "Tag"
      * @return Le nouvel objet "Tag" avec son ID
      */
-    public TagDto addTag(TagDto projectDto) {
-        TagEntity projectEntity = this.tagMapper.mapTagDtoToTagEntity(projectDto);
+    public TagDto addTag(TagDto tagDto) {
+        TagEntity projectEntity = this.tagMapper.mapTagDtoToTagEntity(tagDto);
 
         return this.tagMapper.mapTagEntityToTagDto(this.tagRepository.save(projectEntity));
     }
@@ -60,7 +60,7 @@ public class TagService {
     /**
      * Supprime l'objet "Tag" de la table "Tag"
      * @param id ID de l'object" Tag" à supprimer
-     * @return "Validate" si l'objet "Projetc" à bien été supprimé, sinon "Invalidate" si non supprimé
+     * @return "Validate" si l'objet "Tag" à bien été supprimé, sinon "Invalidate" si non supprimé
      */
     public ResultDto deleteTag(Long id) {
         this.tagRepository.findById(id).ifPresentOrElse(
@@ -79,14 +79,14 @@ public class TagService {
     /**
      * Mise à jour de l'objet "Tag" dans la table "Tag"
      * @param idTag ID de l'objet "Tag" à modifier
-     * @param projectDto Nouvelles données de l'objet "Tag"
+     * @param tagDto Nouvelles données de l'objet "Tag"
      * @return Le nouvel objet "Tag"
      */
-    public TagDto updateTag(Long idTag, TagDto projectDto) {
-        TagEntity projectEntity = this.tagMapper.mapTagDtoToTagEntity(projectDto);
+    public TagDto updateTag(Long idTag, TagDto tagDto) {
+        TagEntity projectEntity = this.tagMapper.mapTagDtoToTagEntity(tagDto);
 
         if (!this.tagRepository.existsById(idTag)) {
-            throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_UPDATE, NameObject.TAG_MAJ.getName(), projectDto.getId());
+            throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_UPDATE, NameObject.TAG_MAJ.getName(), tagDto.getId());
         }
 
         TagEntity updatedTagEntity = this.tagRepository.save(projectEntity);
