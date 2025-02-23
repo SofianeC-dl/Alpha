@@ -1,10 +1,11 @@
 package com.alphabackend.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Set;
 
@@ -19,12 +20,14 @@ public class ImageProjectEntity {
 
     @Lob
     @NotNull
+    @Column(columnDefinition = "BYTEA")
+    @JdbcTypeCode(SqlTypes.VARBINARY)
     private byte[] datas;
 
-    @NotNull
+    @Column(name = "upload_date", nullable = false)
     private Instant uploadDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "id_project")
     @NotNull
     private ProjectEntity projectEntity;

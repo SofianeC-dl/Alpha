@@ -24,6 +24,12 @@ public class ImageProjectController implements ImageProjectApi {
 
     @Override
     @CrossOrigin
+    public ResponseEntity<ImageProjectList> _addManyImageProject(ImageProjectList imageProjectList){
+        return ResponseEntity.ok(new ImageProjectList(this.imageProjectService.addManyImageProject(imageProjectList.getImageProjectList())));
+    }
+
+    @Override
+    @CrossOrigin
     public ResponseEntity<ResultDto> _deleteImageProject(Long idImageProject) {
         return ResponseEntity.ok(this.imageProjectService.deleteImageProject(idImageProject));
     }

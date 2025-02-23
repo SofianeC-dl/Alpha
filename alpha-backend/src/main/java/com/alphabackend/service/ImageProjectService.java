@@ -14,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -41,20 +42,20 @@ public class ImageProjectService {
      * @return La liste des objets "ImageProject" présents dans la table
      */
     public List<ImageProjectDto> getAllImageProjects() {
-        List<ImageProjectEntity> projectEntityList = this.imageProjectRepository.findAll();
+        List<ImageProjectEntity> imageProjectEntityList = this.imageProjectRepository.findAll();
 
-        projectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(ErrorText.ALL_OBJECTS_NOT_FOUND, NameObject.IMAGE_ILLUSTRATION_MAJ.getName()));
+        imageProjectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(ErrorText.ALL_OBJECTS_NOT_FOUND, NameObject.IMAGE_ILLUSTRATION_MAJ.getName()));
 
-        return this.imageProjectMapper.mapImageProjectEntityListToImageProjectDtoList(projectEntityList);
+        return this.imageProjectMapper.mapImageProjectEntityListToImageProjectDtoList(imageProjectEntityList);
     }
 
     /**
      * Retourne tous les objets "ImageProject" présente dans la table "ImageProject" qui ont pour pour
-     * @param projectId ID de l'objet "Project" dont l'objet "Image_Project" est recherché
+     * @param imageProjectId ID de l'objet "Project" dont l'objet "Image_Project" est recherché
      * @return Objet "Image_Project" recherché
      */
-    public List<ImageProjectDto> getAllImageProjectByProjectId(Long projectId) {
-        List<ImageProjectEntity> imageProjectEntityList = this.imageProjectRepository.findByProjectEntity_Id(projectId);
+    public List<ImageProjectDto> getAllImageProjectByProjectId(Long imageProjectId) {
+        List<ImageProjectEntity> imageProjectEntityList = this.imageProjectRepository.findByProjectEntity_Id(imageProjectId);
 
         if (imageProjectEntityList.isEmpty()) {
             throw new ResourceNotFoundException(ErrorText.ALL_OBJECTS_NOT_FOUND, NameObject.IMAGE_PROJECT_MAJ.getName());
@@ -65,13 +66,28 @@ public class ImageProjectService {
 
     /**
      * Ajoute un objet "ImageProject" dans la table "ImageProject"
-     * @param projectDto Objet "ImageProject" à ajouter dans la table "ImageProject"
+     * @param imageProjectDto Objet "ImageProject" à ajouter dans la table "ImageProject"
      * @return Le nouvel objet "ImageProject" avec son ID
      */
-    public ImageProjectDto addImageProject(ImageProjectDto projectDto) {
-        ImageProjectEntity projectEntity = this.imageProjectMapper.mapImageProjectDtoToImageProjectEntity(projectDto);
+    public ImageProjectDto addImageProject(ImageProjectDto imageProjectDto) {
+        ImageProjectEntity imageProjectEntity = this.imageProjectMapper.mapImageProjectDtoToImageProjectEntity(imageProjectDto);
+        imageProjectEntity.setUploadDate(Instant.now());
 
-        return this.imageProjectMapper.mapImageProjectEntityToImageProjectDto(this.imageProjectRepository.save(projectEntity));
+        return this.imageProjectMapper.mapImageProjectEntityToImageProjectDto(this.imageProjectRepository.save(imageProjectEntity));
+    }
+
+    /**
+     * Ajoute un objet "ImageProject" dans la table "ImageProject"
+     * @param imageProjectDtoList List objets "ImageProject" à ajouter dans la table "ImageProject"
+     * @return La liste de nouveaux objets "ImageProject" avec son ID
+     */
+    public List<ImageProjectDto> addManyImageProject(List<ImageProjectDto> imageProjectDtoList) {
+        List<ImageProjectEntity> imageProjectEntityList = this.imageProjectMapper.mapImageProjectDtoListToImageProjectEntityList(imageProjectDtoList);
+
+        Instant now = Instant.now();
+        imageProjectEntityList.forEach(imageProjectEntity -> imageProjectEntity.setUploadDate(now));
+
+        return this.imageProjectMapper.mapImageProjectEntityListToImageProjectDtoList(this.imageProjectRepository.saveAll(imageProjectEntityList));
     }
 
     /**
@@ -88,7 +104,7 @@ public class ImageProjectService {
 
         ResultDto resultDto = new ResultDto();
 
-        resultDto.setResult(this.imageProjectRepository.existsById(id) ? ResultEnum.VALIDATE : ResultEnum.INVALIDATE);
+        resultDto.setResult(!this.imageProjectRepository.existsById(id) ? ResultEnum.VALIDATE : ResultEnum.INVALIDATE);
 
         return resultDto;
     }
@@ -96,17 +112,17 @@ public class ImageProjectService {
     /**
      * Mise à jour de l'objet "ImageProject" dans la table "ImageProject"
      * @param idImageProject ID de l'objet "ImageProject" à modifier
-     * @param projectDto Nouvelles données de l'objet "ImageProject"
+     * @param imageProjectDto Nouvelles données de l'objet "ImageProject"
      * @return Le nouvel objet "ImageProject"
      */
-    public ImageProjectDto updateImageProject(Long idImageProject, ImageProjectDto projectDto) {
-        ImageProjectEntity projectEntity = this.imageProjectMapper.mapImageProjectDtoToImageProjectEntity(projectDto);
+    public ImageProjectDto updateImageProject(Long idImageProject, ImageProjectDto imageProjectDto) {
+        ImageProjectEntity imageProjectEntity = this.imageProjectMapper.mapImageProjectDtoToImageProjectEntity(imageProjectDto);
 
         if (!this.imageProjectRepository.existsById(idImageProject)) {
-            throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_UPDATE, NameObject.IMAGE_ILLUSTRATION_MAJ.getName(), projectDto.getId());
+            throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_UPDATE, NameObject.IMAGE_ILLUSTRATION_MAJ.getName(), imageProjectDto.getId());
         }
 
-        ImageProjectEntity updatedImageProjectEntity = this.imageProjectRepository.save(projectEntity);
+        ImageProjectEntity updatedImageProjectEntity = this.imageProjectRepository.save(imageProjectEntity);
 
         return this.imageProjectMapper.mapImageProjectEntityToImageProjectDto(updatedImageProjectEntity);
     }

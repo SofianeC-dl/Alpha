@@ -1,7 +1,7 @@
 TagDto:
   type: object
   required:
-    - labelle
+    - label
 
   properties:
     id:

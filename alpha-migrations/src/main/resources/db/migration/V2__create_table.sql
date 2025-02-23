@@ -5,13 +5,16 @@ CREATE TABLE IF NOT EXISTS alpha_db_schema.tag (
 
 CREATE TABLE IF NOT EXISTS alpha_db_schema.image_illustration (
     id BIGSERIAL PRIMARY KEY,
-    datas BYTEA NOT NULL
+    datas BYTEA NOT NULL,
+    upload_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+
 );
 
 CREATE TABLE IF NOT EXISTS alpha_db_schema.project (
     id BIGSERIAL PRIMARY KEY,
     description VARCHAR(1500) NOT NULL,
-    upload_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    upload_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    update_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     id_image_illustration INTEGER NOT NULL,
     CONSTRAINT fk_image_illustration
         FOREIGN KEY (id_image_illustration)
@@ -23,6 +26,7 @@ CREATE TABLE IF NOT EXISTS alpha_db_schema.project (
 CREATE TABLE IF NOT EXISTS alpha_db_schema.image_project (
     id BIGSERIAL PRIMARY KEY,
     datas BYTEA NOT NULL,
+    upload_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     id_project INTEGER NOT NULL,
     CONSTRAINT fk_project
         FOREIGN KEY (id_project)

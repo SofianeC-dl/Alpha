@@ -1,11 +1,12 @@
 package com.alphabackend.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Type;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.time.Instant;
 import java.util.Set;
 
 @Entity
@@ -20,8 +21,11 @@ public class ImageIllustrationEntity {
     @Lob
     @NotNull
     @Column(columnDefinition = "BYTEA")
-    @Type(type = "org.hibernate.type.BinaryType")
+    @JdbcTypeCode(SqlTypes.VARBINARY)
     private byte[] datas;
+
+    @Column(name = "upload_date", nullable = false)
+    private Instant uploadDate;
 
     @ManyToMany
     @JoinTable(

@@ -107,6 +107,34 @@ imageProjectAdd:
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
 
+
+imageProjectAddMany:
+  post:
+    tags:
+      - ImageProject
+    summary: Ajoute une liste d'image du projet à la bdd
+    operationId: addManyImageProject
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../model/ImageProjectDto.yaml#/ImageProjectList'
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ImageProjectDto.yaml#/ImageProjectList'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
 imageProjectUpdate:
   put:
     tags:

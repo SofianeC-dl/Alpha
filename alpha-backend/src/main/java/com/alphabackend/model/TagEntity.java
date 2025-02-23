@@ -1,11 +1,9 @@
 package com.alphabackend.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -22,13 +20,13 @@ public class TagEntity {
     @Size(max = 100)
     private String label;
 
-    @ManyToMany(mappedBy = "tagEntitySet")
+    @ManyToMany(mappedBy = "tagEntitySet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ImageIllustrationEntity> imageIllustrationEntitySet;
 
-    @ManyToMany(mappedBy = "tagEntitySet")
+    @ManyToMany(mappedBy = "tagEntitySet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ImageProjectEntity> imageProjectEntitySet;
 
-    @ManyToMany(mappedBy = "tagEntitySet")
+    @ManyToMany(mappedBy = "tagEntitySet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<ProjectEntity> projectEntitySet;
 
 }

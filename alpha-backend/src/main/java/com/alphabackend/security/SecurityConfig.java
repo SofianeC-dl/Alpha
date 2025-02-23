@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.List;
@@ -32,15 +33,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        // Dans Spring Security 6, on utilise "requestMatchers(...)"
         http
-                .cors()
-                .and()
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .antMatchers(authzRootPattern.toArray(new String[0])).permitAll()
+                        .requestMatchers(authzRootPattern.toArray(new String[0])).permitAll()
                         .anyRequest().authenticated()
                 )
-                .csrf().disable()
                 .formLogin(Customizer.withDefaults());
+
         return http.build();
     }
 }

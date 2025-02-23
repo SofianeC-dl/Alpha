@@ -3,6 +3,7 @@ package com.alphabackend.controller;
 import com.alpha.generated.api.ProjectApi;
 import com.alpha.generated.model.ProjectDto;
 import com.alpha.generated.model.ProjectList;
+import com.alpha.generated.model.ProjectWithImageIllustrationDto;
 import com.alpha.generated.model.ResultDto;
 import com.alphabackend.service.ProjectService;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,14 @@ public class ProjectController implements ProjectApi {
     @Override
     @CrossOrigin
     public ResponseEntity<ProjectDto> _addProject(ProjectDto projectDto) {
-        return ResponseEntity.ok(this.projectService.addProject(projectDto));
+        return ResponseEntity.ok(this.projectService.saveProject(projectDto));
+    }
+
+    @Override
+    @CrossOrigin
+    public ResponseEntity<ProjectDto> _addProjectWithImageIllustration(
+            ProjectWithImageIllustrationDto projectWithImageIllustrationDto){
+        return ResponseEntity.ok(this.projectService.addProjectWithImageIllustration(projectWithImageIllustrationDto));
     }
 
     @Override

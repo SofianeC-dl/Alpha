@@ -1,9 +1,8 @@
 package com.alphabackend.service;
 
-import com.alpha.generated.model.ProjectDto;
-import com.alpha.generated.model.ResultDto;
-import com.alpha.generated.model.ResultEnum;
+import com.alpha.generated.model.*;
 import com.alphabackend.exception.ResourceNotFoundException;
+import com.alphabackend.mapper.ImageIllustrationMapper;
 import com.alphabackend.mapper.ProjectMapper;
 import com.alphabackend.model.ImageIllustrationEntity;
 import com.alphabackend.model.ProjectEntity;
@@ -15,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +24,11 @@ import java.util.Optional;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ImageIllustrationService imageIllustrationService;
     private final ImageIllustrationRepository imageIllustrationRepository;
 
-    private final ProjectMapper projectMapper;
+    private final ProjectMapper           projectMapper;
+    private final ImageIllustrationMapper imageIllustrationMapper;
 
     /**
      * Renvoie l'objet "Project" avec son ID
@@ -55,12 +57,43 @@ public class ProjectService {
      * @param projectDto Objet "Project" à ajouter dans la table "Project"
      * @return Le nouvel objet "Project" avec son ID
      */
-    public ProjectDto addProject(ProjectDto projectDto) {
+    public ProjectDto saveProject(ProjectDto projectDto) {
         ProjectEntity projectEntity = this.projectMapper.mapProjectDtoToProjectEntity(projectDto);
+
+        return saveProject(projectEntity);
+    }
+
+    /**
+     * Ajoute un objet "Project" dans la table "Project"
+     * @param projectWithImageIllustrationDto Objet "Project" avec l'objet "ImageIllustration" à ajouter dans la table "Project"
+     * @return Le nouvel objet "Project" avec son ID
+     */
+    public ProjectDto addProjectWithImageIllustration(ProjectWithImageIllustrationDto projectWithImageIllustrationDto) {
+        ImageIllustrationDto imageIllustrationDtoResult = this.imageIllustrationService.addImageIllustration(projectWithImageIllustrationDto.getImageIllustrationDto());
+
+        ImageIllustrationEntity imageIllustrationEntityResult = this.imageIllustrationMapper.mapImageIllustrationDtoToImageIllustrationEntity(imageIllustrationDtoResult);
+
+        ProjectEntity projectEntity = this.projectMapper.mapProjectDtoToProjectEntity(projectWithImageIllustrationDto.getProjectDto());
+
+        projectEntity.setImageIllustrationEntity(imageIllustrationEntityResult);
+
+        return saveProject(projectEntity);
+    }
+
+    /**
+     * Enregistre en base un objet "Project"
+     * @param projectEntity Entity "Project" à enregistrer
+     * @return L'objet "Project" enregistré
+     */
+    private ProjectDto saveProject(ProjectEntity projectEntity){
+        projectEntity.setUploadDate(Instant.now());
+        projectEntity.setUpdateDate(Instant.now());
 
         if(projectEntity.getImageIllustrationEntity() != null && projectEntity.getImageIllustrationEntity().getId() != null) {
             Optional<ImageIllustrationEntity> optImage = this.imageIllustrationRepository.findById(projectEntity.getImageIllustrationEntity().getId());
-            optImage.ifPresent(projectEntity::setImageIllustrationEntity);
+            optImage.ifPresentOrElse(projectEntity::setImageIllustrationEntity, () -> {
+                throw new ResourceNotFoundException(ErrorText.OBJECT_NOT_FOUND, NameObject.IMAGE_ILLUSTRATION_MAJ.getName(), projectEntity.getImageIllustrationEntity().getId());
+            });
         }
 
         return this.projectMapper.mapProjectEntityToProjectDto(this.projectRepository.save(projectEntity));
@@ -93,6 +126,8 @@ public class ProjectService {
      */
     public ProjectDto updateProject(Long idProject, ProjectDto projectDto) {
         ProjectEntity projectEntity = this.projectMapper.mapProjectDtoToProjectEntity(projectDto);
+
+        projectEntity.setUpdateDate(Instant.now());
 
         if (!this.projectRepository.existsById(idProject)) {
             throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_UPDATE, NameObject.PROJECT_MAJ.getName(), projectDto.getId());

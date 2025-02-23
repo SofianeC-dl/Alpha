@@ -2,7 +2,6 @@ ImageIllustrationDto:
   type: object
   required:
     - datas
-    - idProject
     - tagSet
 
   properties:
@@ -14,17 +13,22 @@ ImageIllustrationDto:
       type: string
       format: byte
       description: Image stocké en Base64
+    uploadDate:
+      type: string
+      format: date-time
+      description: Date de l'upload avec les fuseaux horaires
     tagSet:
       type: array
       items:
-        $ref: './TagDto.yaml#/TagDto'
+        type: integer
+        format: int64
 
 ImageIllustrationList:
   type: object
   required:
-    - tagList
+    - imageIlustrationList
   properties:
-    tagList:
+    imageIlustrationList:
       type: array
       description: List d'objet tag
       items:

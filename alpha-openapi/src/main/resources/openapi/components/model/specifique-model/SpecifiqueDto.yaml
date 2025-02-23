@@ -1,0 +1,11 @@
+ProjectWithImageIllustrationDto:
+  type: object
+  required:
+    - projectDto
+    - imageIllustrationDto
+
+  properties:
+    projectDto:
+      $ref: './../ProjectDto.yaml#/ProjectDto'
+    imageIllustrationDto:
+      $ref: './../ImageIllustrationDto.yaml#/ImageIllustrationDto'

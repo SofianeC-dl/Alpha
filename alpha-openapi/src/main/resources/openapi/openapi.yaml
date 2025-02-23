@@ -20,6 +20,9 @@ paths:
   /project/post:
     $ref: './components/api/project.yaml#/projectAdd'
 
+  /project/post/withImageIllustration:
+    $ref: './components/api/project.yaml#/projectAddWithImageIllustration'
+
   /project/put/{idProject}:
     $ref: './components/api/project.yaml#/projectUpdate'
 
@@ -73,6 +76,9 @@ paths:
 
   /imageProject/post:
     $ref: './components/api/imageProject.yaml#/imageProjectAdd'
+
+  /imageProject/post/all:
+    $ref: './components/api/imageProject.yaml#/imageProjectAddMany'
 
   /imageProject/put/{idImageProject}:
     $ref: './components/api/imageProject.yaml#/imageProjectUpdate'

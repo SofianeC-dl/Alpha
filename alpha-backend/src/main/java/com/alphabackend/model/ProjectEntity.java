@@ -1,11 +1,10 @@
 package com.alphabackend.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.Set;
 
 @Entity
@@ -22,7 +21,13 @@ public class ProjectEntity {
     @Size(max = 1500)
     private String description;
 
-    @ManyToOne
+    @Column(name = "upload_date", nullable = false)
+    private Instant uploadDate;
+
+    @Column(name = "update_date", nullable = false)
+    private Instant updateDate;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_image_illustration")
     @NotNull
     private ImageIllustrationEntity imageIllustrationEntity;

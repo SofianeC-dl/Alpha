@@ -77,6 +77,33 @@ projectAdd:
       '500':
         $ref: '../common/common-responses.yaml#/components/responses/500'
 
+projectAddWithImageIllustration:
+  post:
+    tags:
+      - Project
+    summary: Ajoute un projet à la bdd avec une imageIllustration
+    operationId: addProjectWithImageIllustration
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../model/specifique-model/SpecifiqueDto.yaml#/ProjectWithImageIllustrationDto'
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/ProjectDto.yaml#/ProjectDto'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'
+
 projectUpdate:
   put:
     tags:

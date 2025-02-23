@@ -5,17 +5,18 @@ import com.alphabackend.model.ImageIllustrationEntity;
 import com.alphabackend.model.ProjectEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { TagMapper.class })
 public interface ProjectMapper {
 
-    @Mapping(target = "tagSet", source = "tagEntitySet")
+    @Mapping(target = "tagSet", source = "tagEntitySet", qualifiedByName = "mapTagsToIds")
     @Mapping(source = "imageIllustrationEntity.id", target = "idImageIllustration")
     ProjectDto mapProjectEntityToProjectDto(ProjectEntity projectEntity);
 
-    @Mapping(target = "tagEntitySet", source = "tagSet")
+    @Mapping(target = "tagEntitySet", source = "tagSet", qualifiedByName = "mapIdsToTags")
     @Mapping(source = "idImageIllustration", target = "imageIllustrationEntity")
     ProjectEntity mapProjectDtoToProjectEntity(ProjectDto projectDto);
 

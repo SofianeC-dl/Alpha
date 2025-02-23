@@ -2,7 +2,6 @@ ProjectDto:
   type: object
   required:
     - description
-    - idImageIllustration
     - tagSet
 
   properties:
@@ -13,6 +12,14 @@ ProjectDto:
     description:
       type: string
       description: Description du projet
+    uploadDate:
+      type: string
+      format: date-time
+      description: Date de l'upload avec les fuseaux horaires
+    updateDate:
+      type: string
+      format: date-time
+      description: Date de l'upload avec les fuseaux horaires
     idImageIllustration:
       type: integer
       format: int32
@@ -20,7 +27,8 @@ ProjectDto:
     tagSet:
       type: array
       items:
-        $ref: './TagDto.yaml#/TagDto'
+       type: integer
+       format: int64
 
 ProjectList:
   type: object

@@ -71,7 +71,7 @@ public class TagService {
 
         ResultDto resultDto = new ResultDto();
 
-        resultDto.setResult(this.tagRepository.existsById(id) ? ResultEnum.VALIDATE : ResultEnum.INVALIDATE);
+        resultDto.setResult(!this.tagRepository.existsById(id) ? ResultEnum.VALIDATE : ResultEnum.INVALIDATE);
 
         return resultDto;
     }
