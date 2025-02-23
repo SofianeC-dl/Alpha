@@ -1,4 +1,4 @@
-package com.alphabackend.cors;
+package com.alphabackend.security;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;

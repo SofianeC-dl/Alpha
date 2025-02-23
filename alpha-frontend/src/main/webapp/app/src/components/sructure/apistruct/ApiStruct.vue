@@ -25,27 +25,33 @@ import {
   type TagApiUpdateTagRequest
 } from "@/generated";
 import type {AxiosPromise} from "axios";
+import {MessageHandler} from "@/utils/messageHandler/MessageHandler.ts";
+import {type Ref, ref} from "vue";
   const tagApi: TagApi = new TagApi();
   const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi();
   const projectApi: ProjectApi = new ProjectApi();
   const imageProjectApi: ImageProjectApi = new ImageProjectApi();
 
-  const projectId: number = 1;
-  const tagId: number = 1;
-  const imageIllustrationId: number = 1;
-  const imageProjectId: number = 1;
+  const projectId: Ref<number, number> = ref(1);
+  const tagId: Ref<number, number> = ref(1);
+  const imageIllustrationId: Ref<number, number> = ref(1);
+  const imageProjectId: Ref<number, number> = ref(1);
 
-  const consoleLog = (axiosResult: AxiosPromise, label: string) => {
-    axiosResult.then(axiosData => {
-      console.log(label, ' : ', axiosData.data);
-    }).catch(error => {
-      console.log('Error ', label, ' : ', error);
-    })
-  }
+const throwError = () => {
+  MessageHandler.errorMessage('TEST');
+}
+
+const consoleLog = (axiosResult: AxiosPromise, label: string) => {
+  axiosResult.then(axiosData => {
+    console.log(label, ' : ', axiosData.data);
+  }).catch(error => {
+    console.log('Error ', label, ' : ', error);
+  })
+}
 
 const getTag = () => {
   const tagDto: TagApiGetTagRequest = {
-    idTag: tagId
+    idTag: tagId.value
   }
   consoleLog(tagApi.getTag(tagDto), 'Tag Get');
 }
@@ -65,9 +71,9 @@ const postTag = () => {
 
 const putTag = () => {
   const tagDto: TagApiUpdateTagRequest = {
-    idTag: tagId,
+    idTag: tagId.value,
     tagDto: {
-      id: tagId,
+      id: tagId.value,
       label: 'updateTag'
     }
   }
@@ -76,7 +82,7 @@ const putTag = () => {
 
 const deleteTag = () => {
   const tagDto: TagApiDeleteTagRequest = {
-    idTag: tagId
+    idTag: tagId.value
   }
 
   consoleLog(tagApi.deleteTag(tagDto), 'Tag delete');
@@ -84,7 +90,7 @@ const deleteTag = () => {
 
 const getProject = () => {
   const projectDto: ProjectApiGetProjectRequest = {
-    idProject: projectId
+    idProject: projectId.value
   }
   consoleLog(projectApi.getProject(projectDto), 'Project Get');
 }
@@ -97,8 +103,8 @@ const postProject = () => {
   const projectDto: ProjectApiAddProjectRequest = {
     projectDto: {
       description: 'description',
-      idImageIllustration: projectId,
-      tagSet: [tagId]
+      idImageIllustration: imageIllustrationId.value,
+      tagSet: [tagId.value]
     }
   }
   consoleLog(projectApi.addProject(projectDto), 'Project Add');
@@ -109,12 +115,11 @@ const postProjectWithImageIllustration = () => {
     projectWithImageIllustrationDto: {
       projectDto: {
         description: 'description',
-        idImageIllustration: projectId,
-        tagSet: [tagId]
+        tagSet: [tagId.value]
       },
       imageIllustrationDto: {
         datas: 'testData',
-        tagSet: [tagId]
+        tagSet: [tagId.value]
       }
     }
   }
@@ -123,12 +128,12 @@ const postProjectWithImageIllustration = () => {
 
 const putProject = () => {
   const projectDto: ProjectApiUpdateProjectRequest = {
-    idProject: projectId,
+    idProject: projectId.value,
     projectDto: {
-      id: projectId,
+      id: projectId.value,
       description: 'description',
-      idImageIllustration: imageIllustrationId,
-      tagSet: [tagId]
+      idImageIllustration: imageIllustrationId.value,
+      tagSet: [tagId.value]
     }
   }
   consoleLog(projectApi.updateProject(projectDto), 'Project update');
@@ -136,7 +141,7 @@ const putProject = () => {
 
 const deleteProject = () => {
   const projectDto: ProjectApiDeleteProjectRequest = {
-    idProject: projectId
+    idProject: projectId.value
   }
 
   consoleLog(projectApi.deleteProject(projectDto), 'Project delete');
@@ -144,7 +149,7 @@ const deleteProject = () => {
 
 const getImageIllustration = () => {
   const imageIllustrationDto: ImageIllustrationApiGetImageIllustrationRequest = {
-    idImageIllustration: imageIllustrationId
+    idImageIllustration: imageIllustrationId.value
   }
   consoleLog(imageIllustrationApi.getImageIllustration(imageIllustrationDto), 'ImageIllustration Get');
 }
@@ -157,7 +162,7 @@ const postImageIllustration = () => {
   const imageIllustrationDto: ImageIllustrationApiAddImageIllustrationRequest = {
     imageIllustrationDto: {
       datas: 'testData',
-      tagSet: [tagId]
+      tagSet: [tagId.value]
     }
   }
   consoleLog(imageIllustrationApi.addImageIllustration(imageIllustrationDto), 'ImageIllustration Add');
@@ -165,11 +170,11 @@ const postImageIllustration = () => {
 
 const putImageIllustration = () => {
   const imageIllustrationDto: ImageIllustrationApiUpdateImageIllustrationRequest = {
-    idImageIllustration: imageIllustrationId,
+    idImageIllustration: imageIllustrationId.value,
     imageIllustrationDto: {
-      id: imageIllustrationId,
+      id: imageIllustrationId.value,
       datas: 'testData',
-      tagSet: [tagId]
+      tagSet: [tagId.value]
     }
   }
   consoleLog(imageIllustrationApi.updateImageIllustration(imageIllustrationDto), 'ImageIllustration update');
@@ -177,7 +182,7 @@ const putImageIllustration = () => {
 
 const deleteImageIllustration = () => {
   const imageIllustrationDto: ImageIllustrationApiDeleteImageIllustrationRequest = {
-    idImageIllustration: imageIllustrationId
+    idImageIllustration: imageIllustrationId.value
   }
 
   consoleLog(imageIllustrationApi.deleteImageIllustration(imageIllustrationDto), 'Project delete');
@@ -185,7 +190,7 @@ const deleteImageIllustration = () => {
 
 const getImageProject = () => {
   const imageProjectDto: ImageProjectApiGetImageProjectRequest = {
-    idImageProject: imageProjectId
+    idImageProject: imageProjectId.value
   }
   consoleLog(imageProjectApi.getImageProject(imageProjectDto), 'ImageProject Get');
 }
@@ -198,8 +203,8 @@ const postImageProject = () => {
   const imageProjectDto: ImageProjectApiAddImageProjectRequest = {
     imageProjectDto: {
       datas: 'testData',
-      idProject: projectId,
-      tagSet: [tagId]
+      idProject: projectId.value,
+      tagSet: [tagId.value]
     }
   }
   consoleLog(imageProjectApi.addImageProject(imageProjectDto), 'ImageProject Add');
@@ -211,13 +216,13 @@ const postManyImageProject = () => {
       imageProjectList: [
         {
           datas: 'testData',
-          idProject: projectId,
-          tagSet: [tagId],
+          idProject: projectId.value,
+          tagSet: [tagId.value],
         },
         {
           datas: 'testData',
-          idProject: projectId,
-          tagSet: [tagId],
+          idProject: projectId.value,
+          tagSet: [tagId.value],
         }
       ]
     }
@@ -228,12 +233,12 @@ const postManyImageProject = () => {
 
 const putImageProject = () => {
   const imageProjectDto: ImageProjectApiUpdateImageProjectRequest = {
-    idImageProject: imageProjectId,
+    idImageProject: imageProjectId.value,
     imageProjectDto: {
-      id: imageProjectId,
+      id: imageProjectId.value,
       datas: 'testData',
-      idProject: projectId,
-      tagSet: [tagId]
+      idProject: projectId.value,
+      tagSet: [tagId.value]
     }
   }
   consoleLog(imageProjectApi.updateImageProject(imageProjectDto), 'ImageProject update');
@@ -241,7 +246,7 @@ const putImageProject = () => {
 
 const deleteImageProject = () => {
   const imageProjectDto: ImageProjectApiDeleteImageProjectRequest = {
-    idImageProject: imageProjectId
+    idImageProject: imageProjectId.value
   }
 
   consoleLog(imageProjectApi.deleteImageProject(imageProjectDto), 'Project delete');
@@ -251,6 +256,8 @@ const deleteImageProject = () => {
 <template>
 
   <div>
+    <button @click="throwError">Déclencher une erreur</button>
+
     <div class="inputApi">
       <label>Project ID : </label>
       <input type="text" v-model="projectId"/>

@@ -10,4 +10,5 @@ public class ErrorResponse {
     private String message;
     private String details;
     private String stackTrace;
+    private String body;
 }

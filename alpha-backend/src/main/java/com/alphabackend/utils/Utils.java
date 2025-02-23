@@ -1,6 +1,11 @@
 package com.alphabackend.utils;
 
+import com.alphabackend.exception.ResourceNotFoundException;
+import com.alphabackend.model.ErrorResponse;
 import com.alphabackend.model.enum_model.NameException;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.context.request.WebRequest;
 
 public interface Utils {
 
@@ -15,5 +20,26 @@ public interface Utils {
         result[0] = nameException.getException();
         System.arraycopy(others, 0, result, 1, others.length);
         return result;
+    }
+
+    static ErrorResponse createErrorResponse(HttpStatus httpStatus, String message, String details, String stackTrace, String body) {
+        return ErrorResponse.builder()
+                .status(httpStatus.value())
+                .message(message)
+                .details(details)
+                .stackTrace(stackTrace)
+                .body(stackTrace)
+                .body(body)
+                .build();
+    }
+
+    static ErrorResponse createErrorResponse(HttpStatus httpStatus, String message, String details, String stackTrace) {
+        return ErrorResponse.builder()
+                .status(httpStatus.value())
+                .message(message)
+                .details(details)
+                .stackTrace(stackTrace)
+                .body(stackTrace)
+                .build();
     }
 }
