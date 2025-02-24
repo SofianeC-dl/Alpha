@@ -1,0 +1,7 @@
+{
+  "404": {
+    "resourcenotfoundexception": {
+      "get": "Ressource \"{0}\" non trouvé en base de donnée."
+    }
+  }
+}

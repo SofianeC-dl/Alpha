@@ -5,9 +5,11 @@ import com.alpha.generated.model.ResultEnum;
 import com.alpha.generated.model.TagDto;
 import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.mapper.TagMapper;
+import com.alphabackend.model.ParamsException;
 import com.alphabackend.model.TagEntity;
-import com.alphabackend.model.enum_model.ErrorText;
+import com.alphabackend.model.enum_model.ErrorTextEnum;
 import com.alphabackend.model.enum_model.NameObject;
+import com.alphabackend.model.enum_model.TypeRequestHttpEnum;
 import com.alphabackend.repository.TagRepository;
 import lombok.Builder;
 import lombok.Data;
@@ -31,7 +33,14 @@ public class TagService {
      */
     public TagDto getTag(Long id) {
         return this.tagMapper.mapTagEntityToTagDto(tagRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(ErrorText.OBJECT_NOT_FOUND, NameObject.TAG_MAJ.getName(), id)));
+                () -> new ResourceNotFoundException(
+                        ParamsException.builder()
+                                .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
+                                .labelObject(NameObject.TAG_MAJ)
+                                .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
+                                .arg(id)
+                                .build()
+                        )));
     }
 
     /**
@@ -41,7 +50,13 @@ public class TagService {
     public List<TagDto> getAllTags() {
         List<TagEntity> projectEntityList = tagRepository.findAll();
 
-        projectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(ErrorText.ALL_OBJECTS_NOT_FOUND, NameObject.TAG_MAJ.getName()));
+        projectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(
+                ParamsException.builder()
+                        .errorText(ErrorTextEnum.ALL_OBJECTS_NOT_FOUND)
+                        .labelObject(NameObject.TAG_MAJ)
+                        .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
+                        .build()
+                ));
 
         return this.tagMapper.mapTagEntityListToTagDtoList(projectEntityList);
     }
@@ -66,7 +81,15 @@ public class TagService {
         this.tagRepository.findById(id).ifPresentOrElse(
                 this.tagRepository::delete,
                 () -> {
-                    throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_DELETE, NameObject.TAG_MAJ.getName(), id);
+                    throw new ResourceNotFoundException(
+                            ParamsException.builder()
+                                    .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_DELETE)
+                                    .labelObject(NameObject.TAG_MAJ)
+                                    .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
+                                    .arg(NameObject.TAG_MAJ.getName())
+                                    .arg(id)
+                                    .build()
+                            );
                 });
 
         ResultDto resultDto = new ResultDto();
@@ -86,7 +109,14 @@ public class TagService {
         TagEntity projectEntity = this.tagMapper.mapTagDtoToTagEntity(tagDto);
 
         if (!this.tagRepository.existsById(idTag)) {
-            throw new ResourceNotFoundException(ErrorText.OBJECT_NONEXISTENT_UPDATE, NameObject.TAG_MAJ.getName(), tagDto.getId());
+            throw new ResourceNotFoundException(
+                    ParamsException.builder()
+                            .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
+                            .labelObject(NameObject.TAG_MAJ)
+                            .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
+                            .arg(tagDto.getId())
+                            .build()
+                    );
         }
 
         TagEntity updatedTagEntity = this.tagRepository.save(projectEntity);

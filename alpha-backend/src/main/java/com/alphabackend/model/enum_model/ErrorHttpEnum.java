@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum NameException {
-    RESOURCE_NOT_FOUND("ResourceNorFoundException"),
-    MANIPULATION_DATA("ManipulationDataException");
+public enum ErrorHttpEnum{
+    RESOURCE_NOT_FOUND("ResourceNotFoundException"),
+    INTERNAL_ERROR("InternalErrorException"),;
 
     private final String exception;
 }

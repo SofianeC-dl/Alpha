@@ -28,8 +28,8 @@ public interface ProjectMapper {
         if (idImageIllustration == null) {
             return null;
         }
-        ImageIllustrationEntity sub = new ImageIllustrationEntity();
-        sub.setId(idImageIllustration.longValue());
-        return sub;
+        ImageIllustrationEntity imageIllustrationEntity = new ImageIllustrationEntity();
+        imageIllustrationEntity.setId(idImageIllustration.longValue());
+        return imageIllustrationEntity;
     }
 }

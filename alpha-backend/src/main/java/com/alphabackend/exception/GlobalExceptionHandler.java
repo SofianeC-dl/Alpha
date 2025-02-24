@@ -1,6 +1,7 @@
 package com.alphabackend.exception;
 
 import com.alphabackend.model.ErrorResponse;
+import com.alphabackend.model.enum_model.ErrorHttpEnum;
 import com.alphabackend.utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
@@ -30,21 +31,15 @@ public class GlobalExceptionHandler {
                 .map(StackTraceElement::toString)
                 .collect(Collectors.joining("\n"));
 
-        String requestBody = getBody(request);
+        String[] messageSplit = ex.getMessage().split("\\|");
+        String message = messageSplit[0]; // Voir EXCEPTION_DATA("{0}|{1}|{2}");
+        ErrorResponse error = Utils.createErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                message,
+                request.getDescription(false),
+                stackTrace,
+                ErrorHttpEnum.INTERNAL_ERROR.getException().toLowerCase());
 
-        ErrorResponse error = requestBody.isEmpty() ?
-                Utils.createErrorResponse(
-                        HttpStatus.INTERNAL_SERVER_ERROR,
-                        ex.getMessage(),
-                        request.getDescription(false),
-                        stackTrace)
-                :
-                Utils.createErrorResponse(
-                        HttpStatus.INTERNAL_SERVER_ERROR,
-                        ex.getMessage(),
-                        request.getDescription(false),
-                        stackTrace,
-                        requestBody);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -57,21 +52,19 @@ public class GlobalExceptionHandler {
 
         logger.error("Resource not found", ex);
 
-        String requestBody = getBody(request);
+        String[] messageSplit = ex.getMessage().split("\\|");
+        String message = messageSplit[0]; // Voir EXCEPTION_DATA("{0}|{1}|{2}");
+        String labelObject = messageSplit[1]; // Voir EXCEPTION_DATA("{0}|{1}|{2}");
+        String typeRequest = messageSplit[2]; // Voir EXCEPTION_DATA("{0}|{1}|{2}");
 
-        ErrorResponse error = requestBody.isEmpty() ?
-                Utils.createErrorResponse(
-                        HttpStatus.NOT_FOUND,
-                        ex.getMessage(),
-                        request.getDescription(false),
-                        stackTrace)
-                :
-                Utils.createErrorResponse(
-                        HttpStatus.NOT_FOUND,
-                        ex.getMessage(),
-                        request.getDescription(false),
-                        stackTrace,
-                        requestBody);
+        ErrorResponse error = Utils.createErrorResponse(
+                HttpStatus.NOT_FOUND,
+                message,
+                request.getDescription(false),
+                stackTrace,
+                labelObject,
+                ErrorHttpEnum.RESOURCE_NOT_FOUND.getException().toLowerCase(),
+                typeRequest.toLowerCase());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 

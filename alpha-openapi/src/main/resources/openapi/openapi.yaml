@@ -49,7 +49,7 @@ paths:
   /imageIllustration/get/{idImageIllustration}:
     $ref: './components/api/imageIllustration.yaml#/imageIllustrationGetById'
 
-  /imageIllustration/get/{idProject}:
+  /imageIllustration/get/byProject/{idProject}:
     $ref: './components/api/imageIllustration.yaml#/imageIllustrationGetByIdProject'
 
   /imageIllustrations/get:

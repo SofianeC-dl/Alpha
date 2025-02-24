@@ -1,0 +1,21 @@
+package com.alphabackend.model;
+
+import com.alphabackend.model.enum_model.ErrorTextEnum;
+import com.alphabackend.model.enum_model.NameObject;
+import com.alphabackend.model.enum_model.TypeRequestHttpEnum;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Singular;
+
+import java.util.List;
+
+@Data
+@Builder
+public class ParamsException {
+    ErrorTextEnum       errorText;
+    NameObject          labelObject;
+    TypeRequestHttpEnum typeRequestHttp;
+
+    @Singular
+    List<Object> args;
+}
