@@ -44,6 +44,12 @@ jobs:
       - name: Set up Environment Variables
         run: echo "ENV=production" >> $GITHUB_ENV
 
+      - name: Make script executable
+        run: chmod +x ./deploy.sh
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+        
       - name: Build and Deploy to Production
         run: |
           mvn clean package -Denv=production
