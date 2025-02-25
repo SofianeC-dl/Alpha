@@ -1,0 +1,26 @@
+Authenticate:
+  post:
+    tags:
+      - Authentification
+    summary: Authentifie l'utilisateur et crée son token
+    operationId: createAuthenticationTokenAndLogin
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '../model/AuthRequestDto.yaml#/AuthRequest'
+    responses:
+      '200':
+        description: SUCCESS
+        content:
+          'application/json':
+            schema:
+              $ref: '../model/AuthResponseDto.yaml#/AuthResponse'
+      '400':
+        $ref: '../common/common-responses.yaml#/components/responses/400'
+      '403':
+        $ref: '../common/common-responses.yaml#/components/responses/403'
+      '404':
+        $ref: '../common/common-responses.yaml#/components/responses/404'
+      '500':
+        $ref: '../common/common-responses.yaml#/components/responses/500'

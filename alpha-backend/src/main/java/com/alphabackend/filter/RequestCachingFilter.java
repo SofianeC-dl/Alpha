@@ -1,4 +1,4 @@
-package com.alphabackend.config;
+package com.alphabackend.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorHttpEnum{
     RESOURCE_NOT_FOUND("ResourceNotFoundException"),
+    BAD_CREDENTIALS("BadCredentialsException"),
     INTERNAL_ERROR("InternalErrorException"),;
 
     private final String exception;

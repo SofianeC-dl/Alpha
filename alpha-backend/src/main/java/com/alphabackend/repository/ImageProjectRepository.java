@@ -1,6 +1,6 @@
 package com.alphabackend.repository;
 
-import com.alphabackend.model.ImageProjectEntity;
+import com.alphabackend.model.entity.ImageProjectEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

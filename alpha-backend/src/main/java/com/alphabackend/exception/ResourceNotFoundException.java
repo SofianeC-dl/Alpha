@@ -1,6 +1,6 @@
 package com.alphabackend.exception;
 
-import com.alphabackend.model.ParamsException;
+import com.alphabackend.model.entity.ParamsException;
 import com.alphabackend.model.enum_model.ErrorHttpEnum;
 import com.alphabackend.utils.Utils;
 

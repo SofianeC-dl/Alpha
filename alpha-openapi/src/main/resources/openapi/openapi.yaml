@@ -85,3 +85,6 @@ paths:
 
   /imageProject/delete/{idImageProject}:
     $ref: './components/api/imageProject.yaml#/imageProjectDeleteById'
+
+  /authenticate:
+    $ref: './components/api/authentification.yaml#/Authenticate'

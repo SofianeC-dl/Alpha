@@ -1,4 +1,4 @@
-package com.alphabackend.model;
+package com.alphabackend.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -12,8 +12,8 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "image_project", schema = "alpha_db_schema")
-public class ImageProjectEntity {
+@Table(name = "image_illustration", schema = "alpha_db_schema")
+public class ImageIllustrationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,17 +27,13 @@ public class ImageProjectEntity {
     @Column(name = "upload_date", nullable = false)
     private Instant uploadDate;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "id_project")
-    @NotNull
-    private ProjectEntity projectEntity;
-
     @ManyToMany
     @JoinTable(
-            name = "image_project_xxxx_tag",
+            name = "image_illustration_xxxx_tag",
             schema = "alpha_db_schema",
             joinColumns = @JoinColumn(name = "id_image"),
             inverseJoinColumns = @JoinColumn(name = "id_tag")
     )
     private Set<TagEntity> tagEntitySet;
 }
+

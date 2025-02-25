@@ -1,4 +1,4 @@
-package com.alphabackend.model;
+package com.alphabackend.model.entity;
 
 import com.alphabackend.model.enum_model.ErrorTextEnum;
 import com.alphabackend.model.enum_model.NameObject;

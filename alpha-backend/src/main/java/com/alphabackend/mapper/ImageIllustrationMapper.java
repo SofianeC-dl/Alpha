@@ -1,10 +1,9 @@
 package com.alphabackend.mapper;
 
 import com.alpha.generated.model.ImageIllustrationDto;
-import com.alphabackend.model.ImageIllustrationEntity;
+import com.alphabackend.model.entity.ImageIllustrationEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 import java.util.List;
 

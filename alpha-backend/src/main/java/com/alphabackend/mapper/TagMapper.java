@@ -1,7 +1,7 @@
 package com.alphabackend.mapper;
 
 import com.alpha.generated.model.TagDto;
-import com.alphabackend.model.TagEntity;
+import com.alphabackend.model.entity.TagEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
