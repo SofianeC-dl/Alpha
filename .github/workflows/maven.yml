@@ -50,10 +50,10 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
         
-      - name: Build and Deploy to Production
-        run: |
-          mvn clean package -Denv=production
-          ./deploy.sh production
+      # - name: Build and Deploy to Production
+      #   run: |
+      #     mvn clean package -Denv=production
+      #     ./deploy.sh production
 
     # # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
