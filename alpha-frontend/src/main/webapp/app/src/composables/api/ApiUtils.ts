@@ -1,10 +1,7 @@
-import {
-  MessageGlobalParseUtils,
-  MessageGlobalToastUtils
-} from '@/utils/message/MessageGlobalUtils.ts'
 import type {MessageError} from "@/assets/object/ObjectUtils.ts";
 import errorJson from "@/assets/json/error.json";
 import type {ErrorJsonDict} from "@/assets/TypeGlobal.ts";
+import {MessageGlobalParseUtils, MessageGlobalToastUtils} from "../message/MessageGlobalUtils.js";
 
 export const useCatch = (catchReturn: Promise<void>) => {
   const json = errorJson as ErrorJsonDict;

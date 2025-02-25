@@ -34,6 +34,13 @@ CREATE TABLE IF NOT EXISTS alpha_db_schema.image_project (
             ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS alpha_db_schema.user (
+     id BIGSERIAL PRIMARY KEY,
+     username VARCHAR(255) NOT NULL,
+     password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS alpha_db_schema.project_xxxx_tag (
     id_project BIGSERIAL NOT NULL,
     id_tag BIGSERIAL NOT NULL,

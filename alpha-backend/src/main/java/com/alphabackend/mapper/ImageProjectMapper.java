@@ -1,11 +1,10 @@
 package com.alphabackend.mapper;
 
 import com.alpha.generated.model.ImageProjectDto;
-import com.alphabackend.model.ImageProjectEntity;
-import com.alphabackend.model.ProjectEntity;
+import com.alphabackend.model.entity.ImageProjectEntity;
+import com.alphabackend.model.entity.ProjectEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 
 import java.util.List;
 

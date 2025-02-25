@@ -1,0 +1,14 @@
+AuthRequest:
+  type: object
+  required:
+    - username
+    - password
+
+  properties:
+    username:
+      type: string
+      description: username de l'utilisateur
+    password:
+      type: string
+      description: Mot de passe de l'utilisateur
+  

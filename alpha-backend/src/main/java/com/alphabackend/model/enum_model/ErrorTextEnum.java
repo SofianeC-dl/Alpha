@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorTextEnum{
+public enum ErrorTextEnum {
+    BAD_CREDENTIALS("Bad credentials"),
     OBJECT_NOT_FOUND("{0}: {1} object id {2} : Not found in database"),
     ALL_OBJECTS_NOT_FOUND("{0}: No {1} objects found in database"),
     OBJECT_NONEXISTENT_DELETE("{0}: {1} object id {2} : Not found, could not be deleted"),

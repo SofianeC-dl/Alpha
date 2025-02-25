@@ -1,4 +1,4 @@
-package com.alphabackend.model;
+package com.alphabackend.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

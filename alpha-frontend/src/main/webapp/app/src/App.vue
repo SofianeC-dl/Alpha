@@ -3,5 +3,6 @@ import BaseLayout from '@/components/sructure/BaseLayout.vue'
 </script>
 
 <template>
-  <BaseLayout />
+  <router-view></router-view>
+<!--  <BaseLayout />-->
 </template>

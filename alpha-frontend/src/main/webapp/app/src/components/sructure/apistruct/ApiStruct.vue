@@ -24,9 +24,9 @@ import {
   type TagApiUpdateTagRequest, type TagDto,
 } from '@/generated'
 import type { AxiosPromise } from 'axios'
-import { MessageGlobalToastUtils } from '@/utils/message/MessageGlobalUtils.ts'
+import { MessageGlobalToastUtils } from '@/composables/message/MessageGlobalUtils.ts'
 import { type Ref, ref } from 'vue'
-import { useCatch } from '@/utils/api/ApiUtils.ts'
+import { useCatch } from '@/composables/api/ApiUtils.ts'
 const tagApi: TagApi = new TagApi()
 const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi()
 const projectApi: ProjectApi = new ProjectApi()
