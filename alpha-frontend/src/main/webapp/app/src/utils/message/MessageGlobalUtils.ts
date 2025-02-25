@@ -28,16 +28,19 @@ export class MessageGlobalToastUtils {
 export class MessageGlobalParseUtils {
   static getTextFromJsonPath(pathJson: string, ...args: any[]): any {
     const json = errorJson as ErrorJsonDict;
-    const messageJson: string =  pathJson.split('.').reduce<any>((acc, key) => acc && acc[key], json);
+    const messageJson: string = pathJson.split('.').reduce<any>((acc, key) => acc && acc[key], json);
 
-    return messageJson.replace(/{(\d+)}/g, (match, index) => {
-      return typeof args[index] !== "undefined" ? args[index] : match;
-    });
+
+      return messageJson.replace(/{(\d+)}/g, (match, index) => {
+        return typeof args[index] !== "undefined" ? args[index] : match;
+      });
+  }
+
+  static hasPath(obj: any, path: string): boolean {
+    return path.split('.').reduce((acc, key) => acc && acc[key], obj) !== undefined;
   }
 
   static concatMessageError(...params: any[]): string {
-    const test = params.join('.');
-    console.log(test);
-    return test;
+    return params.join('.');
   }
 }
