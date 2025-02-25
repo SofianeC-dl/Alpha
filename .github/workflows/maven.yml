@@ -37,13 +37,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy_dev
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    steps:
-      - name: Debug - List files
-        run: ls -al
-        
+    steps:        
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Debug - List files
+        run: ls -al
+        
       - name: Set up Environment Variables
         run: echo "ENV=production" >> $GITHUB_ENV
 
