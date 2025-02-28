@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class ParamsException {
+public class ParamsError {
     ErrorTextEnum       errorText;
     NameObject          labelObject;
     TypeRequestHttpEnum typeRequestHttp;

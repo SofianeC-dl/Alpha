@@ -1,13 +1,11 @@
 package com.alphabackend.utils;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Base64;
@@ -33,13 +31,15 @@ public class JWTUtil {
     }
 
     public String extractUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(key)
+        return  Jwts.parser()
+                .verifyWith(key)
                 .build()
-                .parseClaimsJws(token)
-                .getBody()
+                .parseSignedClaims(token)
+                .getPayload()
                 .getSubject();
     }
+
+
 
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = extractUsername(token);
@@ -48,10 +48,10 @@ public class JWTUtil {
 
     private boolean isTokenExpired(String token) {
         Date expiration = Jwts.parser()
-                .setSigningKey(SECRET_KEY)
+                .verifyWith(key)
                 .build()
-                .parseClaimsJws(token)
-                .getBody()
+                .parseSignedClaims(token)
+                .getPayload()
                 .getExpiration();
         return expiration.before(new Date());
     }

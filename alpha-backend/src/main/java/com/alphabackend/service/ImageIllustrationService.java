@@ -6,19 +6,23 @@ import com.alpha.generated.model.ResultEnum;
 import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.mapper.ImageIllustrationMapper;
 import com.alphabackend.model.entity.ImageIllustrationEntity;
-import com.alphabackend.model.entity.ParamsException;
+import com.alphabackend.model.entity.ParamsError;
 import com.alphabackend.model.entity.ProjectEntity;
+import com.alphabackend.model.entity.TagEntity;
 import com.alphabackend.model.enum_model.ErrorTextEnum;
 import com.alphabackend.model.enum_model.NameObject;
 import com.alphabackend.model.enum_model.TypeRequestHttpEnum;
 import com.alphabackend.repository.ImageIllustrationRepository;
 import com.alphabackend.repository.ProjectRepository;
+import com.alphabackend.repository.TagRepository;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -27,6 +31,8 @@ public class ImageIllustrationService {
 
     private final ImageIllustrationRepository   imageIllustrationRepository;
     private final ProjectRepository             projectRepository;
+
+    private final TagRepository                 tagRepository;
 
     private final ImageIllustrationMapper       imageIllustrationMapper;
 
@@ -39,7 +45,7 @@ public class ImageIllustrationService {
 
         return this.imageIllustrationMapper.mapImageIllustrationEntityToImageIllustrationDto(imageIllustrationRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(
-                        ParamsException.builder()
+                        ParamsError.builder()
                         .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
                         .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -56,7 +62,7 @@ public class ImageIllustrationService {
         List<ImageIllustrationEntity> imageIllustrationEntityList = this.imageIllustrationRepository.findAll();
 
         imageIllustrationEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(
-                ParamsException.builder()
+                ParamsError.builder()
                         .errorText(ErrorTextEnum.ALL_OBJECTS_NOT_FOUND)
                         .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -68,28 +74,26 @@ public class ImageIllustrationService {
 
     /**
      * Retourne tous les objets "ImageIllustration" présente dans la table "ImageIllustration" qui ont pour pour
-     * @param imageIllustrationDto ID de l'objet "Project" dont l'objet "Image_Illustration" est recherché
+     * @param idProject ID de l'objet "Project" dont l'objet "Image_Illustration" est recherché
      * @return Objet "Image_Illustration" recherché
      */
-    public ImageIllustrationDto getImageIllustrationByProjectId(Long imageIllustrationDto) {
-        ProjectEntity imageIllustrationEntity = this.projectRepository.findById(imageIllustrationDto).orElseThrow(() -> new ResourceNotFoundException(
-                ParamsException.builder()
+    public ImageIllustrationDto getImageIllustrationByProjectId(Long idProject) {
+        ProjectEntity projectEntity = this.projectRepository.findById(idProject).orElseThrow(() -> new ResourceNotFoundException(
+                ParamsError.builder()
                         .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
-                        .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
+                        .labelObject(NameObject.PROJECT_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
-                        .arg(NameObject.PROJECT_MAJ.getName())
-                        .arg(imageIllustrationDto)
+                        .arg(idProject)
                         .build()
               ));
 
-        Long idImageIllustration = imageIllustrationEntity.getImageIllustrationEntity().getId();
+        Long idImageIllustration = projectEntity.getImageIllustrationEntity().getId();
 
         ImageIllustrationEntity imageIllustrationEntityResult = this.imageIllustrationRepository.findById(idImageIllustration).orElseThrow(() -> new ResourceNotFoundException(
-                ParamsException.builder()
+                ParamsError.builder()
                         .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
                         .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
-                        .arg(NameObject.IMAGE_ILLUSTRATION_MAJ.getName())
                         .arg(idImageIllustration)
                         .build()
                ));
@@ -121,7 +125,7 @@ public class ImageIllustrationService {
                 this.imageIllustrationRepository::delete,
                 () -> {
                     throw new ResourceNotFoundException(
-                            ParamsException.builder()
+                            ParamsError.builder()
                                     .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_DELETE)
                                     .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
                                     .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
@@ -146,18 +150,23 @@ public class ImageIllustrationService {
     public ImageIllustrationDto updateImageIllustration(Long idImageIllustration, ImageIllustrationDto imageIllustrationDto) {
         ImageIllustrationEntity imageIllustrationEntity = this.imageIllustrationMapper.mapImageIllustrationDtoToImageIllustrationEntity(imageIllustrationDto);
 
-        if (!this.imageIllustrationRepository.existsById(idImageIllustration)) {
-            throw new ResourceNotFoundException(
-                    ParamsException.builder()
-                            .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
-                            .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
-                            .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
-                            .arg(imageIllustrationDto.getId())
-                            .build()
-                    );
-        }
+        ImageIllustrationEntity existingImageIllustration = this.imageIllustrationRepository.findById(idImageIllustration)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        ParamsError.builder()
+                                .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
+                                .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
+                                .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
+                                .arg(imageIllustrationDto.getId())
+                                .build()
+                ));
 
-        ImageIllustrationEntity updatedImageIllustrationEntity = this.imageIllustrationRepository.save(imageIllustrationEntity);
+        List<Long> tagIdList = imageIllustrationDto.getTagSet();
+        Set<TagEntity> tagEntitySet = new HashSet<>(this.tagRepository.findAllById(tagIdList));
+
+        existingImageIllustration.setDatas(imageIllustrationEntity.getDatas());
+        existingImageIllustration.setTagEntitySet(tagEntitySet);
+
+        ImageIllustrationEntity updatedImageIllustrationEntity = this.imageIllustrationRepository.save(existingImageIllustration);
 
         return this.imageIllustrationMapper.mapImageIllustrationEntityToImageIllustrationDto(updatedImageIllustrationEntity);
     }

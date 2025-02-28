@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @AllArgsConstructor
@@ -20,14 +23,29 @@ public class ProjectController implements ProjectApi {
     @Override
     @CrossOrigin
     public ResponseEntity<ProjectDto> _addProject(ProjectDto projectDto) {
-        return ResponseEntity.ok(this.projectService.saveProject(projectDto));
+        ProjectDto projectDtoResult = this.projectService.addProject(projectDto);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(projectDtoResult.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(projectDtoResult);
     }
 
     @Override
     @CrossOrigin
     public ResponseEntity<ProjectDto> _addProjectWithImageIllustration(
-            ProjectWithImageIllustrationDto projectWithImageIllustrationDto){
-        return ResponseEntity.ok(this.projectService.addProjectWithImageIllustration(projectWithImageIllustrationDto));
+            ProjectWithImageIllustrationDto projectWithImageIllustrationDto) {
+        ProjectDto projectDtoResult = this.projectService.addProjectWithImageIllustration(projectWithImageIllustrationDto);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(projectDtoResult.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(projectDtoResult);
     }
 
     @Override

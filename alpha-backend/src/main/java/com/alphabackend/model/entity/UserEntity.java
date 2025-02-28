@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "user", schema = "alpha_db_schema")
+@Table(name = "app_user", schema = "alpha_db_schema")
 public class UserEntity {
 
     @Id

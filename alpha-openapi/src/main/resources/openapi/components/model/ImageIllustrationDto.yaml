@@ -26,9 +26,9 @@ ImageIllustrationDto:
 ImageIllustrationList:
   type: object
   required:
-    - imageIlustrationList
+    - imageIllustrationList
   properties:
-    imageIlustrationList:
+    imageIllustrationList:
       type: array
       description: List d'objet tag
       items:
