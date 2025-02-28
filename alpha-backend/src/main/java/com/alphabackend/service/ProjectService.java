@@ -5,20 +5,24 @@ import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.mapper.ImageIllustrationMapper;
 import com.alphabackend.mapper.ProjectMapper;
 import com.alphabackend.model.entity.ImageIllustrationEntity;
-import com.alphabackend.model.entity.ParamsException;
+import com.alphabackend.model.entity.ParamsError;
 import com.alphabackend.model.entity.ProjectEntity;
+import com.alphabackend.model.entity.TagEntity;
 import com.alphabackend.model.enum_model.ErrorTextEnum;
 import com.alphabackend.model.enum_model.NameObject;
 import com.alphabackend.model.enum_model.TypeRequestHttpEnum;
 import com.alphabackend.repository.ImageIllustrationRepository;
 import com.alphabackend.repository.ProjectRepository;
+import com.alphabackend.repository.TagRepository;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Data
 @Builder
@@ -26,8 +30,11 @@ import java.util.Optional;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+
     private final ImageIllustrationService imageIllustrationService;
     private final ImageIllustrationRepository imageIllustrationRepository;
+
+    private final TagRepository tagRepository;
 
     private final ProjectMapper           projectMapper;
     private final ImageIllustrationMapper imageIllustrationMapper;
@@ -40,7 +47,7 @@ public class ProjectService {
     public ProjectDto getProject(Long id) {
         return this.projectMapper.mapProjectEntityToProjectDto(projectRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(
-                        ParamsException.builder()
+                        ParamsError.builder()
                                 .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
                                 .labelObject(NameObject.PROJECT_MAJ)
                                 .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -57,7 +64,7 @@ public class ProjectService {
         List<ProjectEntity> projectEntityList = projectRepository.findAll();
 
         projectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(
-                ParamsException.builder()
+                ParamsError.builder()
                         .errorText(ErrorTextEnum.ALL_OBJECTS_NOT_FOUND)
                         .labelObject(NameObject.PROJECT_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -73,10 +80,10 @@ public class ProjectService {
      * @param projectDto Objet "Project" à ajouter dans la table "Project"
      * @return Le nouvel objet "Project" avec son ID
      */
-    public ProjectDto saveProject(ProjectDto projectDto) {
+    public ProjectDto addProject(ProjectDto projectDto) {
         ProjectEntity projectEntity = this.projectMapper.mapProjectDtoToProjectEntity(projectDto);
 
-        return saveProject(projectEntity);
+        return addProject(projectEntity);
     }
 
     /**
@@ -93,7 +100,7 @@ public class ProjectService {
 
         projectEntity.setImageIllustrationEntity(imageIllustrationEntityResult);
 
-        return saveProject(projectEntity);
+        return addProject(projectEntity);
     }
 
     /**
@@ -101,7 +108,7 @@ public class ProjectService {
      * @param projectEntity Entity "Project" à enregistrer
      * @return L'objet "Project" enregistré
      */
-    private ProjectDto saveProject(ProjectEntity projectEntity){
+    private ProjectDto addProject(ProjectEntity projectEntity){
         projectEntity.setUploadDate(Instant.now());
         projectEntity.setUpdateDate(Instant.now());
 
@@ -109,11 +116,10 @@ public class ProjectService {
             Optional<ImageIllustrationEntity> optImage = this.imageIllustrationRepository.findById(projectEntity.getImageIllustrationEntity().getId());
             optImage.ifPresentOrElse(projectEntity::setImageIllustrationEntity, () -> {
                 throw new ResourceNotFoundException(
-                        ParamsException.builder()
+                        ParamsError.builder()
                                 .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
-                                .labelObject(NameObject.PROJECT_MAJ)
+                                .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
                                 .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
-                                .arg(NameObject.IMAGE_ILLUSTRATION_MAJ.getName())
                                 .arg(projectEntity.getImageIllustrationEntity().getId())
                                 .build()
                         );
@@ -133,11 +139,10 @@ public class ProjectService {
                 this.projectRepository::delete,
                 () -> {
                     throw new ResourceNotFoundException(
-                            ParamsException.builder()
+                            ParamsError.builder()
                                     .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_DELETE)
                                     .labelObject(NameObject.PROJECT_MAJ)
                                     .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
-                                    .arg(NameObject.PROJECT_MAJ.getName())
                                     .arg(id)
                                     .build()
                             );
@@ -159,21 +164,34 @@ public class ProjectService {
     public ProjectDto updateProject(Long idProject, ProjectDto projectDto) {
         ProjectEntity projectEntity = this.projectMapper.mapProjectDtoToProjectEntity(projectDto);
 
-        projectEntity.setUpdateDate(Instant.now());
+        ImageIllustrationEntity imageIllustrationEntity = this.imageIllustrationRepository.findById(projectEntity.getImageIllustrationEntity().getId()).orElseThrow(() -> new ResourceNotFoundException(
+                ParamsError.builder()
+                        .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
+                        .labelObject(NameObject.IMAGE_ILLUSTRATION_MAJ)
+                        .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
+                        .arg(projectEntity.getImageIllustrationEntity().getId())
+                        .build()
+        ));
 
-        if (!this.projectRepository.existsById(idProject)) {
-            throw new ResourceNotFoundException(
-                    ParamsException.builder()
+        ProjectEntity existingProject = this.projectRepository.findById(idProject)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                    ParamsError.builder()
                             .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
                             .labelObject(NameObject.PROJECT_MAJ)
                             .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
-                            .arg(NameObject.PROJECT_MAJ.getName())
                             .arg(projectDto.getId())
                             .build()
-                   );
-        }
+                ));
 
-        ProjectEntity updatedProjectEntity = this.projectRepository.save(projectEntity);
+        List<Long> tagIdList = projectDto.getTagSet();
+        Set<TagEntity> tagEntitySet = new HashSet<>(this.tagRepository.findAllById(tagIdList));
+
+        existingProject.setDescription(projectEntity.getDescription());
+        existingProject.setUpdateDate(Instant.now());
+        existingProject.setImageIllustrationEntity(imageIllustrationEntity);
+        existingProject.setTagEntitySet(tagEntitySet);
+
+        ProjectEntity updatedProjectEntity = this.projectRepository.save(existingProject);
 
         return this.projectMapper.mapProjectEntityToProjectDto(updatedProjectEntity);
     }

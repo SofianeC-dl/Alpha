@@ -7,13 +7,15 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { TagMapper.class })
+@Mapper(componentModel = "spring", uses = { TagMapper.class, ProjectMapper.class })
 public interface ImageIllustrationMapper {
 
     @Mapping(target = "tagSet", source = "tagEntitySet", qualifiedByName = "mapTagsToIds")
+    @Mapping(source = "uploadDate", target = "uploadDate", qualifiedByName = "mapInstantToOffSetDateTime")
     ImageIllustrationDto mapImageIllustrationEntityToImageIllustrationDto(ImageIllustrationEntity imageIllustrationEntity);
 
     @Mapping(target = "tagEntitySet", source = "tagSet", qualifiedByName = "mapIdsToTags")
+    @Mapping(source = "uploadDate", target = "uploadDate", qualifiedByName = "mapOffSetDateTimeToInstant")
     ImageIllustrationEntity mapImageIllustrationDtoToImageIllustrationEntity(ImageIllustrationDto imageIllustrationDto);
 
     List<ImageIllustrationEntity> mapImageIllustrationDtoListToImageIllustrationEntityList(List<ImageIllustrationDto> projectDtoList);

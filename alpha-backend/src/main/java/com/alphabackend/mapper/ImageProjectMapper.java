@@ -8,14 +8,16 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = { TagMapper.class })
+@Mapper(componentModel = "spring", uses = { TagMapper.class, ProjectMapper.class })
 public interface ImageProjectMapper {
 
     @Mapping(target = "tagSet", source = "tagEntitySet", qualifiedByName = "mapTagsToIds")
-    @Mapping(target = "idProject", source = "projectEntity")
+    @Mapping(source = "uploadDate", target = "uploadDate", qualifiedByName = "mapInstantToOffSetDateTime")
+    @Mapping(target = "idProject", source = "projectEntity.id")
     ImageProjectDto mapImageProjectEntityToImageProjectDto(ImageProjectEntity imageProject);
 
     @Mapping(target = "tagEntitySet", source = "tagSet", qualifiedByName = "mapIdsToTags")
+    @Mapping(source = "uploadDate", target = "uploadDate", qualifiedByName = "mapOffSetDateTimeToInstant")
     @Mapping(target = "projectEntity.id", source = "idProject")
     ImageProjectEntity mapImageProjectDtoToImageProjectEntity(ImageProjectDto imageProjectDto);
 

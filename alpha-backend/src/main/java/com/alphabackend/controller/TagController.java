@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @AllArgsConstructor
@@ -18,7 +21,15 @@ public class TagController implements TagApi {
     @Override
     @CrossOrigin
     public ResponseEntity<TagDto> _addTag(TagDto tagDto) {
-        return ResponseEntity.ok(this.tagService.addTag(tagDto));
+        TagDto tagDtoResult = this.tagService.addTag(tagDto);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(tagDtoResult.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(tagDtoResult);
     }
 
     @Override

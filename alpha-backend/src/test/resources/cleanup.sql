@@ -1,0 +1,1 @@
+DROP SCHEMA alpha_db_schema CASCADE;

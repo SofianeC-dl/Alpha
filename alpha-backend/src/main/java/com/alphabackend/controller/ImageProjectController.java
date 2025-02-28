@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @AllArgsConstructor
@@ -19,13 +22,28 @@ public class ImageProjectController implements ImageProjectApi {
     @Override
     @CrossOrigin
     public ResponseEntity<ImageProjectDto> _addImageProject(ImageProjectDto imageProjectDto) {
-        return ResponseEntity.ok(this.imageProjectService.addImageProject(imageProjectDto));
+        ImageProjectDto imageProjectDtoResult = imageProjectService.addImageProject(imageProjectDto);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(imageProjectDtoResult.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(imageProjectDtoResult);
     }
 
     @Override
     @CrossOrigin
     public ResponseEntity<ImageProjectList> _addManyImageProject(ImageProjectList imageProjectList){
-        return ResponseEntity.ok(new ImageProjectList(this.imageProjectService.addManyImageProject(imageProjectList.getImageProjectList())));
+        ImageProjectList imageProjectListResult = new ImageProjectList(this.imageProjectService.addManyImageProject(imageProjectList.getImageProjectList()));
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .buildAndExpand(imageProjectListResult.getImageProjectList())
+                .toUri();
+
+        return ResponseEntity.created(location).body(imageProjectListResult);
     }
 
     @Override

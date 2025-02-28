@@ -92,7 +92,7 @@
                                 <interfaceOnly>true</interfaceOnly>
                                 <skipDefaultInterface>true</skipDefaultInterface>
                                 <useTags>true</useTags>
-                                <dateLibrary>java17</dateLibrary>
+                                <dateLibrary>java8</dateLibrary>
                                 <generateClientAsBean>true</generateClientAsBean>
                                 <useJakartaEe>true</useJakartaEe>
                                 <delegatePattern>true</delegatePattern> <!-- Sépare les interfaces et les implémentations -->
@@ -100,6 +100,9 @@
                                 <generateModels>true</generateModels> <!-- Génère uniquement les modèles -->
                                 <generateSupportingFiles>false</generateSupportingFiles>
                             </configOptions>
+                            <additionalProperties>
+                                <dateTimeType>Instant</dateTimeType>
+                            </additionalProperties>
                         </configuration>
                     </execution>
 

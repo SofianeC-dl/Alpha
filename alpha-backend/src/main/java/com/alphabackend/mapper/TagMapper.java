@@ -2,6 +2,7 @@ package com.alphabackend.mapper;
 
 import com.alpha.generated.model.TagDto;
 import com.alphabackend.model.entity.TagEntity;
+import java.util.Collections;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -27,7 +28,7 @@ public interface TagMapper {
     @Named("mapTagsToIds")
     default List<Long> mapTagsToIds(Set<TagEntity> tags) {
         if (tags == null) {
-            return null;
+            return Collections.emptyList();
         }
         return tags.stream()
                 .map(TagEntity::getId)
@@ -37,7 +38,7 @@ public interface TagMapper {
     @Named("mapIdsToTags")
     default Set<TagEntity> mapIdsToTags(List<Long> ids) {
         if (ids == null) {
-            return null;
+            return Collections.emptySet();
         }
         return ids.stream()
                 .map(id -> {

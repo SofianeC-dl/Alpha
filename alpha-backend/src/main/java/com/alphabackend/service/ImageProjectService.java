@@ -5,29 +5,34 @@ import com.alpha.generated.model.ResultDto;
 import com.alpha.generated.model.ResultEnum;
 import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.mapper.ImageProjectMapper;
-import com.alphabackend.model.entity.ImageProjectEntity;
-import com.alphabackend.model.entity.ParamsException;
+import com.alphabackend.model.entity.*;
 import com.alphabackend.model.enum_model.ErrorTextEnum;
 import com.alphabackend.model.enum_model.NameObject;
 import com.alphabackend.model.enum_model.TypeRequestHttpEnum;
 import com.alphabackend.repository.ImageProjectRepository;
 import com.alphabackend.repository.ProjectRepository;
+import com.alphabackend.repository.TagRepository;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Data
 @Builder
 @Service
 public class ImageProjectService {
 
-    private final ImageProjectRepository   imageProjectRepository;
-    private final ProjectRepository             projectRepository;
+    private final ImageProjectRepository    imageProjectRepository;
+    private final ProjectRepository         projectRepository;
 
-    private final ImageProjectMapper       imageProjectMapper;
+    private final TagRepository             tagRepository;
+
+    private final ImageProjectMapper        imageProjectMapper;
 
     /**
      * Renvoie l'objet "ImageProject" avec son ID
@@ -37,7 +42,7 @@ public class ImageProjectService {
     public ImageProjectDto getImageProject(Long id) {
         return this.imageProjectMapper.mapImageProjectEntityToImageProjectDto(imageProjectRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(
-                        ParamsException.builder()
+                        ParamsError.builder()
                                 .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
                                 .labelObject(NameObject.IMAGE_PROJECT_MAJ)
                                 .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -54,7 +59,7 @@ public class ImageProjectService {
         List<ImageProjectEntity> imageProjectEntityList = this.imageProjectRepository.findAll();
 
         imageProjectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(
-                ParamsException.builder()
+                ParamsError.builder()
                         .errorText(ErrorTextEnum.ALL_OBJECTS_NOT_FOUND)
                         .labelObject(NameObject.IMAGE_PROJECT_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -66,15 +71,15 @@ public class ImageProjectService {
 
     /**
      * Retourne tous les objets "ImageProject" présente dans la table "ImageProject" qui ont pour pour
-     * @param imageProjectId ID de l'objet "Project" dont l'objet "Image_Project" est recherché
+     * @param projectId ID de l'objet "Project" dont l'objet "Image_Project" est recherché
      * @return Objet "Image_Project" recherché
      */
-    public List<ImageProjectDto> getAllImageProjectByProjectId(Long imageProjectId) {
-        List<ImageProjectEntity> imageProjectEntityList = this.imageProjectRepository.findByProjectEntity_Id(imageProjectId);
+    public List<ImageProjectDto> getAllImageProjectByProjectId(Long projectId) {
+        List<ImageProjectEntity> imageProjectEntityList = this.imageProjectRepository.findByProjectEntity_Id(projectId);
 
         if (imageProjectEntityList.isEmpty()) {
             throw new ResourceNotFoundException(
-                    ParamsException.builder()
+                    ParamsError.builder()
                             .errorText(ErrorTextEnum.ALL_OBJECTS_NOT_FOUND)
                             .labelObject(NameObject.IMAGE_PROJECT_MAJ)
                             .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -94,6 +99,20 @@ public class ImageProjectService {
     public ImageProjectDto addImageProject(ImageProjectDto imageProjectDto) {
         ImageProjectEntity imageProjectEntity = this.imageProjectMapper.mapImageProjectDtoToImageProjectEntity(imageProjectDto);
         imageProjectEntity.setUploadDate(Instant.now());
+
+        if(imageProjectEntity.getProjectEntity() != null && imageProjectEntity.getProjectEntity().getId() != null) {
+            Optional<ProjectEntity> optImage = this.projectRepository.findById(imageProjectEntity.getProjectEntity().getId());
+            optImage.ifPresentOrElse(imageProjectEntity::setProjectEntity, () -> {
+                throw new ResourceNotFoundException(
+                        ParamsError.builder()
+                                .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
+                                .labelObject(NameObject.PROJECT_MAJ)
+                                .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
+                                .arg(imageProjectEntity.getProjectEntity().getId())
+                                .build()
+                );
+            });
+        }
 
         return this.imageProjectMapper.mapImageProjectEntityToImageProjectDto(this.imageProjectRepository.save(imageProjectEntity));
     }
@@ -122,11 +141,10 @@ public class ImageProjectService {
                 this.imageProjectRepository::delete,
                 () -> {
                     throw new ResourceNotFoundException(
-                            ParamsException.builder()
+                            ParamsError.builder()
                                     .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_DELETE)
                                     .labelObject(NameObject.IMAGE_PROJECT_MAJ)
                                     .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
-                                    .arg(NameObject.IMAGE_PROJECT_MAJ.getName())
                                     .arg(id)
                                     .build()
                             );
@@ -148,19 +166,34 @@ public class ImageProjectService {
     public ImageProjectDto updateImageProject(Long idImageProject, ImageProjectDto imageProjectDto) {
         ImageProjectEntity imageProjectEntity = this.imageProjectMapper.mapImageProjectDtoToImageProjectEntity(imageProjectDto);
 
-        if (!this.imageProjectRepository.existsById(idImageProject)) {
-            throw new ResourceNotFoundException(
-                    ParamsException.builder()
-                            .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
-                            .labelObject(NameObject.IMAGE_PROJECT_MAJ)
-                            .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
-                            .arg(NameObject.IMAGE_PROJECT_MAJ.getName())
-                            .arg(imageProjectDto.getId())
-                            .build()
-                    );
-        }
+        ProjectEntity projectEntity = this.projectRepository.findById(imageProjectEntity.getProjectEntity().getId()).orElseThrow(() -> new ResourceNotFoundException(
+                ParamsError.builder()
+                        .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
+                        .labelObject(NameObject.PROJECT_MAJ)
+                        .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
+                        .arg(imageProjectEntity.getProjectEntity().getId())
+                        .build()
+        ));
 
-        ImageProjectEntity updatedImageProjectEntity = this.imageProjectRepository.save(imageProjectEntity);
+        ImageProjectEntity existingImageProject = this.imageProjectRepository.findById(idImageProject)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        ParamsError.builder()
+                                .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
+                                .labelObject(NameObject.IMAGE_PROJECT_MAJ)
+                                .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
+                                .arg(imageProjectDto.getId())
+                                .build()
+                ));
+
+        List<Long> tagIdList = imageProjectDto.getTagSet();
+        Set<TagEntity> tagEntitySet = new HashSet<>(this.tagRepository.findAllById(tagIdList));
+
+        existingImageProject.setDatas(imageProjectEntity.getDatas());
+        existingImageProject.setProjectEntity(imageProjectEntity.getProjectEntity());
+        existingImageProject.setProjectEntity(projectEntity);
+        existingImageProject.setTagEntitySet(tagEntitySet);
+
+        ImageProjectEntity updatedImageProjectEntity = this.imageProjectRepository.save(existingImageProject);
 
         return this.imageProjectMapper.mapImageProjectEntityToImageProjectDto(updatedImageProjectEntity);
     }

@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 
 @RestController
 @AllArgsConstructor
@@ -20,7 +22,15 @@ public class ImageIllustrationController implements ImageIllustrationApi {
     @Override
     @CrossOrigin
     public ResponseEntity<ImageIllustrationDto> _addImageIllustration(ImageIllustrationDto imageIllustrationDto) {
-        return ResponseEntity.ok(this.imageIllustrationService.addImageIllustration(imageIllustrationDto));
+        ImageIllustrationDto imageIllustrationDtoResult = this.imageIllustrationService.addImageIllustration(imageIllustrationDto);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(imageIllustrationDtoResult.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(imageIllustrationDtoResult);
     }
 
     @Override
@@ -29,7 +39,7 @@ public class ImageIllustrationController implements ImageIllustrationApi {
         return ResponseEntity.ok(this.imageIllustrationService.deleteImageIllustration(idImageIllustration));
     }
 
-    @Override
+        @Override
     @CrossOrigin
     public ResponseEntity<ImageIllustrationList> _getAllImageIllustration() {
         return ResponseEntity.ok(new ImageIllustrationList(this.imageIllustrationService.getAllImageIllustrations()));

@@ -5,7 +5,7 @@ import com.alpha.generated.model.ResultEnum;
 import com.alpha.generated.model.TagDto;
 import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.mapper.TagMapper;
-import com.alphabackend.model.entity.ParamsException;
+import com.alphabackend.model.entity.ParamsError;
 import com.alphabackend.model.entity.TagEntity;
 import com.alphabackend.model.enum_model.ErrorTextEnum;
 import com.alphabackend.model.enum_model.NameObject;
@@ -34,7 +34,7 @@ public class TagService {
     public TagDto getTag(Long id) {
         return this.tagMapper.mapTagEntityToTagDto(tagRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(
-                        ParamsException.builder()
+                        ParamsError.builder()
                                 .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
                                 .labelObject(NameObject.TAG_MAJ)
                                 .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -51,7 +51,7 @@ public class TagService {
         List<TagEntity> projectEntityList = tagRepository.findAll();
 
         projectEntityList.stream().findFirst().orElseThrow(() -> new ResourceNotFoundException(
-                ParamsException.builder()
+                ParamsError.builder()
                         .errorText(ErrorTextEnum.ALL_OBJECTS_NOT_FOUND)
                         .labelObject(NameObject.TAG_MAJ)
                         .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
@@ -82,11 +82,10 @@ public class TagService {
                 this.tagRepository::delete,
                 () -> {
                     throw new ResourceNotFoundException(
-                            ParamsException.builder()
+                            ParamsError.builder()
                                     .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_DELETE)
                                     .labelObject(NameObject.TAG_MAJ)
                                     .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
-                                    .arg(NameObject.TAG_MAJ.getName())
                                     .arg(id)
                                     .build()
                             );
@@ -106,20 +105,21 @@ public class TagService {
      * @return Le nouvel objet "Tag"
      */
     public TagDto updateTag(Long idTag, TagDto tagDto) {
-        TagEntity projectEntity = this.tagMapper.mapTagDtoToTagEntity(tagDto);
+        TagEntity tagEntity = this.tagMapper.mapTagDtoToTagEntity(tagDto);
 
-        if (!this.tagRepository.existsById(idTag)) {
-            throw new ResourceNotFoundException(
-                    ParamsException.builder()
-                            .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
-                            .labelObject(NameObject.TAG_MAJ)
-                            .typeRequestHttp(TypeRequestHttpEnum.DELETE_REQUEST)
-                            .arg(tagDto.getId())
-                            .build()
-                    );
-        }
+        TagEntity existingTag = this.tagRepository.findById(idTag)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        ParamsError.builder()
+                                .errorText(ErrorTextEnum.OBJECT_NONEXISTENT_UPDATE)
+                                .labelObject(NameObject.TAG_MAJ)
+                                .typeRequestHttp(TypeRequestHttpEnum.PUT_REQUEST)
+                                .arg(tagDto.getId())
+                                .build()
+                ));
 
-        TagEntity updatedTagEntity = this.tagRepository.save(projectEntity);
+        existingTag.setLabel(tagEntity.getLabel());
+
+        TagEntity updatedTagEntity = this.tagRepository.save(existingTag);
 
         return this.tagMapper.mapTagEntityToTagDto(updatedTagEntity);
     }
