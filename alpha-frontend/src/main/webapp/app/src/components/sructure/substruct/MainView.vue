@@ -13,7 +13,7 @@ onMounted(() => {
 
 <template>
   <main class="site-main">
-    <ApiStruct />
+    <router-view />
   </main>
 </template>
 

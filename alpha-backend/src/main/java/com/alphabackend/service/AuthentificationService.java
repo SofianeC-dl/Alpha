@@ -9,15 +9,18 @@ import com.alphabackend.model.enum_model.TypeRequestHttpEnum;
 import com.alphabackend.utils.JWTUtil;
 import lombok.Builder;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Data
 @Builder
 @Service
+@Slf4j
 public class AuthentificationService {
 
     private AuthenticationManager authenticationManager;
@@ -27,6 +30,9 @@ public class AuthentificationService {
     private UserService userDetailsService;
 
     public AuthResponse createAuthenticationTokenAndLogin(AuthRequest authRequest){
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        log.warn("PASSWORD : {}", bCryptPasswordEncoder.encode(authRequest.getPassword()));
+
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore'
 import { computed } from 'vue'
-import ErrorMessageDev from '@/components/message/ErrorMessageDev.vue'
 import HeaderMessage from '@/components/message/HeaderMessage.vue'
 import MessageToastToast from '@/components/message/MessageToast.vue'
 

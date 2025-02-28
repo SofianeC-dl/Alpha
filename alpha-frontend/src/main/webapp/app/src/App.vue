@@ -4,5 +4,4 @@ import BaseLayout from '@/components/sructure/BaseLayout.vue'
 
 <template>
   <router-view></router-view>
-<!--  <BaseLayout />-->
 </template>

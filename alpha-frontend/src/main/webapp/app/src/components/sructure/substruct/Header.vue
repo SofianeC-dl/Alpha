@@ -35,34 +35,56 @@ const toggleMenu = () => {
 
 <template>
   <header role="banner" :class="['navbar', { 'hide-header': isShrunk }]">
-    <div class="logo">
-      <img src="../../../assets/logo.svg" alt="Vite logo" />
+    <div class="main-layout">
+      <div class="logo item-logo">
+        <img src="../../../assets/logo.svg" alt="Vite logo" />
+      </div>
+      <div class="item-menu">
+        <nav class="navigation" aria-label="Menu de navigation">
+          <ul>
+            <li><router-link to="/">Accueil</router-link></li>
+            <li><router-link to="/about">À propos</router-link></li>
+            <li><router-link to="/services">Services</router-link></li>
+            <li><router-link to="/contact">Contact</router-link></li>
+          </ul>
+        </nav>
+        <div class="menu-mobile" @click="toggleMenu">
+          <span>Menu</span>
+        </div>
+        <transition name="fade">
+          <nav v-if="menuOpen" class="mobile-navigation" aria-label="Menu de navigation">
+            <ul>
+              <li><router-link to="/">Accueil</router-link></li>
+              <li><router-link to="/about">À propos</router-link></li>
+              <li><router-link to="/services">Services</router-link></li>
+              <li><router-link to="/contact">Contact</router-link></li>
+            </ul>
+          </nav>
+        </transition>
+      </div>
     </div>
-    <nav class="navigation" aria-label="Menu de navigation">
-      <ul>
-        <li><router-link to="/">Accueil</router-link></li>
-        <li><router-link to="/about">À propos</router-link></li>
-        <li><router-link to="/services">Services</router-link></li>
-        <li><router-link to="/contact">Contact</router-link></li>
-      </ul>
-    </nav>
-    <div class="menu-mobile" @click="toggleMenu">
-      <span>Menu</span>
-    </div>
-    <transition name="fade">
-      <nav v-if="menuOpen" class="mobile-navigation" aria-label="Menu de navigation">
-        <ul>
-          <li><router-link to="/">Accueil</router-link></li>
-          <li><router-link to="/about">À propos</router-link></li>
-          <li><router-link to="/services">Services</router-link></li>
-          <li><router-link to="/contact">Contact</router-link></li>
-        </ul>
-      </nav>
-    </transition>
   </header>
 </template>
 
 <style scoped>
+.main-layout {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 5px 80px 5px auto;
+  grid-template-rows: auto;
+  grid-template-areas:
+    '. logo . menu';
+}
+
+.item-logo {
+  grid-area: logo;
+}
+
+.item-menu {
+  grid-area: menu;
+}
+
 .navbar {
   position: relative;
   top: 0;
@@ -72,7 +94,6 @@ const toggleMenu = () => {
   color: #fff;
   display: flex;
   align-items: center;
-  padding: 0 20px;
   transition: all 0.3s ease;
   height: 80px;
   z-index: 999;

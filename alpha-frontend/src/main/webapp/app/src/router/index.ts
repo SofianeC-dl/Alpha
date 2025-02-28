@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Login from "@/components/security/Login.vue";
 import Admin from "@/components/security/Admin.vue";
+import BaseLayout from "../components/sructure/BaseLayout.vue";
+import ApiStruct from "../components/sructure/apistruct/ApiStruct.vue";
 
 function requireAuth(to: any, from: any, next: any) {
   const token = localStorage.getItem('token');
@@ -17,32 +19,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/login'
+      component: BaseLayout,
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: ApiStruct
+        }
+      ]
     },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin,
-      beforeEnter: requireAuth
-    }
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: HomeView,
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue'),
-    // },
   ],
 })
 
