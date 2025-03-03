@@ -21,7 +21,7 @@ import {
   type TagApiAddTagRequest,
   type TagApiDeleteTagRequest,
   type TagApiGetTagRequest,
-  type TagApiUpdateTagRequest, type TagDto,
+  type TagApiUpdateTagRequest,
 } from '@/generated'
 import type { AxiosPromise } from 'axios'
 import { MessageGlobalToastUtils } from '@/composables/message/MessageGlobalUtils.ts'
