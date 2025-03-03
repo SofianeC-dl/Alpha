@@ -1,18 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Login from "@/components/security/Login.vue";
-import Admin from "@/components/security/Admin.vue";
-import BaseLayout from "../components/sructure/BaseLayout.vue";
-import ApiStruct from "../components/sructure/apistruct/ApiStruct.vue";
-
-function requireAuth(to: any, from: any, next: any) {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    next('/login');
-  } else {
-    next();
-  }
-}
+import BaseLayout from "../components/layout/BaseLayout.vue";
+import ApiStruct from "../components/layout/apistruct/ApiStruct.vue";
+import AdminView from "../views/admin/AdminView.vue";
+import AboutView from "../views/about/AboutView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,10 +15,20 @@ const router = createRouter({
           path: '',
           name: 'home',
           component: ApiStruct
+        },
+        {
+          path: '/Admin',
+          name: 'admin',
+          component: AdminView
+        },
+        {
+          path: '/About',
+          name: 'about',
+          component: AboutView
         }
       ]
-    },
-  ],
+    }
+  ]
 })
 
 export default router

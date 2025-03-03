@@ -1,0 +1,56 @@
+@use "index_mixins" as mylib;
+/* POSITION */
+@mixin center-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin center-right-block {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+@mixin center-left-block {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+/* LINK */
+@mixin link-menu {
+  color: mylib.$font-color-global;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@mixin gradient-button {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+
+    background: radial-gradient(
+                    circle,
+                    rgba(255, 255, 255, 0.4) 0%,
+                    rgba(255, 255, 255, 0) 50%
+    );
+    transition: opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@mixin gradient-button-hover {
+  &:hover::before {
+    opacity: 1;
+  }
+}

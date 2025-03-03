@@ -1,0 +1,28 @@
+$margin-global: 5px;
+
+/* HEADER */
+$header-height-size: 15vh;
+$header-height-size--no-margin: calc(#{$header-height-size} - 2*#{$margin-global});
+$header-margin-size: 5px;
+
+/* menu */
+$header-container-button-size-height: 10cqh;
+$header-button-size-height: 5cqh;
+$header-button-unsize-height: calc(100cqh - 10cqh);
+$header-container-button-size-width: 10cqw;
+$header-button-size-width: 5cqw;
+$header-button-unsize-width: calc(100cqw - 10cqw);
+
+$header-padding-menu: 1px;
+$header-border-menu-size: 2px;
+$header-border-radius: 5px;
+
+/* logo */
+$header-logo-height-size: 95%;
+$header-logo-width-size: 50cqw;
+
+/* MAIN */
+$main-height-size: 100vh;
+
+/* FOOTER */
+$footer-height-size: 5vh;

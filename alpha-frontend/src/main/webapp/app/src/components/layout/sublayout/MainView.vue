@@ -1,7 +1,6 @@
 <script setup lang="ts">
 /** Imports **/
 import { onMounted } from 'vue'
-import ApiStruct from '@/components/sructure/apistruct/ApiStruct.vue'
 
 defineProps({})
 
@@ -20,7 +19,5 @@ onMounted(() => {
 <style scoped>
 .site-main {
   flex: 1;
-  background-color: var(--vt-background-color);
-  color: var(--vt-c-white);
 }
 </style>

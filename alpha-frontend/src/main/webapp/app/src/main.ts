@@ -1,4 +1,4 @@
-import './assets/css/base.css'
+import './assets/css/base.scss'
 
 import { type ComponentPublicInstance, createApp } from 'vue'
 import { createPinia } from 'pinia'

@@ -3,7 +3,7 @@
 </template>
 <script>
 import axios from 'axios';
-import BaseLayout from "@/components/sructure/BaseLayout.vue";
+import BaseLayout from "@/components/layout/BaseLayout.vue";
 
 export default {
   name: 'Admin',
