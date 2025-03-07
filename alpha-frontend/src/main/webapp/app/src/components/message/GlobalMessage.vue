@@ -20,7 +20,8 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
   </Teleport>
 </template>
 
-<style>
+<style lang="scss">
+@use '@/assets/css/index' as mylib;
 .global-message-params {
   position: fixed;
   z-index: 9999;
@@ -38,7 +39,7 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 
   font-weight: bold;
 
-  background-color: #dddddd;
+  background-color: mylib.$color-background-global;
 
   display: grid;
   grid-template-rows: 5px 2em 2px auto 2px 20px 5px;

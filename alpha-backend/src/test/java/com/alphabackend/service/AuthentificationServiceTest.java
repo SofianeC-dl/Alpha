@@ -50,7 +50,7 @@ class AuthentificationServiceTest {
         // When
         when(this.userDetailsService.loadUserByUsername(authRequestEntryTest.getUsername())).thenReturn(userDetailsTest);
         when(this.authenticationManager.authenticate(usernamePasswordAuthenticationTokenEntryTest)).thenReturn(authenticationResultTest);
-        when(this.jwtUtil.generateToken(authRequestEntryTest.getUsername())).thenReturn(jwtResultTest);
+        when(this.jwtUtil.generateToken(userDetailsTest)).thenReturn(jwtResultTest);
 
         // Test
         AuthResponse authResponseResultTest = this.authentificationService.createAuthenticationTokenAndLogin(authRequestEntryTest);
@@ -69,9 +69,7 @@ class AuthentificationServiceTest {
         when(this.authenticationManager.authenticate(usernamePasswordAuthenticationTokenEntryTest)).thenThrow(org.springframework.security.authentication.BadCredentialsException.class);
 
         // Test
-        Exception exception = assertThrows(com.alphabackend.exception.BadCredentialsException.class, () -> {
-            this.authentificationService.createAuthenticationTokenAndLogin(authRequestEntryTest);
-        });
+        Exception exception = assertThrows(com.alphabackend.exception.BadCredentialsException.class, () -> this.authentificationService.createAuthenticationTokenAndLogin(authRequestEntryTest));
 
         // Result
         assertEquals("Bad credentials|Authentication|POST", exception.getMessage());

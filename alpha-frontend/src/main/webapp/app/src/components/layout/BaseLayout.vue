@@ -1,10 +1,10 @@
 <script setup lang="ts">
 /** Imports **/
-import HeaderView from './sublayout/HeaderView.vue'
-import FooterView from './sublayout/FooterView.vue'
+import HeaderView from '../../views/structure/HeaderView.vue'
+import FooterView from '../../views/structure/FooterView.vue'
 
 import { onMounted } from 'vue'
-import MainView from './sublayout/MainView.vue'
+import MainView from '../../views/structure/MainView.vue'
 import GlobalMessage from '@/components/message/GlobalMessage.vue'
 
 defineProps({})
@@ -55,8 +55,9 @@ onMounted(() => {
 }
 
 .main-view {
-  height: auto;
+  height: max-content;
   grid-area: main;
+  box-sizing: border-box;
 }
 
 .main-footer {

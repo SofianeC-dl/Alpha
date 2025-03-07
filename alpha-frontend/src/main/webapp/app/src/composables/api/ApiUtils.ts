@@ -7,14 +7,16 @@ export const useCatch = (catchReturn: Promise<void>) => {
   const json = errorJson as ErrorJsonDict;
 
   catchReturn.catch((axiosCatch) => {
-    const response = axiosCatch.response.data as MessageError;
-    const pathJson: string = MessageGlobalParseUtils.concatMessageError(response.status, response.typeError, response.typeRequest);
-    (!MessageGlobalParseUtils.hasPath(json, pathJson)) ?
-      MessageGlobalToastUtils.warningMessage("internal.nopath")
-      :
-    MessageGlobalToastUtils.errorMessage(
-      MessageGlobalParseUtils.getTextFromJsonPath(
-        pathJson, response.object))
+    if (axiosCatch && axiosCatch.response && axiosCatch.response.data) {
+      const response = axiosCatch.response.data as MessageError;
+      const pathJson: string = MessageGlobalParseUtils.concatMessageError(response.status, response.typeError, response.typeRequest);
+      (!MessageGlobalParseUtils.hasPath(json, pathJson)) ?
+        MessageGlobalToastUtils.warningMessage("internal.nopath")
+        :
+        MessageGlobalToastUtils.errorMessage(
+          MessageGlobalParseUtils.getTextFromJsonPath(
+            pathJson, response.object))
+    }
   })
 }
 

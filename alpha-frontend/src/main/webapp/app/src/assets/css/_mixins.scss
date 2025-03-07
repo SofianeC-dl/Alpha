@@ -20,7 +20,7 @@
 
 /* LINK */
 @mixin link-menu {
-  color: mylib.$font-color-global;
+  color: mylib.$color-font-global;
   text-decoration: none;
 
   &:hover {

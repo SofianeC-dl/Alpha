@@ -9,6 +9,8 @@ import javax.crypto.SecretKey;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JWTUtil {
@@ -21,9 +23,17 @@ public class JWTUtil {
         return Base64.getEncoder().encodeToString(keyBytes);
     }
 
-    public String generateToken(String username) {
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+
+        claims.put("role", userDetails.getAuthorities().stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Role not found"))
+                .toString());
+
         return Jwts.builder()
-                .subject(username)
+                .claims(claims)
+                .subject(userDetails.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(key)

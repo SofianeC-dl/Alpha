@@ -22,11 +22,11 @@ import {
   type TagApiDeleteTagRequest,
   type TagApiGetTagRequest,
   type TagApiUpdateTagRequest,
-} from '@/generated'
+} from '@/generated/index.js'
 import type { AxiosPromise } from 'axios'
-import { MessageGlobalToastUtils } from '@/composables/message/MessageGlobalUtils.ts'
+import { MessageGlobalToastUtils } from '@/composables/message/MessageGlobalUtils.js'
 import { type Ref, ref } from 'vue'
-import { useCatch } from '@/composables/api/ApiUtils.ts'
+import { useCatch } from '@/composables/api/ApiUtils.js'
 const tagApi: TagApi = new TagApi()
 const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi()
 const projectApi: ProjectApi = new ProjectApi()
@@ -45,7 +45,7 @@ const consoleLog = (axiosResult: AxiosPromise, label: string) => {
   useCatch(
     axiosResult.then((axiosData) => {
       MessageGlobalToastUtils.successMessage(`${label} a bien fonctionné, id : ${axiosData.data.id}`);
-      console.log(label, ' : ', axiosData.data)
+
     })
   )
 }

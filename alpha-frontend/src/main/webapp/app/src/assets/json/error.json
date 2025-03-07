@@ -4,7 +4,12 @@
       "get": "Ressource \"{0}\" non trouvé en base de donnée."
     }
   },
+  "400": {
+    "badcredentialsexception": {
+      "post": "Mauvaise id de connexion"
+    }
+  },
   "internal": {
-    "nopath": "Le chemin n'existe pas : {0}"
+    "nopath": "Le chemin json de l'erreur n'existe pas : {0}"
   }
 }

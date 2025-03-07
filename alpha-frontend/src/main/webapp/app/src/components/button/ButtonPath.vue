@@ -51,7 +51,7 @@ const isActiveButtonCurrentRoute = computed(() => {
 }
 
 .selector-menu {
-  border: mylib.$header-border-menu-size solid mylib.$font-color-global;
+  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
   border-radius: mylib.$header-border-radius;
   padding: mylib.$header-padding-menu;
   position: relative;

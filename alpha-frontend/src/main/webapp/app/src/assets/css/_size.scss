@@ -1,9 +1,8 @@
-$margin-global: 5px;
+$margin-global: 15px;
 
 /* HEADER */
 $header-height-size: 15vh;
-$header-height-size--no-margin: calc(#{$header-height-size} - 2*#{$margin-global});
-$header-margin-size: 5px;
+$header-margin-size: 1rem;
 
 /* menu */
 $header-container-button-size-height: 10cqh;
@@ -16,6 +15,7 @@ $header-button-unsize-width: calc(100cqw - 10cqw);
 $header-padding-menu: 1px;
 $header-border-menu-size: 2px;
 $header-border-radius: 5px;
+$header-space-between-button-right-group: 15px;
 
 /* logo */
 $header-logo-height-size: 95%;
@@ -23,6 +23,7 @@ $header-logo-width-size: 50cqw;
 
 /* MAIN */
 $main-height-size: 100vh;
+$main-border-radius: 25px;
 
 /* FOOTER */
 $footer-height-size: 5vh;

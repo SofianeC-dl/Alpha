@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore.ts'
-import IconTooling from '@/components/icons/IconTooling.vue'
 
 const globalMessageStore = useGlobalMessageStore()
 
@@ -11,7 +10,6 @@ const title = computed(() => globalMessageStore.title)
 <template>
   <div class="grid-main">
     <div class="item-icon">
-      <IconTooling />
     </div>
     <a class="item-title">
       {{ title }}
