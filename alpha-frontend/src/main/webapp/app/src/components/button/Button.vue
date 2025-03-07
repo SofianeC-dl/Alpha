@@ -3,8 +3,18 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 const props = defineProps({
-  typeRouteActive: String,
-  labelButton: String
+  typeRouteActive: {
+    type: String,
+    default: ''
+  },
+  labelButton: {
+    type: String,
+    default: `[no_label_button]`
+  },
+  isButtonPath: {
+    type: Boolean,
+    default: false
+  }
 })
 
 /** Variables **/
@@ -20,10 +30,18 @@ const isActiveButtonCurrentRoute = computed(() => {
 
 <template>
   <div class="grid-main">
-        <router-link :to="routePath" class="grid-button">
+        <router-link :to="routePath" class="grid-button" v-if="isButtonPath">
           <span :class="{'selector-menu': isActiveButtonCurrentRoute, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
         </router-link>
-  </div>
+
+        <span
+          class="grid-button"
+          :class="{'selector-menu': isActiveButtonCurrentRoute, 'gradient-button': !isActiveButtonCurrentRoute}"
+          v-if="!isButtonPath"
+        >
+          {{ props.labelButton }}
+        </span>
+    </div>
 </template>
 
 <style lang="scss" scoped>

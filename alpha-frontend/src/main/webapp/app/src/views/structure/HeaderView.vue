@@ -2,7 +2,7 @@
 /** Imports **/
 import {computed, nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
 import { useRoute } from "vue-router";
-import ButtonPath from "@/components/button/ButtonPath.vue";
+import Button from "@/components/button/Button.vue";
 import LogoView from "@/components/logo/LogoView.vue";
 import ButtonsContainer from "@/components/button/ButtonsContainer.vue";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
@@ -63,17 +63,17 @@ const isAboutCurrentRoute = computed(() => {
       <div class="left-group"></div>
 
       <div class="center-group">
-        <ButtonPath id="admin" class="grid-menu-admin" type-route-active="Login" label-button="Admin"/>
+        <Button id="admin" class="grid-menu-admin" type-route-active="Login" label-button="Admin" :is-button-path="true "/>
 
         <LogoView class="grid-logo" text="Archive.rar" />
 
-        <ButtonPath id="about" class="grid-menu-about" type-route-active="About" label-button="About"/>
+        <Button id="about" class="grid-menu-about" type-route-active="About" label-button="About" :is-button-path="true " />
       </div>
 
       <div class="right-group">
         <ButtonsContainer gap="100px" v-if="isAdmin">
-          <ButtonPath id="api" type-route-active="Api" label-button="Api" />
-          <ButtonPath id="api" type-route-active="" label-button="log out" @click="deconnect()"/>
+          <Button id="api" type-route-active="Api" label-button="Api" :is-button-path="true" />
+          <Button id="api" type-route-active="" label-button="log out" @click="deconnect()" :is-button-path="true"/>
         </ButtonsContainer>
       </div>
   </header>
