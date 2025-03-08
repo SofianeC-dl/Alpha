@@ -8,7 +8,7 @@ const title = computed(() => globalMessageStore.title)
 </script>
 
 <template>
-  <div class="grid-main">
+  <div class="main-button">
     <div class="item-icon">
     </div>
     <a class="item-title">
@@ -19,7 +19,7 @@ const title = computed(() => globalMessageStore.title)
 
 <style scoped>
 
-.grid-main {
+.main-button {
   display: grid;
   grid-template-rows: 2em;
   grid-template-columns: 2em 2px auto 60px;

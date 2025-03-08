@@ -14,6 +14,16 @@ const props = defineProps({
   isButtonPath: {
     type: Boolean,
     default: false
+  },
+  notSelectedBox: {
+    type: Boolean,
+    default: false
+  },
+  functionClick: {
+    type: Function,
+    default: () => {
+      console.log('Not function click');
+    }
   }
 })
 
@@ -29,43 +39,34 @@ const isActiveButtonCurrentRoute = computed(() => {
 </script>
 
 <template>
-  <div class="grid-main">
-        <router-link :to="routePath" class="grid-button" v-if="isButtonPath">
-          <span :class="{'selector-menu': isActiveButtonCurrentRoute, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
-        </router-link>
+  <div class="main-button">
+    <router-link :to="routePath" class="button-style effect" v-if="isButtonPath">
+      <span :class="{'selector-menu': isActiveButtonCurrentRoute && !notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
+    </router-link>
 
-        <span
-          class="grid-button"
-          :class="{'selector-menu': isActiveButtonCurrentRoute, 'gradient-button': !isActiveButtonCurrentRoute}"
-          v-if="!isButtonPath"
-        >
-          {{ props.labelButton }}
-        </span>
-    </div>
+    <span
+      class="button-style clickable gradient-button effect"
+      @click="functionClick"
+      v-if="!isButtonPath"
+    >
+      {{ props.labelButton }}
+    </span>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 @use '@/assets/css/index' as mylib;
 
-.grid-main {
-  display: grid;
-  container-type: size;
-  grid-template-columns: auto mylib.$header-button-size-width auto;
-  grid-template-rows:
-    auto
-    mylib.$header-button-size-height
-    auto;
-  grid-template-areas:
-  '. .      .'
-  '. button .'
-  '. .      .';
-
-  place-items: center;
+.main-button {
+  display: flex;
 }
 
-.grid-button {
-  grid-area: button;
+.button-style {
   @include mylib.link-menu;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .selector-menu {
@@ -81,5 +82,11 @@ const isActiveButtonCurrentRoute = computed(() => {
   @include mylib.gradient-button;
   @include mylib.gradient-button-hover;
 }
+.effect {
+  transition: fill 30s ease;
+}
 
+.effect:hover {
+  transform: scale(1.1);
+}
 </style>

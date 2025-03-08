@@ -73,7 +73,7 @@ const isAboutCurrentRoute = computed(() => {
       <div class="right-group">
         <ButtonsContainer gap="100px" v-if="isAdmin">
           <Button id="api" type-route-active="Api" label-button="Api" :is-button-path="true" />
-          <Button id="api" type-route-active="" label-button="log out" @click="deconnect()" :is-button-path="true"/>
+          <Button id="api" type-route-active="" label-button="log out" :function-click="deconnect" :is-button-path="false"/>
         </ButtonsContainer>
       </div>
   </header>
