@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import {computed, onMounted, ref} from "vue";
 import { useRoute } from "vue-router";
 
 const props = defineProps({
@@ -31,20 +31,30 @@ const props = defineProps({
 const route = useRoute();
 
 const routePath: string = '/' + props.typeRouteActive;
+const button = ref(null);
+const width = ref(0);
+const height = ref(0);
 
 /** Méthodes **/
+onMounted(() => {
+  if (button.value) {
+    width.value = button.value.getBoundingClientRect().width;
+  }
+});
+
 const isActiveButtonCurrentRoute = computed(() => {
   return route.path === routePath;
 });
 </script>
 
 <template>
-  <div class="main-button">
+  <div class="main-button" :style="{ '--box-width': width + 'px' }">
     <router-link :to="routePath" class="button-style effect" v-if="isButtonPath">
-      <span :class="{'selector-menu': isActiveButtonCurrentRoute && !notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
+      <span ref="button" :class="{'selector-menu': isActiveButtonCurrentRoute && !notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
     </router-link>
 
     <span
+      ref="button"
       class="button-style clickable gradient-button effect"
       @click="functionClick"
       v-if="!isButtonPath"
@@ -59,6 +69,8 @@ const isActiveButtonCurrentRoute = computed(() => {
 
 .main-button {
   display: flex;
+  justify-content: center;
+  width: calc(2*#{mylib.$header-border-menu-size} + var(--box-width) + #{ mylib.$header-padding-menu});
 }
 
 .button-style {

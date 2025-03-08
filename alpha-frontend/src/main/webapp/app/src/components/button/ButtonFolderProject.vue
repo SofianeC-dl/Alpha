@@ -9,20 +9,19 @@ import IconFolderProject from "@/components/icons/IconFolderProject.vue";
   </button>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@use '@/assets/css/index' as mylib;
 .icon-button {
-  background: none;    /* Retire le style par défaut du bouton */
-  border: none;        /* Retire la bordure par défaut */
-  cursor: pointer;     /* Curseur “pointeur” au survol */
-  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: transform 0.2s ease;
 }
 
-/* On applique la couleur de base via currentColor ou en fixant fill sur l’élément SVG */
 .icon-button svg {
-  width: 100%;
-  height: 100%;
-  stroke: #000; /* Couleur de base */
+  width: mylib.$main-height-folder;
+  min-width: mylib.$main-min-height-folder;
+  stroke: #000;
   transition: fill 0.2s ease;
 }
 
@@ -31,7 +30,6 @@ import IconFolderProject from "@/components/icons/IconFolderProject.vue";
   fill: #f00; /* Changement de couleur au hover */
 }
 
-/* Effet d’agrandissement du bouton lui-même au survol (optionnel) */
 .icon-button:hover {
   transform: scale(1.1);
 }

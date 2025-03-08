@@ -19,11 +19,4 @@ onMounted(() => {
 <style lang="scss" scoped>
 @use "@/assets/css/index" as mylib;
 
-main {
-  background: mylib.$color-background-main-view;
-  border-radius: mylib.$main-border-radius;
-  padding: mylib.$margin-global;
-
-  box-shadow: -4px -4px 4px rgba(17, 17, 17, 0.5);
-}
 </style>
