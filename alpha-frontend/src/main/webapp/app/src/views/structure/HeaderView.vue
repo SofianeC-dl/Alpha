@@ -1,16 +1,17 @@
 <script setup lang="ts">
 /** Imports **/
 import {computed, nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
-import { useRoute } from "vue-router";
+import {useRouter} from "vue-router";
 import Button from "@/components/button/Button.vue";
 import LogoView from "@/components/logo/LogoView.vue";
 import ButtonsContainer from "@/components/button/ButtonsContainer.vue";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
+import {MessageGlobalToastUtils} from "@/composables/message/MessageGlobalUtils.js";
 
 defineProps({})
 
 /** Variables **/
-const route = useRoute();
+const router = useRouter();
 
 const isShrunk = ref(false);
 
@@ -47,14 +48,15 @@ onBeforeUnmount(() => {
 const deconnect = () => {
   authStore.setToken(null);
 };
-const isAdminCurrentRoute = computed(() => {
-  return route.path === '/Admin';
-});
 
-const isAboutCurrentRoute = computed(() => {
-  return route.path === '/About';
-});
-
+const logoutMessage = () => {
+  if (authStore.isAdmin) {
+    MessageGlobalToastUtils.errorMessage('Log out error');
+  } else {
+    router.push('/');
+    MessageGlobalToastUtils.successMessage('Log out success');
+  }
+};
 </script>
 
 <template>
@@ -73,7 +75,12 @@ const isAboutCurrentRoute = computed(() => {
       <div class="right-group">
         <ButtonsContainer gap="100px" v-if="isAdmin">
           <Button id="api" type-route-active="Api" label-button="Api" :is-button-path="true" />
-          <Button id="api" type-route-active="" label-button="log out" :function-click="deconnect" :is-button-path="false"/>
+          <Button id="api"
+                  type-route-active=""
+                  label-button="log out"
+                  :function-click="deconnect"
+                  :is-button-path="false"
+                  @clicked="logoutMessage"/>
         </ButtonsContainer>
       </div>
   </header>

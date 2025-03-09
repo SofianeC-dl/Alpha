@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore.ts'
+import { useGlobalMessageStore } from '@/stores/globalMesage/globalMessageStore.ts'
 import IconSuccess from "@/components/icons/IconSuccess.vue";
 import IconError from "@/components/icons/IconError.vue";
 import IconWarn from "@/components/icons/IconWarn.vue";
@@ -47,18 +47,19 @@ const isWarnMessage = () => {
 
 .main-button {
   display: grid;
-  grid-template-rows: 2em;
-  grid-template-columns: 2em 1rem auto 60px;
+  grid-template-rows: 2rem;
+  grid-template-columns: 1rem 5px max-content;
   grid-template-areas:
-    'icon . title title';
+    'icon . title';
   align-items: center;
 }
 .item-title {
   grid-area: title;
-  font-size: 24px;
+  font-size: large;
 }
 
 .item-icon {
+  justify-content: center;
   grid-area: icon;
 }
 </style>

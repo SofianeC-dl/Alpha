@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore'
+import { useGlobalMessageStore } from '@/stores/globalMesage/globalMessageStore'
 import { computed } from 'vue'
 import HeaderMessage from '@/components/message/HeaderMessage.vue'
 import MessageToastToast from '@/components/message/MessageToast.vue'
@@ -14,9 +14,9 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 <template>
   <Teleport to="body">
     <div v-if="isOpen" :class="['global-message-params', type]">
+      <Button :function-click="globalMessageStore.clearMessage" class="item-button" label-button="[X]" />
       <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />
-      <Button :function-click="globalMessageStore.clearMessage" class="item-button" label-button="Close" />
     </div>
   </Teleport>
 </template>
@@ -43,15 +43,13 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
   background-color: rgba(mylib.$color-background-global, 0.95);
 
   display: grid;
-  grid-template-rows: 5px 2em 2px auto 2px 20px 5px;
+  grid-template-rows: 5px 2em 2px auto 5px;
   grid-template-columns: 5px 2em 2px auto min-content 5px;
   grid-template-areas:
     '. .      .       .       .       .'
-    '. header header  header  header   .'
+    '. header header  .       button  .'
     '. .      .       .       .       .'
     '. main   main    main    main    .'
-    '. .      .       .       .       .'
-    '. .      .       .       button  .'
     '. .      .       .       .       .';
 }
 
@@ -61,7 +59,9 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 }
 
 .item-header {
+  place-items:center;
   grid-area: header;
+  width: 100%;
 }
 
 .item-main {

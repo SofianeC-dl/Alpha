@@ -5,8 +5,8 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore.ts'
-import { TypeMessageEnum } from '@/assets/enum/TypeMessageEnum.ts'
+import {useGlobalMessageStore} from "./stores/globalMesage/globalMessageStore.js";
+import {TypeMessageEnum} from "./assets/enum/TypeMessageEnum.js";
 
 const app = createApp(App)
 

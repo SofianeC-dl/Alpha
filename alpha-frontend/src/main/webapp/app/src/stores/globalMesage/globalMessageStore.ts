@@ -14,6 +14,8 @@ export const useGlobalMessageStore = defineStore('globalMessages', () => {
 
   const isOpenned: Ref<boolean, boolean> = ref(false)
 
+  const duration: number = 3000;
+
   /**
    * Transforme un type en titre
    * @param typeMessage type d'entrée
@@ -51,6 +53,10 @@ export const useGlobalMessageStore = defineStore('globalMessages', () => {
     message.value = newMessage
     type.value = newType
     title.value = typeToTitleMessage(type.value)
+
+    setTimeout(() => {
+      clearMessage();
+    }, duration)
   }
 
   /**

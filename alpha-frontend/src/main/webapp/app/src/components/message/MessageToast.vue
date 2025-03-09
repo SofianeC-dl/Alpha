@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore.ts'
+import { useGlobalMessageStore } from '@/stores/globalMesage/globalMessageStore.ts'
 import { computed } from 'vue'
 
 const globalMessageStore = useGlobalMessageStore()

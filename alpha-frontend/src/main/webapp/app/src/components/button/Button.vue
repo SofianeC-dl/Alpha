@@ -2,6 +2,8 @@
 import {computed} from "vue";
 import { useRoute } from "vue-router";
 
+const emits = defineEmits(['clicked'])
+
 const props = defineProps({
   typeRouteActive: {
     type: String,
@@ -33,21 +35,27 @@ const route = useRoute();
 const routePath: string = '/' + props.typeRouteActive;
 
 /** Méthodes **/
-
 const isActiveButtonCurrentRoute = computed(() => {
   return route.path === routePath;
 });
+
+const clicked = () => {
+  if (props.functionClick) props.functionClick();
+  emits('clicked');
+}
+
+
 </script>
 
 <template>
-  <div class="main-button">
+  <div class="main-button" @click="clicked">
     <router-link :to="routePath" class="button-style effect" v-if="isButtonPath">
       <span class="selector-menu" :class="{'invisibility-selector': !isActiveButtonCurrentRoute || notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
     </router-link>
 
     <span
       class="button-style clickable gradient-button effect"
-      @click="functionClick"
+
       v-if="!isButtonPath"
     >
       {{ props.labelButton }}
