@@ -39,14 +39,7 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
   border-right: 1px solid mylib.$color-font-global;
   border-top: 1px solid mylib.$color-font-global;
 
-  box-shadow:
-    -4px -4px 8px rgba(17, 17, 17, 0.8),
-    0 4px 8px rgba(17, 17, 17, 0.8),
-    inset -4px -4px 8px rgba(17, 17, 17, 0.8),
-    inset 4px 4px 8px rgba(17, 17, 17, 0.8);
-
-  font-weight: bold;
-
+  border-radius: 3px 3px 0 0;
   background-color: rgba(mylib.$color-background-global, 0.95);
 
   display: grid;
