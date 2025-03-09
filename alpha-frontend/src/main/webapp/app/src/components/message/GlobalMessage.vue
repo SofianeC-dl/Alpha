@@ -3,6 +3,7 @@ import { useGlobalMessageStore } from '@/stores/globalError/globalMessageStore'
 import { computed } from 'vue'
 import HeaderMessage from '@/components/message/HeaderMessage.vue'
 import MessageToastToast from '@/components/message/MessageToast.vue'
+import Button from "@/components/button/Button.vue";
 
 const globalMessageStore = useGlobalMessageStore()
 
@@ -13,37 +14,44 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 <template>
   <Teleport to="body">
     <div v-if="isOpen" :class="['global-message-params', type]">
-      <HeaderMessage class="item-header" :class="type" />
+      <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />
-      <button @click="globalMessageStore.clearMessage()" class="item-button">Close</button>
+      <Button :function-click="globalMessageStore.clearMessage" class="item-button" label-button="Close" />
     </div>
   </Teleport>
 </template>
 
 <style lang="scss">
 @use '@/assets/css/index' as mylib;
+
 .global-message-params {
   position: fixed;
   z-index: 9999;
 
-  top: 0;
-  right: 5px;
-  width: 350px;
+  bottom: 0;
+  right: 5%;
+  width: 25%;
+  min-width:  19rem;
   min-height: 10vh;
   box-sizing: border-box;
 
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
-  border-radius: 0 0 5px 5px;
+  border-left: 1px solid mylib.$color-font-global;
+  border-right: 1px solid mylib.$color-font-global;
+  border-top: 1px solid mylib.$color-font-global;
+
+  box-shadow:
+    -4px -4px 8px rgba(17, 17, 17, 0.8),
+    0 4px 8px rgba(17, 17, 17, 0.8),
+    inset -4px -4px 8px rgba(17, 17, 17, 0.8),
+    inset 4px 4px 8px rgba(17, 17, 17, 0.8);
 
   font-weight: bold;
 
-  background-color: mylib.$color-background-global;
+  background-color: rgba(mylib.$color-background-global, 0.95);
 
   display: grid;
   grid-template-rows: 5px 2em 2px auto 2px 20px 5px;
-  grid-template-columns: 5px 2em 2px auto 60px 5px;
+  grid-template-columns: 5px 2em 2px auto min-content 5px;
   grid-template-areas:
     '. .      .       .       .       .'
     '. header header  header  header   .'
@@ -55,6 +63,7 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 }
 
 .item-button {
+  place-items: flex-end;
   grid-area: button;
 }
 
@@ -68,35 +77,40 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
   word-break: break-word;
 }
 
+.item-icon {
+  grid-area: icon;
+  width: 100%;
+  height: 100%;
+}
 .global-message-params.error {
-  border-color: #e74c3c;
+  border-color: mylib.$color-message-error;
 }
 
 .global-message-params.error a {
-  color: #e74c3c;
+  color: mylib.$color-message-error;
 }
 
 .global-message-params.success {
-  border-color: #2ecc71;
+  border-color: mylib.$color-message-success;
 }
 
 .global-message-params.success a {
-  color: #2ecc71;
+  color: mylib.$color-message-success;
 }
 
 .global-message-params.info {
-  border-color: #3498db;
+  border-color: mylib.$color-message-info;
 }
 
 .global-message-params.info a {
-  color: #3498db;
+  color: mylib.$color-message-info;
 }
 
 .global-message-params.warn {
-  border-color: #e1be2b;
+  border-color: mylib.$color-message-warn;
 }
 
 .global-message-params.warn a {
-  color: #e1be2b;
+  color: mylib.$color-message-warn;
 }
 </style>

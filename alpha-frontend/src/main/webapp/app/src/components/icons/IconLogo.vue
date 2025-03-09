@@ -75,6 +75,5 @@ svg {
 text {
   font-size: 100px;
   width: 100%;
-  font-family: BebasNeue, sans-serif
 }
 </style>

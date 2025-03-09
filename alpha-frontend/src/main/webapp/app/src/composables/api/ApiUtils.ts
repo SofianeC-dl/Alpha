@@ -1,4 +1,4 @@
-import type {MessageError} from "@/assets/object/ObjectUtils.ts";
+import type {MessageError} from "@/assets/object/MessageError.ts";
 import errorJson from "@/assets/json/error.json";
 import type {ErrorJsonDict} from "@/assets/TypeGlobal.ts";
 import {MessageGlobalParseUtils, MessageGlobalToastUtils} from "../message/MessageGlobalUtils.js";

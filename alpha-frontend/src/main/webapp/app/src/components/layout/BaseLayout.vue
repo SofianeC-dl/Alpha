@@ -6,6 +6,7 @@ import FooterView from '../../views/structure/FooterView.vue'
 import { onMounted } from 'vue'
 import MainView from '../../views/structure/MainView.vue'
 import GlobalMessage from '@/components/message/GlobalMessage.vue'
+import Modal from "@/components/modal/Modal.vue";
 
 defineProps({})
 
@@ -18,6 +19,7 @@ onMounted(() => {
 <template>
   <div class="main-layout">
     <GlobalMessage />
+    <Modal />
     <HeaderView class="main-header" />
     <MainView class="main-view" />
     <FooterView class="main-footer" />

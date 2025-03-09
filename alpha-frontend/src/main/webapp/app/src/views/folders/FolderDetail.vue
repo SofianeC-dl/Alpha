@@ -19,7 +19,5 @@ import ButtonFolderProject from "@/components/button/ButtonFolderProject.vue";
   padding: 4px;
   background: mylib.$color-background-main-view;
   border-radius: mylib.$main-border-radius;
-
-  box-shadow: -4px -4px 4px rgba(17, 17, 17, 0.5);
 }
 </style>

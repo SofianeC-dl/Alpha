@@ -27,6 +27,8 @@ import type { AxiosPromise } from 'axios'
 import { MessageGlobalToastUtils } from '@/composables/message/MessageGlobalUtils.js'
 import { type Ref, ref } from 'vue'
 import { useCatch } from '@/composables/api/ApiUtils.js'
+import Button from "@/components/button/Button.vue";
+import {useModalStore} from "@/stores/modal/modalStore.js";
 const tagApi: TagApi = new TagApi()
 const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi()
 const projectApi: ProjectApi = new ProjectApi()
@@ -37,8 +39,21 @@ const tagId: Ref<number, number> = ref(1)
 const imageIllustrationId: Ref<number, number> = ref(1)
 const imageProjectId: Ref<number, number> = ref(1)
 
+const modalStore = useModalStore();
 const throwError = () => {
   MessageGlobalToastUtils.errorMessage('TEST')
+}
+
+const throwSucces = () => {
+  MessageGlobalToastUtils.successMessage('TEST')
+}
+
+const throwInfo = () => {
+  MessageGlobalToastUtils.infoMessage('TEST')
+}
+
+const throwWarn = () => {
+  MessageGlobalToastUtils.warningMessage('TEST')
 }
 
 const consoleLog = (axiosResult: AxiosPromise, label: string) => {
@@ -267,6 +282,23 @@ const deleteImageProject = () => {
 <template>
   <div>
     <button @click="throwError">Déclencher une erreur</button>
+    <button @click="throwSucces">Déclencher un succes</button>
+    <button @click="throwInfo">Déclencher une info</button>
+    <button @click="throwWarn">Déclencher un warn</button>
+
+    <div>
+      <a>###################################################################</a>
+    </div>
+
+    <button @click="() => modalStore.open({
+      title: 'test',
+      size: 'md',
+      body: 'body test'
+    })" >Modal </button>
+
+    <div>
+      <a>###################################################################</a>
+    </div>
 
     <div class="inputApi">
       <label>Project ID : </label>

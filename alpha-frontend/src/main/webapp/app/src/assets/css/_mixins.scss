@@ -54,3 +54,8 @@
     opacity: 1;
   }
 }
+
+/* FONT */
+@mixin font-text {
+  font-family: BebasNeue, sans-serif
+}

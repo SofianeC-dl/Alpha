@@ -9,6 +9,7 @@
 
 html,
 body {
+  @include mylib.font-text;
   display: contents;
   scrollbar-width: thin;
   overflow-y: auto;

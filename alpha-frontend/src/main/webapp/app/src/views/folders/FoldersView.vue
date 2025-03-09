@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import FolderDetail from "@/views/folders/FolderDetail.vue";
+import {useModalStore} from "@/stores/modal/modalStore.js";
+
+const modalStore = useModalStore();
 
 </script>
 
