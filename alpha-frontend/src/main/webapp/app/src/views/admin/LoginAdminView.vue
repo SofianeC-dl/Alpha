@@ -4,8 +4,8 @@ import {
   AuthentificationApi,
   AuthentificationApiCreateAuthenticationTokenAndLoginRequest
 } from "@/generated/index.js";
-import {useCatch} from "@/composables/api/ApiUtils.js";
-import {MessageGlobalToastUtils} from "@/composables/message/MessageGlobalUtils.js";
+import {useCatch} from "@/composables/utils/api/ApiUtils.js";
+import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
 import {ref} from "vue";
 import { useRouter } from 'vue-router';
 import {useAuthStore} from "@/stores/auth/AuthStore.js";

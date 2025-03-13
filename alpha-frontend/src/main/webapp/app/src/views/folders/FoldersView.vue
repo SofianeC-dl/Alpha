@@ -25,8 +25,7 @@ const modalStore = useModalStore();
   align-content: space-between;
   flex-wrap: wrap;
 
-
-  @media(max-width: 572px) {
+  @media(max-width: mylib.$media-size-menu) {
     justify-content: space-between;
   }
 }

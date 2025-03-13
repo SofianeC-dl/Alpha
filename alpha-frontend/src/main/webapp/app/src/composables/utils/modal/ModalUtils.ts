@@ -1,15 +1,17 @@
+import {SizeEnum} from "../../../assets/enum/sizeEnum.js";
+
 export class ModalUtils {
 
- static convertSize(size: string): string {
+ static convertSize(size: SizeEnum): string {
    let resultSize: string = '40%';
    switch (size) {
-     case 'sm':
+     case SizeEnum.SMALL:
        resultSize = '20%';
        break;
-     case 'md':
+     case SizeEnum.MEDIUM:
        resultSize = '40%';
        break;
-     case 'lg':
+     case SizeEnum.LARGER:
        resultSize = '70%';
        break;
      default:

@@ -70,7 +70,9 @@ function measureText() {
 
 svg {
   width: 100%;
-  height: mylib.$header-height-size;;
+  //min-width: 70vh;
+  height: mylib.$header-height-size;
+  //min-height: mylib.$header-height-size;
 }
 text {
   font-size: 100px;

@@ -24,10 +24,9 @@ import {
   type TagApiUpdateTagRequest,
 } from '@/generated/index.js'
 import type { AxiosPromise } from 'axios'
-import { MessageGlobalToastUtils } from '@/composables/message/MessageGlobalUtils.js'
+import { MessageGlobalToastUtils } from '@/composables/utils/message/MessageGlobalUtils.js'
 import { type Ref, ref } from 'vue'
-import { useCatch } from '@/composables/api/ApiUtils.js'
-import Button from "@/components/button/Button.vue";
+import { useCatch } from '@/composables/utils/api/ApiUtils.js'
 import {useModalStore} from "@/stores/modal/modalStore.js";
 const tagApi: TagApi = new TagApi()
 const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi()

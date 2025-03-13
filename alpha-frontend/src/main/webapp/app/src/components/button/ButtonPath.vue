@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, onMounted, PropType, Ref, ref} from "vue";
 import { useRoute } from "vue-router";
+import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
+import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import {SizeBox} from "@/composables/object/SizeBox.js";
 
 const emits = defineEmits(['clicked'])
 
 const props = defineProps({
-  typeRouteActive: {
+  routingPath: {
     type: String,
     default: ''
   },
+  activePath: {
+    type: Array<String>,
+    default: [],
+  },
   labelButton: {
     type: String,
-    default: `[no_label_button]`
+    default: `[X]`
   },
   isButtonPath: {
     type: Boolean,
@@ -26,17 +33,29 @@ const props = defineProps({
     default: () => {
       console.log('Not function click');
     }
+  },
+  size: {
+    type: String as PropType<SizeEnum>,
+    default: SizeEnum.DEFAULT
   }
 })
 
 /** Variables **/
 const route = useRoute();
 
-const routePath: string = '/' + props.typeRouteActive;
+const routePath: string = '/' + props.routingPath;
+
+const widthButton: Ref<string, string> = ref(null);
+const heightButton: Ref<string, string> = ref(null);
 
 /** Méthodes **/
+const normalizedActivePath = () => {
+  return props.activePath.map((activePath: string) => '/' + activePath);
+};
+
 const isActiveButtonCurrentRoute = computed(() => {
-  return route.path === routePath;
+  const normalizedPathArray: String[] = normalizedActivePath();
+  return route.path === routePath || normalizedPathArray.includes(route.path);
 });
 
 const clicked = () => {
@@ -44,22 +63,21 @@ const clicked = () => {
   emits('clicked');
 }
 
+onMounted(() => {
+  const result: SizeBox = ButtonUtils.convertSize(props.size);
+
+  widthButton.value = result.width;
+  heightButton.value = result.height;
+})
+
 
 </script>
 
 <template>
-  <div class="main-button" @click="clicked">
+  <div class="main-button" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
     <router-link :to="routePath" class="button-style effect" v-if="isButtonPath">
       <span class="selector-menu" :class="{'invisibility-selector': !isActiveButtonCurrentRoute || notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
     </router-link>
-
-    <span
-      class="button-style clickable gradient-button effect"
-
-      v-if="!isButtonPath"
-    >
-      {{ props.labelButton }}
-    </span>
   </div>
 </template>
 
@@ -71,16 +89,14 @@ const clicked = () => {
   align-items: center;
   flex-wrap: nowrap;
   justify-content: center;
-  width: max-content;
+  width: var(--size-button-width);
+  height: var(--size-button-height);
 }
 
 .button-style {
   width: max-content;
   @include mylib.link-menu;
-}
-
-.clickable {
-  cursor: pointer;
+  @include mylib.center-block
 }
 
 .selector-menu {
@@ -106,5 +122,10 @@ const clicked = () => {
 
 .effect:hover {
   transform: scale(1.1);
+}
+
+span {
+  display: block;    /* ou inline-block */
+  width: 100%;
 }
 </style>

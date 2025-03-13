@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useModalStore} from "@/stores/modal/modalStore.js";
-import {ModalUtils} from "@/composables/modal/ModalUtils.js";
+import {ModalUtils} from "@/composables/utils/modal/ModalUtils.js";
 
 const modalStore = useModalStore();
 

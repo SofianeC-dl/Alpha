@@ -1,52 +1,46 @@
 <script setup lang="ts">
 /** Imports **/
-import {computed, nextTick, onBeforeUnmount, onMounted, ref} from 'vue'
-import {useRouter} from "vue-router";
-import Button from "@/components/button/Button.vue";
+import {computed, onMounted, onUnmounted, Ref, ref} from 'vue'
+import {Router, useRouter} from "vue-router";
+import ButtonPath from "@/components/button/ButtonPath.vue";
 import LogoView from "@/components/logo/LogoView.vue";
 import ButtonsContainer from "@/components/button/ButtonsContainer.vue";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
-import {MessageGlobalToastUtils} from "@/composables/message/MessageGlobalUtils.js";
+import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
+import ButtonMenu from "@/components/button/ButtonMenu.vue";
+import ButtonAction from "@/components/button/ButtonAction.vue";
+import {Store} from "pinia";
+import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
 
 defineProps({})
 
 /** Variables **/
-const router = useRouter();
+const router: Router = useRouter();
+const authStore: Store = useAuthStore();
 
-const isShrunk = ref(false);
-
-let lastScrollPosition = 0;
-
-const rightGroupRef = ref<HTMLElement|null>(null);
-const rightWidth = ref(0);
-
-const authStore = useAuthStore();
 const isAdmin = computed(() => authStore.isAdmin);
 
+const mediaQuery: MediaQueryList = window.matchMedia('(max-width: 598px)');
+const isMediaPhone: Ref<boolean, boolean> = ref<boolean>(false);
+
 /** Methods **/
-function handleScroll() {
-  const currentScroll = window.scrollY || document.documentElement.scrollTop
-  isShrunk.value = currentScroll > lastScrollPosition
-  lastScrollPosition = currentScroll
+const handleResize = () => {
+  isMediaPhone.value = mediaQuery.matches;
 }
 
 onMounted(() => {
   console.log(`the Header component is now mounted.`)
 
-  window.addEventListener('scroll', handleScroll)
-
-  nextTick(() => {
-    if(rightGroupRef.value) {
-      rightWidth.value = rightGroupRef.value.offsetWidth;
-    }
-  });
+  window.addEventListener('resize', handleResize)
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll)
-});
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+})
+
 const deconnect = () => {
   authStore.setToken(null);
+  router.push('/');
 };
 
 const logoutMessage = () => {
@@ -64,24 +58,32 @@ const logoutMessage = () => {
 
       <div class="left-group"></div>
 
-      <div class="center-group">
-        <Button id="admin" class="grid-menu-admin" type-route-active="Login" label-button="Admin" :is-button-path="true "/>
+      <div v-if="!isMediaPhone" class="center-group">
+        <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :is-button-path="true" :active-path="['Admin']"/>
 
         <LogoView class="grid-logo" text="Archive.rar" />
 
-        <Button id="about" class="grid-menu-about" type-route-active="About" label-button="About" :is-button-path="true " />
+        <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About" :is-button-path="true " />
+      </div>
+
+      <div v-if="isMediaPhone" class="center-group">
+        <LogoView class="grid-logo" text="Archive.rar" />
+
+        <ButtonsContainer style="justify-content: space-between" :direction="FlexDirectionEnum.ROW">
+          <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :is-button-path="true" :active-path="['Admin']"/>
+          <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About" :is-button-path="true " />
+        </ButtonsContainer>
       </div>
 
       <div class="right-group">
         <ButtonsContainer gap="100px" v-if="isAdmin">
-          <Button id="api" type-route-active="Api" label-button="Api" :is-button-path="true" />
-          <Button id="api"
-                  type-route-active=""
-                  label-button="log out"
-                  :function-click="deconnect"
-                  :is-button-path="false"
-                  @clicked="logoutMessage"/>
+          <ButtonPath id="api" routing-path="Api" label-button="Api" :is-button-path="true" />
+          <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage"/>
         </ButtonsContainer>
+      </div>
+
+      <div class="right-group-menu-burger">
+        <ButtonMenu />
       </div>
   </header>
 </template>
@@ -91,7 +93,6 @@ const logoutMessage = () => {
 
 header {
   position: relative;
-  //@include mylib.center-block;
 
   display: flex;
   justify-content: space-between;
@@ -122,11 +123,36 @@ header {
   height: mylib.$header-height-size;
 }
 
+@media (max-width: mylib.$media-size-logo) {
+  .center-group {
+    flex-direction: column;
+  }
+}
+
 .right-group {
   display: flex;
   justify-content: flex-end;
   width: 20%;
   box-sizing: border-box;
+}
+
+@media (max-width: mylib.$media-size-menu) {
+  .right-group {
+    display: none;
+  }
+}
+
+.right-group-menu-burger {
+  display: none;
+}
+
+@media (max-width: mylib.$media-size-menu) {
+  .right-group-menu-burger {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+    box-sizing: border-box;
+  }
 }
 
 .gradient-button {

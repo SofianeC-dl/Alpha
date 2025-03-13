@@ -7,6 +7,7 @@ import { onMounted } from 'vue'
 import MainView from '../../views/structure/MainView.vue'
 import GlobalMessage from '@/components/message/GlobalMessage.vue'
 import Modal from "@/components/modal/Modal.vue";
+import MenuBurger from "@/components/menu/MenuBurger.vue";
 
 defineProps({})
 
@@ -17,13 +18,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main-layout">
-    <GlobalMessage />
-    <Modal />
-    <HeaderView class="main-header" />
-    <MainView class="main-view" />
-    <FooterView class="main-footer" />
-  </div>
+    <div class="main-layout">
+      <GlobalMessage />
+      <Modal />
+      <MenuBurger />
+      <HeaderView class="main-header" />
+      <MainView class="main-view" />
+      <FooterView class="main-footer" />
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -32,12 +34,12 @@ onMounted(() => {
 .main-layout {
   min-height: mylib.$main-height-size;
   display: grid;
-  grid-template-columns: mylib.$margin-global 1fr mylib.$margin-global;
+  grid-template-columns: mylib.$margin-global auto mylib.$margin-global;
   grid-template-rows:
     mylib.$margin-global
     mylib.$header-height-size
     mylib.$margin-global
-    1fr
+    auto
     mylib.$margin-global
     mylib.$footer-height-size
     mylib.$margin-global;

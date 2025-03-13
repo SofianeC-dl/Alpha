@@ -1,11 +1,12 @@
 import {defineStore} from "pinia";
 import {Ref, ref} from "vue";
-import {ModalOption} from "../../assets/object/ModalOption.js";
+import {ModalOption} from "../../composables/object/ModalOption.js";
+import {SizeEnum} from "../../assets/enum/sizeEnum.js";
 
 export const useModalStore = defineStore('modalStore', () => {
   const defaultModalOption: ModalOption = {
     title: '[no_title]',
-    size: 'md',
+    size: SizeEnum.MEDIUM,
     body: '[no_body]'
   };
 

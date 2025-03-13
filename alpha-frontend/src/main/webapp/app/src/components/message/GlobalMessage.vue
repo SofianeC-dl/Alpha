@@ -3,7 +3,7 @@ import { useGlobalMessageStore } from '@/stores/globalMesage/globalMessageStore'
 import { computed } from 'vue'
 import HeaderMessage from '@/components/message/HeaderMessage.vue'
 import MessageToastToast from '@/components/message/MessageToast.vue'
-import Button from "@/components/button/Button.vue";
+import ButtonPath from "@/components/button/ButtonPath.vue";
 
 const globalMessageStore = useGlobalMessageStore()
 
@@ -14,7 +14,7 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 <template>
   <Teleport to="body">
     <div v-if="isOpen" :class="['global-message-params', type]">
-      <Button :function-click="globalMessageStore.clearMessage" class="item-button" label-button="[X]" />
+      <ButtonPath :function-click="globalMessageStore.clearMessage" class="item-button" label-button="[X]" />
       <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />
     </div>
