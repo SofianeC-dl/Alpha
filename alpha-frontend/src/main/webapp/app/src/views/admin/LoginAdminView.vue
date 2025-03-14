@@ -9,8 +9,11 @@ import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobal
 import {ref} from "vue";
 import { useRouter } from 'vue-router';
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
+import {useLoadingStore} from "@/stores/loading/loadingStore.js";
 
 const router = useRouter();
+const loadingStore = useLoadingStore();
+
 const authentificationApi: AuthentificationApi = new AuthentificationApi();
 
 const username:  Ref<string, string> = ref('');
@@ -23,7 +26,10 @@ const login = (() => {
       password: password.value
     }
   }
+
+  loadingStore.activeLoading();
   useCatch(authentificationApi.createAuthenticationTokenAndLogin(authentificationApiCreateAuthenticationTokenAndLoginRequest).then((axiosData) => {
+    loadingStore.disabledLoading();
     MessageGlobalToastUtils.successMessage(`Connexion Réussi`, axiosData.data.token);
     const authStore: useAuthStore = useAuthStore();
     authStore.setToken(axiosData.data.token);

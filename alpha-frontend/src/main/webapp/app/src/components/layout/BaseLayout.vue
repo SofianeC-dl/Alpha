@@ -8,6 +8,7 @@ import MainView from '../../views/structure/MainView.vue'
 import GlobalMessage from '@/components/message/GlobalMessage.vue'
 import Modal from "@/components/modal/Modal.vue";
 import MenuBurger from "@/components/menu/MenuBurger.vue";
+import Loading from "@/components/loading/Loading.vue";
 
 defineProps({})
 
@@ -19,6 +20,7 @@ onMounted(() => {
 
 <template>
     <div class="main-layout">
+      <Loading />
       <GlobalMessage />
       <Modal />
       <MenuBurger />
