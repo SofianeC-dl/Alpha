@@ -16,6 +16,10 @@ const props = defineProps({
     type: String,
     default: `[X]`
   },
+  isIconButton: {
+    type: Boolean,
+    default: false
+  },
   isButtonPath: {
     type: Boolean,
     default: false
@@ -66,13 +70,14 @@ onMounted(() => {
 
 <template>
   <div class="main-button clickable selector-menu gradient-button effect" :class="{'invisibility-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
-    <span xmlns="http://www.w3.org/1999/xhtml"
+    <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml"
          style="
             color: white;
             white-space: pre-wrap;
             overflow: hidden;">
       {{ props.labelButton }}
     </span>
+    <slot></slot>
   </div>
 </template>
 

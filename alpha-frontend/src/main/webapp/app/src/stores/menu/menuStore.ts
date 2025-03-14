@@ -5,12 +5,16 @@ export const useMenuStore = defineStore('menuStore', () => {
   const isMenuOpen: Ref<boolean, boolean> = ref(false);
 
   function toggleMenu() {
-    console.log('menu open : ',isMenuOpen.value);
     isMenuOpen.value = !isMenuOpen.value
+  }
+
+  function closeMenu() {
+    isMenuOpen.value = false;
   }
 
   return {
     isMenuOpen,
-    toggleMenu
+    toggleMenu,
+    closeMenu
   }
 });

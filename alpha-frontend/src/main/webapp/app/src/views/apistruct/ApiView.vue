@@ -23,11 +23,13 @@ import {
   type TagApiGetTagRequest,
   type TagApiUpdateTagRequest,
 } from '@/generated/index.js'
-import type { AxiosPromise } from 'axios'
-import { MessageGlobalToastUtils } from '@/composables/utils/message/MessageGlobalUtils.js'
-import { type Ref, ref } from 'vue'
-import { useCatch } from '@/composables/utils/api/ApiUtils.js'
+import type {AxiosPromise} from 'axios'
+import {MessageGlobalToastUtils} from '@/composables/utils/message/MessageGlobalUtils.js'
+import {type Ref, ref} from 'vue'
+import {useCatch} from '@/composables/utils/api/ApiUtils.js'
 import {useModalStore} from "@/stores/modal/modalStore.js";
+import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+
 const tagApi: TagApi = new TagApi()
 const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi()
 const projectApi: ProjectApi = new ProjectApi()
@@ -291,9 +293,21 @@ const deleteImageProject = () => {
 
     <button @click="() => modalStore.open({
       title: 'test',
-      size: 'md',
+      size: SizeEnum.SMALL,
       body: 'body test'
-    })" >Modal </button>
+    })" >Modal Small</button>
+
+    <button @click="() => modalStore.open({
+      title: 'test',
+      size: SizeEnum.MEDIUM,
+      body: 'body test'
+    })" >Modal Medium</button>
+
+    <button @click="() => modalStore.open({
+      title: 'test',
+      size: SizeEnum.LARGER,
+      body: 'body test'
+    })" >Modal Larger</button>
 
     <div>
       <a>###################################################################</a>

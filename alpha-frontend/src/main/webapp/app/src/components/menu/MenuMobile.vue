@@ -1,14 +1,16 @@
 <script setup lang="ts">
 
 import {useMenuStore} from "@/stores/menu/menuStore.js";
-import ButtonPath from "@/components/button/ButtonPath.vue";
+import ButtonAction from "@/components/button/ButtonAction.vue";
 
 const menuStore = useMenuStore();
 </script>
 
 <template>
     <nav v-if="menuStore.isMenuOpen" class="menu-navbar">
-      <ButtonPath class="button-close-menu" :function-click="menuStore.toggleMenu" :not-selected-box="true"/>
+      <div class="button-close-menu">
+        <ButtonAction  :function-click="menuStore.toggleMenu" :not-selected-box="true" />
+      </div>
 
       <div class="button-menu">
         <slot class="button"></slot>

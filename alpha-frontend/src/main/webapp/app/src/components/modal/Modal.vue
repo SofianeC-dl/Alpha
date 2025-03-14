@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
 import {useModalStore} from "@/stores/modal/modalStore.js";
-import ButtonPath from "@/components/button/ButtonPath.vue";
 import {ModalUtils} from "@/composables/utils/modal/ModalUtils.js";
+import ButtonAction from "@/components/button/ButtonAction.vue";
 
 const modalStore = useModalStore();
 
@@ -22,7 +22,7 @@ const modalStore = useModalStore();
           </div>
 
           <div class="modal-footer">
-              <ButtonPath class="modal-default-button" :function-click="modalStore.close" label-button="ok"/>
+              <ButtonAction class="modal-default-button" :function-click="modalStore.close" label-button="ok"/>
           </div>
         </div>
       </div>

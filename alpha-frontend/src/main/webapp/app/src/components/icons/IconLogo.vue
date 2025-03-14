@@ -63,17 +63,15 @@ function measureText() {
 .svg-wrapper {
   display: contents;
   width: 100%;
-  /* Donnez une hauteur ou un ratio pour que l’SVG ait un espace vertical */
   aspect-ratio: 2 / 1; // par exemple
   background: #222;
 }
 
 svg {
   width: 100%;
-  //min-width: 70vh;
-  height: mylib.$header-height-size;
-  //min-height: mylib.$header-height-size;
+  height: max-content;
 }
+
 text {
   font-size: 100px;
   width: 100%;

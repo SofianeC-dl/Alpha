@@ -7,20 +7,25 @@ import LogoView from "@/components/logo/LogoView.vue";
 import ButtonsContainer from "@/components/button/ButtonsContainer.vue";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
 import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
-import ButtonMenu from "@/components/button/ButtonMenu.vue";
 import ButtonAction from "@/components/button/ButtonAction.vue";
 import {Store} from "pinia";
 import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
+import {useMenuStore} from "@/stores/menu/menuStore.js";
+import IconMenu from "@/components/icons/IconMenu.vue";
 
 defineProps({})
 
 /** Variables **/
 const router: Router = useRouter();
 const authStore: Store = useAuthStore();
+const menuStore = useMenuStore();
 
-const isAdmin = computed(() => authStore.isAdmin);
+const isAdmin = computed(() => {
+  menuStore.closeMenu();
+  return authStore.isAdmin;
+});
 
-const mediaQuery: MediaQueryList = window.matchMedia('(max-width: 598px)');
+const mediaQuery: MediaQueryList = window.matchMedia('(max-width: 814px)');
 const isMediaPhone: Ref<boolean, boolean> = ref<boolean>(false);
 
 /** Methods **/
@@ -32,6 +37,7 @@ onMounted(() => {
   console.log(`the Header component is now mounted.`)
 
   window.addEventListener('resize', handleResize)
+  handleResize();
 })
 
 onUnmounted(() => {
@@ -66,11 +72,18 @@ const logoutMessage = () => {
         <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About" :is-button-path="true " />
       </div>
 
-      <div v-if="isMediaPhone" class="center-group">
+    <div v-if="isMediaPhone" class="center-group">
         <LogoView class="grid-logo" text="Archive.rar" />
 
-        <ButtonsContainer style="justify-content: space-between" :direction="FlexDirectionEnum.ROW">
+        <ButtonsContainer class="button-container" :direction="FlexDirectionEnum.ROW">
           <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :is-button-path="true" :active-path="['Admin']"/>
+
+          <div class="right-group-menu-burger">
+            <ButtonAction :function-click="menuStore.toggleMenu" :is-icon-button="true" :not-selected-box="true" v-if="isAdmin">
+              <IconMenu />
+            </ButtonAction>
+          </div>
+
           <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About" :is-button-path="true " />
         </ButtonsContainer>
       </div>
@@ -82,9 +95,7 @@ const logoutMessage = () => {
         </ButtonsContainer>
       </div>
 
-      <div class="right-group-menu-burger">
-        <ButtonMenu />
-      </div>
+      <div class="right-group-menu-burger"></div>
   </header>
 </template>
 
@@ -102,6 +113,11 @@ header {
 .left-group {
   width: 20%;
 }
+
+.button-container {
+  justify-content: space-between;
+}
+
 .space-container-header {
   display: flex;
   align-items: center;
@@ -115,18 +131,11 @@ header {
 .center-group {
   justify-content: center;
   display: flex;
-  width: 60%;
   justify-items: center;
   grid-template-columns: auto max-content auto;
   align-items: center;
   column-gap: mylib.$header-margin-size;
-  height: mylib.$header-height-size;
-}
-
-@media (max-width: mylib.$media-size-logo) {
-  .center-group {
-    flex-direction: column;
-  }
+  //height: mylib.$header-height-size;
 }
 
 .right-group {
@@ -136,23 +145,8 @@ header {
   box-sizing: border-box;
 }
 
-@media (max-width: mylib.$media-size-menu) {
-  .right-group {
-    display: none;
-  }
-}
-
 .right-group-menu-burger {
   display: none;
-}
-
-@media (max-width: mylib.$media-size-menu) {
-  .right-group-menu-burger {
-    display: flex;
-    justify-content: flex-end;
-    width: 20%;
-    box-sizing: border-box;
-  }
 }
 
 .gradient-button {
@@ -168,5 +162,37 @@ header {
 .grid-menu-about {
   position: relative;
   @include mylib.link-menu;
+}
+
+@media (max-width: mylib.$media-size-menu) {
+  .right-group {
+    display: none;
+  }
+
+  .right-group-menu-burger {
+    display: flex;
+    justify-content: flex-end;
+    width: 10%;
+    box-sizing: border-box;
+  }
+
+  .left-group {
+    width: 10%;
+  }
+
+  .right-group {
+    width: 10%;
+  }
+
+  .button-container {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: mylib.$media-size-logo) {
+  .center-group {
+    flex-direction: column;
+    justify-content: space-around;
+  }
 }
 </style>
