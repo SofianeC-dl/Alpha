@@ -5,7 +5,7 @@
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="130 70 370 210"
+    viewBox="130 70 280 210"
     style="width: 100%; height: auto;"
   >
     <g class="layer">

@@ -74,9 +74,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main-button" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
-    <router-link :to="routePath" class="button-style effect" v-if="isButtonPath">
-      <span class="selector-menu" :class="{'invisibility-selector': !isActiveButtonCurrentRoute || notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}">{{ props.labelButton }}</span>
+  <div :class="{'invisibility-selector': !isActiveButtonCurrentRoute || notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}" class="main-button selector-menu effect" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
+    <router-link :to="routePath" class="button-style" v-if="isButtonPath">
+      <span>{{ props.labelButton }}</span>
     </router-link>
   </div>
 </template>
@@ -90,7 +90,15 @@ onMounted(() => {
   flex-wrap: nowrap;
   justify-content: center;
   width: var(--size-button-width);
-  height: var(--size-button-height);
+}
+
+.main-button span {
+  display: flex;
+  overflow-wrap: break-word;
+  font-size: var(--size-button-height);
+
+  justify-content: center;
+  align-content: center;
 }
 
 .button-style {

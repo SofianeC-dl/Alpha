@@ -9,6 +9,7 @@ import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobal
 import {Store} from "pinia";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
 import {Router, useRouter} from "vue-router";
+import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 
 const authStore: Store = useAuthStore();
 const router: Router = useRouter();
@@ -32,8 +33,8 @@ const logoutMessage = () => {
   <Teleport to="body">
     <MenuMobile>
       <ButtonsContainer :direction="FlexDirectionEnum.COLUMN">
-        <ButtonPath id="api" routing-path="Api" label-button="Api" :is-button-path="true" />
-        <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage"/>
+        <ButtonPath id="api" routing-path="Api" label-button="Api" :is-button-path="true" :size="SizeEnum.MEDIUM"/>
+        <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.MEDIUM"/>
       </ButtonsContainer>
     </MenuMobile>
   </Teleport>

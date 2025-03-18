@@ -77,7 +77,9 @@ onMounted(() => {
             overflow: hidden;">
       {{ props.labelButton }}
     </span>
-    <slot></slot>
+    <div class="icon-center">
+      <slot ></slot>
+    </div>
   </div>
 </template>
 
@@ -96,6 +98,12 @@ onMounted(() => {
   overflow-wrap: break-word;
   font-size: var(--size-button-height);
 
+  justify-content: center;
+  align-content: center;
+}
+
+.icon-center {
+  display: flex;
   justify-content: center;
   align-content: center;
 }
