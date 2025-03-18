@@ -1,6 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com</groupId>
         <artifactId>Alpha</artifactId>
@@ -13,6 +16,7 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
+        <!-- Vos dépendances existantes -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -66,14 +70,61 @@
         </dependency>
     </dependencies>
 
-
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <delimiters>
+                            <delimiter>@</delimiter>
+                        </delimiters>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
+            <!-- 1) Plugin maven-resources-plugin pour copier + filtrer tout openapi/ -->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>filter-openapi</id>
+                        <!-- On lance ce filtrage pendant generate-sources,
+                             pour que le plugin OpenAPI lise la version filtrée. -->
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Répertoire de sortie où seront copiés les fichiers filtrés -->
+                            <outputDirectory>${project.build.directory}/filtered-openapi</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <!-- On copie tout le dossier openapi (y compris components/) -->
+                                    <directory>src/main/resources/openapi</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <!-- On inclut tous les fichiers YAML/YML pour gérer les références relatives -->
+                                        <include>**/*.yaml</include>
+                                        <include>**/*.yml</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 2) Plugin openapi-generator qui lit la version filtrée de openapi.yaml -->
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.0.1</version>
                 <executions>
+                    <!-- Génération du code Spring -->
                     <execution>
                         <id>generate-spring</id>
                         <phase>generate-sources</phase>
@@ -81,7 +132,8 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+                            <!-- IMPORTANT : on pointe vers le fichier filtré dans target/filtered-openapi -->
+                            <inputSpec>${project.build.directory}/filtered-openapi/openapi.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <cleanupOutput>true</cleanupOutput>
                             <output>${project.build.directory}/generated-sources/spring</output>
@@ -95,9 +147,9 @@
                                 <dateLibrary>java8</dateLibrary>
                                 <generateClientAsBean>true</generateClientAsBean>
                                 <useJakartaEe>true</useJakartaEe>
-                                <delegatePattern>true</delegatePattern> <!-- Sépare les interfaces et les implémentations -->
-                                <generateApis>true</generateApis> <!-- Ne génère que les API -->
-                                <generateModels>true</generateModels> <!-- Génère uniquement les modèles -->
+                                <delegatePattern>true</delegatePattern>
+                                <generateApis>true</generateApis>
+                                <generateModels>true</generateModels>
                                 <generateSupportingFiles>false</generateSupportingFiles>
                             </configOptions>
                             <additionalProperties>
@@ -106,14 +158,15 @@
                         </configuration>
                     </execution>
 
-                   <execution>
+                    <!-- Génération du code TypeScript Axios -->
+                    <execution>
                         <id>generate-typescript</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/openapi/openapi.yaml</inputSpec>
+                            <inputSpec>${project.build.directory}/filtered-openapi/openapi.yaml</inputSpec>
                             <generatorName>typescript-axios</generatorName>
                             <output>${project.parent.basedir}/alpha-frontend/src/main/webapp/app/src/generated</output>
                             <configOptions>
@@ -122,13 +175,13 @@
                                 <framework>axios</framework>
                                 <enumPropertyNaming>camelCase</enumPropertyNaming>
                                 <useSingleRequestParameter>true</useSingleRequestParameter>
-                                <useSeparateModels>true</useSeparateModels>  <!-- Sépare les DTOs en fichiers distincts -->
-                                <useSeparateApis>true</useSeparateApis>  <!-- Sépare les services en fichiers distincts -->
+                                <useSeparateModels>true</useSeparateModels>
+                                <useSeparateApis>true</useSeparateApis>
                                 <generateApis>true</generateApis>
                                 <generateModels>true</generateModels>
                                 <generateSupportingFiles>false</generateSupportingFiles>
-                                <modelFileSuffix>Dto.ts</modelFileSuffix>  <!-- Ajoute 'Dto' aux modèles -->
-                                <apiFileSuffix>Service.ts</apiFileSuffix>  <!-- Ajoute 'Service' aux services -->
+                                <modelFileSuffix>Dto.ts</modelFileSuffix>
+                                <apiFileSuffix>Service.ts</apiFileSuffix>
                             </configOptions>
                         </configuration>
                     </execution>

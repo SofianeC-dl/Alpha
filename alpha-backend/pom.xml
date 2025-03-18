@@ -193,7 +193,7 @@
                 <version>3.0.0-M7</version>
                 <configuration>
                     <environmentVariables>
-                        <listening_port>${listening.port.variable}</listening_port>
+                        <LISTENING_PORT>${api.port}</LISTENING_PORT>
                     </environmentVariables>
                 </configuration>
             </plugin>

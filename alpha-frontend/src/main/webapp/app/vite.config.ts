@@ -15,8 +15,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  server: {
-    host: true,
-    port: 3000,
-  },
+  // server: {
+  //   host: true,
+  //   port: 3000,
+  //   proxy: {
+  //     '/alpha-web': {
+  //       target: 'http://192.168.1.179:3000',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/alpha-web/, '')
+  //     }
+  //   }
+  // },
 })

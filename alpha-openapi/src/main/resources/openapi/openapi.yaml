@@ -6,7 +6,7 @@ info:
   description: Génération des endpoints de Alpha
 
 servers:
-  - url: "http://localhost:9090/alpha-web"
+  - url: "http://@api.host@:@api.port@/alpha-web"
 
 paths:
 

@@ -1,5 +1,7 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com</groupId>
   <artifactId>Alpha</artifactId>
@@ -23,8 +25,10 @@
     <module>alpha-frontend</module>
   </modules>
 
+  <!-- Propriété par défaut pour api.host -->
   <properties>
-    <listening.port.variable>9090</listening.port.variable>
+    <api.host>localhost</api.host>
+    <api.port>3001</api.port>
   </properties>
 
   <build>
@@ -34,17 +38,23 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
+
+        <!-- Configuration du maven-resources-plugin -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.2.0</version>
           <configuration>
+            <encoding>UTF-8</encoding>
+            <useDefaultDelimiters>true</useDefaultDelimiters>
             <delimiters>
               <delimiter>@</delimiter>
+              <delimiter>${</delimiter>
             </delimiters>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
+
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -57,4 +67,14 @@
       </resource>
     </resources>
   </build>
+
+  <profiles>
+    <profile>
+      <id>prod</id>
+      <properties>
+        <api.host>192.168.1.179</api.host>
+        <api.port>3001</api.port>
+      </properties>
+    </profile>
+  </profiles>
 </project>
