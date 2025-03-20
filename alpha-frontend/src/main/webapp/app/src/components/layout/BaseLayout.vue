@@ -7,8 +7,9 @@ import { onMounted } from 'vue'
 import MainView from '../../views/structure/MainView.vue'
 import GlobalMessage from '@/components/message/GlobalMessage.vue'
 import Modal from "@/components/modal/Modal.vue";
-import MenuBurger from "@/components/menu/MenuBurger.vue";
+import MenuBurger from "@/components/menu/burger/MenuBurger.vue";
 import Loading from "@/components/loading/Loading.vue";
+import ModalCustom from "@/components/modal/ModalCustom.vue";
 
 defineProps({})
 
@@ -23,6 +24,7 @@ onMounted(() => {
       <Loading />
       <GlobalMessage />
       <Modal />
+      <ModalCustom />
       <MenuBurger />
       <HeaderView class="main-header" />
       <MainView class="main-view" />

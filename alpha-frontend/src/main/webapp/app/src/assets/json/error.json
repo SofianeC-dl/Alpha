@@ -1,7 +1,9 @@
 {
   "404": {
     "resourcenotfoundexception": {
-      "get": "Ressource \"{0}\" non trouvé en base de donnée."
+      "get": "Ressource \"{0}\" non trouvé en base de donnée.",
+      "put": "Ressource \"{0}\" non trouvé en base de donnée, impossible de la modifier.",
+      "delete": "Ressource \"{0}\" non trouvé en base de donnée, impossible de la supprimer."
     }
   },
   "400": {

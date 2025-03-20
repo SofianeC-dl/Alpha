@@ -35,7 +35,7 @@
 
 <style lang="scss" scoped>
   svg {
-    width: 100%;
+    width: 50px;
     height: 100%;
   }
 </style>

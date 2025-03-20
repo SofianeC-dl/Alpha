@@ -1,6 +1,7 @@
 import {useGlobalMessageStore} from "../../../stores/globalMesage/globalMessageStore.js";
 import {TypeMessageEnum} from "../../../assets/enum/TypeMessageEnum.js";
 import {ErrorJsonDict} from "../../../assets/TypeGlobal.js";
+import errorJson from "../../../assets/json/error.json"
 
 export class MessageGlobalToastUtils {
   static errorMessage(message: string) {

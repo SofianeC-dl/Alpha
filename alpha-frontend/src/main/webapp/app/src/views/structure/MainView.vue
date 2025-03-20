@@ -12,11 +12,10 @@ onMounted(() => {
 
 <template>
   <main>
-        <router-view  />
+    <router-view  />
   </main>
 </template>
 
 <style lang="scss" scoped>
 @use "@/assets/css/index" as mylib;
-
 </style>

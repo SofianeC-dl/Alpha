@@ -1,28 +1,16 @@
 <script setup lang="ts">
 
-import {useModalStore} from "@/stores/modal/modalStore.js";
-import {ModalUtils} from "@/composables/utils/modal/ModalUtils.js";
-
-const modalStore = useModalStore();
+import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
+const modalCustomStore = useModalCustomStore();
 
 </script>
 
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="modalStore.isOpen" class="modal-mask">
-        <div class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}">
-          <div class="modal-header">
-            {{ modalStore.modalOption.title }}
-          </div>
-
-          <div class="modal-body">
-            <slot name="body"></slot>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer"></slot>
-          </div>
+      <div v-if="modalCustomStore.isOpen" class="modal-mask">
+        <div class="modal-container">
+          <component :is="modalCustomStore.modalOption" />
         </div>
       </div>
     </Transition>
@@ -44,12 +32,11 @@ const modalStore = useModalStore();
 }
 
 .modal-container {
-  width: var(--size-modal);
+  width: max-content;
   margin: auto;
   padding: 20px 30px;
   background-color: mylib.$color-background-global;
   border-radius: 4px;
-  //box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
 }
 

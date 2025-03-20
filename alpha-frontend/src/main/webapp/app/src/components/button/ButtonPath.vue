@@ -22,17 +22,11 @@ const props = defineProps({
   },
   isButtonPath: {
     type: Boolean,
-    default: false
+    default: true
   },
   notSelectedBox: {
     type: Boolean,
     default: false
-  },
-  functionClick: {
-    type: Function,
-    default: () => {
-      console.log('Not function click');
-    }
   },
   size: {
     type: String as PropType<SizeEnum>,
@@ -74,11 +68,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :class="{'invisibility-selector': !isActiveButtonCurrentRoute || notSelectedBox, 'gradient-button': !isActiveButtonCurrentRoute}" class="main-button selector-menu effect" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
-    <router-link :to="routePath" class="button-style" v-if="isButtonPath">
-      <span>{{ props.labelButton }}</span>
-    </router-link>
-  </div>
+  <router-link :to="routePath" class="button-style" v-if="isButtonPath">
+    <div :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" class="main-button selector-menu effect" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
+        <span>{{ props.labelButton }}</span>
+    </div>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
@@ -115,15 +109,14 @@ onMounted(() => {
 }
 
 .invisibility-selector {
-  border-color: transparent;
+  border-color: mylib.$color-background-global;
+  background-color: mylib.$color-font-global;
 }
 
-.gradient-button {
-  position: relative;
-  z-index: 1;
-  @include mylib.gradient-button;
-  @include mylib.gradient-button-hover;
+.invisibility-selector span {
+  color: mylib.$color-background-global;
 }
+
 .effect {
   transition: fill 30s ease;
 }

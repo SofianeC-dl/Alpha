@@ -92,8 +92,6 @@
                 <executions>
                     <execution>
                         <id>filter-openapi</id>
-                        <!-- On lance ce filtrage pendant generate-sources,
-                             pour que le plugin OpenAPI lise la version filtrée. -->
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>resources</goal>

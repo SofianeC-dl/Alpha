@@ -1,11 +1,29 @@
+/* GLOBAL */
 $margin-global: 15px;
-$media-size-menu: 572px;
-$media-size-logo: 814px;
+$media-size-minimal-folders: 385px;
+$media-size-menu: 1200px;
+$media-size-logo: 1600px;
+
+/* MESSAGE */
+$message-z-index: 10002;
+$message-min-width:  19rem;
+$message-min-height:  10vh;
+$message-border-size: 1px;
+$message-border-radius: 3px;
+
+$message-header-item-size: 100%;
+$message-icon-item-width: 100%;
+$message-icon-item-height: 100%;
+
+$message-margin: 5px;
+$message-header-size: 2em;
+$message-space-between: 2px;
+
 /* HEADER */
-$header-height-size: 20vh;
+$header-height-size: max-content;
 $header-margin-size: 1rem;
 
-/* menu */
+
 $header-container-button-size-height: 10cqh;
 $header-button-size-height: 5cqh;
 $header-button-unsize-height: calc(100cqh - 10cqh);
@@ -13,12 +31,16 @@ $header-container-button-size-width: 10cqw;
 $header-button-size-width: 5cqw;
 $header-button-unsize-width: calc(100cqw - 10cqw);
 
+/* MENU */
 $header-padding-menu: 1px;
 $header-border-menu-size: 2px;
 $header-border-radius: 5px;
 $header-space-between-button-right-group: 15px;
 
-/* logo */
+$menu-margin: 20px;
+
+
+/* LOGO */
 $header-logo-height-size: 95%;
 $header-logo-width-size: 50cqw;
 
@@ -26,7 +48,7 @@ $header-logo-width-size: 50cqw;
 $main-height-size: 100vh;
 $main-border-radius: 25px;
 
-$main-height-folder: 12cqi;
+$main-height-folder: 10cqi;
 $main-min-height-folder: 150px;
 $main-width-folder: 25cqi;
 

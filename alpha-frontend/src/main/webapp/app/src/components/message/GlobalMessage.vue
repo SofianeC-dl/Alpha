@@ -3,7 +3,7 @@ import { useGlobalMessageStore } from '@/stores/globalMesage/globalMessageStore'
 import { computed } from 'vue'
 import HeaderMessage from '@/components/message/HeaderMessage.vue'
 import MessageToastToast from '@/components/message/MessageToast.vue'
-import ButtonPath from "@/components/button/ButtonPath.vue";
+import ButtonAction from "@/components/button/ButtonAction.vue";
 
 const globalMessageStore = useGlobalMessageStore()
 
@@ -14,7 +14,7 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 <template>
   <Teleport to="body">
     <div v-if="isOpen" :class="['global-message-params', type]">
-      <ButtonPath :function-click="globalMessageStore.clearMessage" class="item-button" label-button="[X]" />
+      <ButtonAction :function-click="globalMessageStore.clearMessage" class="item-button" :not-selected-box="true"/>
       <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />
     </div>
@@ -26,25 +26,30 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 
 .global-message-params {
   position: fixed;
-  z-index: 9999;
+  z-index: mylib.$message-z-index;
 
   bottom: 0;
   right: 5%;
   width: 25%;
-  min-width:  19rem;
-  min-height: 10vh;
+  min-width:  mylib.$message-min-width;
+  min-height: mylib.$message-min-height;
   box-sizing: border-box;
 
-  border-left: 1px solid mylib.$color-font-global;
-  border-right: 1px solid mylib.$color-font-global;
-  border-top: 1px solid mylib.$color-font-global;
+  border-left: mylib.$message-border-size solid mylib.$color-font-global;
+  border-right: mylib.$message-border-size solid mylib.$color-font-global;
+  border-top: mylib.$message-border-size solid mylib.$color-font-global;
 
-  border-radius: 3px 3px 0 0;
-  background-color: rgba(mylib.$color-background-global, 0.95);
+  border-radius: mylib.$message-border-radius mylib.$message-border-radius 0 0;
+  background-color: rgba(mylib.$color-background-global, mylib.$color-message-opacity);
 
   display: grid;
-  grid-template-rows: 5px 2em 2px auto 5px;
-  grid-template-columns: 5px 2em 2px auto min-content 5px;
+  grid-template-rows:
+    mylib.$message-margin
+    mylib.$message-header-size
+    mylib.$message-space-between
+    auto
+    mylib.$message-margin;
+  grid-template-columns: mylib.$message-margin mylib.$message-header-size mylib.$message-space-between  auto min-content mylib.$message-margin ;
   grid-template-areas:
     '. .      .       .       .       .'
     '. header header  .       button  .'
@@ -61,7 +66,7 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 .item-header {
   place-items:center;
   grid-area: header;
-  width: 100%;
+  width: mylib.$message-header-item-size;
 }
 
 .item-main {
@@ -72,8 +77,8 @@ const isOpen = computed(() => globalMessageStore.isOpenned)
 
 .item-icon {
   grid-area: icon;
-  width: 100%;
-  height: 100%;
+  width: mylib.$message-icon-item-width;
+  height: mylib.$message-icon-item-height;
 }
 .global-message-params.error {
   border-color: mylib.$color-message-error;

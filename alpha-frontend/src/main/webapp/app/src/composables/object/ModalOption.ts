@@ -6,3 +6,7 @@ export interface ModalOption {
   body: string,
   isModulable?: boolean
 }
+
+export interface ModalCustomOption {
+  component: Object
+}

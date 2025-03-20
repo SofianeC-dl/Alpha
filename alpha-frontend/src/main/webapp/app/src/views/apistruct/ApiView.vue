@@ -288,7 +288,7 @@ const deleteImageProject = () => {
     <button @click="throwWarn">Déclencher un warn</button>
 
     <div>
-      <a>###################################################################</a>
+      <a>#</a>
     </div>
 
     <button @click="() => modalStore.open({
@@ -310,7 +310,7 @@ const deleteImageProject = () => {
     })" >Modal Larger</button>
 
     <div>
-      <a>###################################################################</a>
+      <a>#</a>
     </div>
 
     <div class="inputApi">
@@ -338,7 +338,7 @@ const deleteImageProject = () => {
     <button @click="deleteTag">Tag Delete</button>
   </div>
   <div>
-    <a>###################################################################</a>
+    <a>#</a>
   </div>
   <div>
     <button @click="getImageIllustration">ImageIllustration Get</button>
@@ -348,7 +348,7 @@ const deleteImageProject = () => {
     <button @click="deleteImageIllustration">ImageIllustration Delete</button>
   </div>
   <div>
-    <a>###################################################################</a>
+    <a>#</a>
   </div>
   <div>
     <button @click="getProject">Project Get</button>
@@ -359,7 +359,7 @@ const deleteImageProject = () => {
     <button @click="deleteProject">Project Delete</button>
   </div>
   <div>
-    <a>###################################################################</a>
+    <a>#</a>
   </div>
   <div>
     <button @click="getImageProject">ImageProject Get</button>
@@ -390,6 +390,7 @@ div {
 
 .inputApi input {
   width: 20px;
+  margin: 5px;
   text-align: center;
 }
 

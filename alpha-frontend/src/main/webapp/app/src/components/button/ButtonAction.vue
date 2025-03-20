@@ -5,7 +5,7 @@ import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import {SizeBox} from "@/composables/object/SizeBox.js";
 
-const emits = defineEmits(['clicked'])
+const emits = defineEmits(['clicked']);
 
 const props = defineProps({
   typeRouteActive: {
@@ -69,7 +69,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main-button clickable selector-menu gradient-button effect" :class="{'invisibility-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
+  <div class="main-button clickable selector-menu effect" :class="{'invisibility-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
     <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml"
          style="
             color: white;
@@ -121,13 +121,6 @@ onMounted(() => {
 
 .invisibility-selector {
   border-color: transparent;
-}
-
-.gradient-button {
-  position: relative;
-  z-index: 1;
-  @include mylib.gradient-button;
-  @include mylib.gradient-button-hover;
 }
 
 .effect {

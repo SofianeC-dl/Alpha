@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {PropType} from "vue";
-import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
+import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
 
 const props = defineProps({
   gap: {
@@ -10,12 +10,16 @@ const props = defineProps({
   direction: {
     type: String as PropType<FlexDirectionEnum>,
     default: FlexDirectionEnum.ROW
+  },
+  position: {
+    type: String as PropType<FlexPositionEnum>,
+    default: FlexPositionEnum.CENTER
   }
 });
 </script>
 
 <template>
-  <div class="slot-container" :style="{'--flex-direction': direction}">
+  <div class="slot-container" :style="{'--flex-direction': direction, '--flex-position': position}">
     <slot></slot>
   </div>
 </template>
@@ -28,6 +32,7 @@ const props = defineProps({
   align-items: center;
   flex-wrap: wrap;
   flex-direction: var(--flex-direction);
+  justify-content: var(--flex-position);
   gap: mylib.$header-space-between-button-right-group;
 }
 </style>

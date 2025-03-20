@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /** Imports **/
-import {computed, onMounted, onUnmounted, Ref, ref} from 'vue'
+import {computed, markRaw, onMounted, onUnmounted, Ref, ref} from 'vue'
 import {Router, useRouter} from "vue-router";
 import ButtonPath from "@/components/button/ButtonPath.vue";
 import LogoView from "@/components/logo/LogoView.vue";
@@ -12,6 +12,9 @@ import {Store} from "pinia";
 import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
 import {useMenuStore} from "@/stores/menu/menuStore.js";
 import IconMenu from "@/components/icons/IconMenu.vue";
+import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import SearchModal from "@/components/modal/custom/SearchModal.vue";
+import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
 
 defineProps({})
 
@@ -19,13 +22,14 @@ defineProps({})
 const router: Router = useRouter();
 const authStore: Store = useAuthStore();
 const menuStore = useMenuStore();
+const modalCustomStore = useModalCustomStore();
 
 const isAdmin = computed(() => {
   menuStore.closeMenu();
   return authStore.isAdmin;
 });
 
-const mediaQuery: MediaQueryList = window.matchMedia('(max-width: 814px)');
+const mediaQuery: MediaQueryList = window.matchMedia('(max-width: 1600px)');
 const isMediaPhone: Ref<boolean, boolean> = ref<boolean>(false);
 
 /** Methods **/
@@ -57,46 +61,54 @@ const logoutMessage = () => {
     MessageGlobalToastUtils.successMessage('Log out success');
   }
 };
+
+const openSearchModal = () => {
+  modalCustomStore.open(markRaw(SearchModal));
+}
 </script>
 
 <template>
   <header role="banner">
 
-      <div class="left-group"></div>
+      <div class="border-group">
+        <ButtonsContainer>
+          <ButtonAction id="search" label-button="Search" :size="SizeEnum.SMALL" :function-click="openSearchModal"/>
+        </ButtonsContainer>
+      </div>
 
       <div v-if="!isMediaPhone" class="center-group">
-        <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :is-button-path="true" :active-path="['Admin']"/>
+        <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :active-path="['Admin']" :size="SizeEnum.SMALL"/>
 
         <LogoView class="grid-logo" text="Archive.rar" />
 
-        <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About" :is-button-path="true " />
+        <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About"  :size="SizeEnum.SMALL"/>
       </div>
 
     <div v-if="isMediaPhone" class="center-group">
         <LogoView class="grid-logo" text="Archive.rar" />
 
         <ButtonsContainer class="button-container" :direction="FlexDirectionEnum.ROW">
-          <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :is-button-path="true" :active-path="['Admin']"/>
+          <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin"  :active-path="['Admin']" :size="SizeEnum.SMALL"/>
 
-          <div class="right-group-menu-burger">
-            <ButtonAction :function-click="menuStore.toggleMenu" :is-icon-button="true" :not-selected-box="true" v-if="isAdmin">
+          <div class="border-group-menu-burger">
+            <ButtonAction :function-click="menuStore.toggleMenu" :is-icon-button="true" :not-selected-box="true">
               <IconMenu />
             </ButtonAction>
           </div>
 
-          <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About" :is-button-path="true " />
+          <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About"  :size="SizeEnum.SMALL"/>
         </ButtonsContainer>
       </div>
 
-      <div class="right-group">
+      <div class="border-group">
         <ButtonsContainer gap="100px" v-if="isAdmin">
-          <ButtonPath id="api" routing-path="Api" label-button="Api" :is-button-path="true" />
-          <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage"/>
+          <ButtonPath id="api" routing-path="Api" label-button="Api" :size="SizeEnum.SMALL"/>
+          <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.SMALL"/>
         </ButtonsContainer>
       </div>
-
-      <div class="right-group-menu-burger"></div>
   </header>
+
+
 </template>
 
 <style lang="scss" scoped>
@@ -135,23 +147,17 @@ header {
   grid-template-columns: auto max-content auto;
   align-items: center;
   column-gap: mylib.$header-margin-size;
-  //height: mylib.$header-height-size;
 }
 
-.right-group {
+.border-group {
   display: flex;
   justify-content: flex-end;
   width: 20%;
   box-sizing: border-box;
 }
 
-.right-group-menu-burger {
+.border-group-menu-burger {
   display: none;
-}
-
-.gradient-button {
-  @include mylib.gradient-button;
-  @include mylib.gradient-button-hover;
 }
 
 .grid-menu-admin {
@@ -165,11 +171,12 @@ header {
 }
 
 @media (max-width: mylib.$media-size-menu) {
-  .right-group {
+  .border-group {
     display: none;
+    width: 10%;
   }
 
-  .right-group-menu-burger {
+  .border-group-menu-burger {
     display: flex;
     justify-content: flex-end;
     width: 10%;
@@ -180,12 +187,12 @@ header {
     width: 10%;
   }
 
-  .right-group {
-    width: 10%;
-  }
-
   .button-container {
     justify-content: space-around;
+  }
+
+  .main-header {
+    justify-content: center;
   }
 }
 

@@ -68,7 +68,7 @@ function measureText() {
 }
 
 svg {
-  width: 100%;
+  width: 500px;
   height: max-content;
 }
 

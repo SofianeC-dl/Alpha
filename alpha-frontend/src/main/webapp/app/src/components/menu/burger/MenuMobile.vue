@@ -31,7 +31,7 @@ const menuStore = useMenuStore();
   min-width: 25%;
   height: 100%;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 1rem;
 
   border-left: 1px solid mylib.$color-font-global;
   background-color: mylib.$color-background-global;

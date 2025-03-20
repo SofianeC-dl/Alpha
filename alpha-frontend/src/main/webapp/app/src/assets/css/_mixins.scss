@@ -28,33 +28,6 @@
   }
 }
 
-@mixin gradient-button {
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150%;
-    height: 150%;
-
-    background: radial-gradient(
-                    circle,
-                    rgba(255, 255, 255, 0.4) 0%,
-                    rgba(255, 255, 255, 0) 50%
-    );
-    transition: opacity 0.3s;
-    opacity: 0;
-    pointer-events: none;
-  }
-}
-
-@mixin gradient-button-hover {
-  &:hover::before {
-    opacity: 1;
-  }
-}
-
 /* FONT */
 @mixin font-text {
   font-family: BebasNeue, sans-serif
