@@ -69,8 +69,10 @@ onMounted(() => {
 
 <template>
   <router-link :to="routePath" class="button-style" v-if="isButtonPath">
-    <div :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" class="main-button selector-menu effect" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
-        <span>{{ props.labelButton }}</span>
+    <div class="main-button selector-menu effect" :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
+      <div @click="clicked">
+          <span>{{ props.labelButton }}</span>
+      </div>
     </div>
   </router-link>
 </template>
@@ -79,8 +81,6 @@ onMounted(() => {
 @use '@/assets/css/index' as mylib;
 
 .main-button {
-  display: inline-flex;
-  align-items: center;
   flex-wrap: nowrap;
   justify-content: center;
   width: var(--size-button-width);
@@ -98,23 +98,15 @@ onMounted(() => {
 .button-style {
   width: max-content;
   @include mylib.link-menu;
-  @include mylib.center-block
 }
 
 .selector-menu {
-  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
-  border-radius: mylib.$header-border-radius;
-  padding: mylib.$header-padding-menu;
+  @include mylib.border-style;
   position: relative;
 }
 
 .invisibility-selector {
-  border-color: mylib.$color-background-global;
-  background-color: mylib.$color-font-global;
-}
-
-.invisibility-selector span {
-  color: mylib.$color-background-global;
+  @include mylib.selected-style;
 }
 
 .effect {

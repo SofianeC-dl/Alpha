@@ -69,25 +69,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="main-button clickable selector-menu effect" :class="{'invisibility-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" @click="clicked">
-    <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml"
-         style="
-            color: white;
-            white-space: pre-wrap;
-            overflow: hidden;">
-      {{ props.labelButton }}
-    </span>
-    <div class="icon-center">
-      <slot ></slot>
+  <div class="button-container">
+    <div class="main-button clickable selector-menu effect" :class="{'invisibility-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
+      <div @click="clicked">
+        <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml"
+             style="
+                color: white;
+                white-space: pre-wrap;
+                overflow: hidden;">
+          {{ props.labelButton }}
+        </span>
+        <div v-if="isIconButton" class="icon-center" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
+          <slot ></slot>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use '@/assets/css/index' as mylib;
-
+.button-container {
+  width: max-content;
+}
 .main-button {
-  @include mylib.center-block;
+  @include mylib.row-center-block;
   flex-wrap: wrap;
 
   width: var(--size-button-width);
@@ -106,6 +112,8 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-content: center;
+  width: var(--size-button-width);
+  height: var(--size-button-height);
 }
 
 .clickable {
@@ -113,9 +121,7 @@ onMounted(() => {
 }
 
 .selector-menu {
-  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
-  border-radius: mylib.$header-border-radius;
-  padding: mylib.$header-padding-menu;
+  @include mylib.border-style;
   position: relative;
 }
 

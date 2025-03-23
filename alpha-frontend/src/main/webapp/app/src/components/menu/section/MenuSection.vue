@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, Ref, ref} from 'vue'
+import {computed, nextTick, onMounted, Ref, ref} from 'vue'
 
 const props = defineProps({
   title: {
@@ -13,17 +13,23 @@ const isOpen: Ref<boolean, boolean> = ref<boolean>(false);
 const container = ref<HTMLElement | null>(null)
 const containerHeight = ref(0);
 
-const toggleSection = () => {
+const toggleSection = async () => {
+  if (!isOpen.value && container.value) {
+    await nextTick();
+    containerHeight.value = container.value.offsetHeight;
+  }
   isOpen.value = !isOpen.value;
 }
 
 onMounted(() => {
-  if (container.value) {
-    containerHeight.value = container.value.offsetHeight;
-    console.log('container', container.value);
-    console.log('px, Hauteur :', containerHeight.value, 'px');
-  }
-})
+  nextTick(() => {
+    if (container.value) {
+      containerHeight.value = container.value.offsetHeight;
+    }
+  });
+});
+
+
 
 const bodyStyle = computed(() => {
   return isOpen.value
@@ -43,7 +49,7 @@ const bodyStyle = computed(() => {
       </div>
     </div>
     <div class="body" :style="bodyStyle">
-      <div ref="container">
+      <div ref="container" class="body-container">
         <slot></slot>
       </div>
 
@@ -57,13 +63,11 @@ const bodyStyle = computed(() => {
 @use '@/assets/css/index' as mylib;
 
 .dropdown {
-  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
-  border-radius: mylib.$header-border-radius;
+  @include mylib.border-style-unpadding;
 }
 
 .dropdown.active .container-title {
-  color: mylib.$color-background-global;
-  background-color: mylib.$color-font-global;
+  @include mylib.selected-style;
 }
 
 .title {
@@ -85,6 +89,9 @@ const bodyStyle = computed(() => {
   max-height: 0;
   overflow: hidden;
   transition: 0.4s;
-  margin: 5px;
+}
+
+.body-container {
+  padding: 5px;
 }
 </style>

@@ -1,37 +1,30 @@
 <script setup lang="ts">
 import FolderDetail from "@/views/folders/FolderDetail.vue";
-import {useModalStore} from "@/stores/modal/modalStore.js";
 import MenuSection from "@/components/menu/section/MenuSection.vue";
 import MenuSectionContainer from "@/components/menu/section/MenuSectionContainer.vue";
+import InputReact from "@/components/input/InputReact.vue";
+import {Ref, ref} from "vue";
+import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
+import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import ContainerSlot from "@/components/container/ContainerSlot.vue";
 
-const modalStore = useModalStore();
-
+const inputText : Ref<string, string> = ref<string>('');
 </script>
 
 <template>
   <MenuSectionContainer>
     <MenuSection title="Search">
-      TEST
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      test
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      TEST
+        <ContainerSlot :direction="FlexDirectionEnum.COLUMN" :position-content="FlexPositionEnum.LEFT" gap="10px">
+          <InputReact v-model="inputText" :size="SizeEnum.SMALL"/>
+          <InputReact v-model="inputText" :size="SizeEnum.SMALL"/>
+          <InputReact v-model="inputText" :size="SizeEnum.SMALL"/>
+          <InputReact v-model="inputText" :size="SizeEnum.SMALL"/>
+        </ContainerSlot>
     </MenuSection>
   </MenuSectionContainer>
   <div class="container-folders">
     <div class="group-folder">
+      {{ inputText }}
       <FolderDetail />
       <FolderDetail />
       <FolderDetail />

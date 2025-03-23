@@ -1,19 +1,19 @@
 <script setup lang="ts">
 
-import MenuMobile from "@/components/menu/burger/MenuMobile.vue";
-import ButtonAction from "@/components/button/ButtonAction.vue";
-import ButtonsContainer from "@/components/button/ButtonsContainer.vue";
 import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
-import ButtonPath from "@/components/button/ButtonPath.vue";
 import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
 import {Store} from "pinia";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
 import {Router, useRouter} from "vue-router";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
-import SearchModal from "@/components/modal/custom/SearchModal.vue";
 import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
 import {useMenuStore} from "@/stores/menu/menuStore.js";
 import {markRaw} from "vue";
+import ContainerSlot from "@/components/container/ContainerSlot.vue";
+import MenuMobile from "@/components/menu/burger/MenuMobile.vue";
+import ButtonAction from "@/components/button/ButtonAction.vue";
+import ButtonPath from "@/components/button/ButtonPath.vue";
+import AddTagModal from "@/components/modal/custom/AddTagModal.vue";
 
 const authStore: Store = useAuthStore();
 const router: Router = useRouter();
@@ -34,21 +34,21 @@ const logoutMessage = () => {
   }
 };
 
-const openSearchModal = () => {
+const openAddTagModal = () => {
   menuStore.closeMenu();
-  modalCustomStore.open(markRaw(SearchModal));
+  modalCustomStore.modalSize = SizeEnum.LARGER;
+  modalCustomStore.open(markRaw(AddTagModal));
 }
-
 </script>
 
 <template>
   <Teleport to="body">
     <MenuMobile>
-      <ButtonsContainer :direction="FlexDirectionEnum.COLUMN">
-        <ButtonAction id="search" label-button="Search" :size="SizeEnum.MEDIUM" :function-click="openSearchModal"/>
+      <ContainerSlot :direction="FlexDirectionEnum.COLUMN">
+        <ButtonAction label-button="Add Tag" :size="SizeEnum.MEDIUM" :function-click="openAddTagModal" function-click=""/>
         <ButtonPath id="api" routing-path="Api" label-button="Api" :size="SizeEnum.MEDIUM" v-if="authStore.isAdmin"/>
         <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.MEDIUM" v-if="authStore.isAdmin"/>
-      </ButtonsContainer>
+      </ContainerSlot>
     </MenuMobile>
   </Teleport>
 </template>

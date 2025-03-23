@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 import {PropType} from "vue";
 import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
 
@@ -19,18 +20,19 @@ const props = defineProps({
 </script>
 
 <template>
-  <div :class="{'button-container-row': direction === FlexDirectionEnum.ROW, 'button-container-column': direction === FlexDirectionEnum.COLUMN}" :style="{'--flex-direction': direction, '--flex-position': position, '--flex-gap': gap}">
-    <slot></slot>
-  </div>
+<div :class="{'input-container-row': direction === FlexDirectionEnum.ROW, 'input-container-column': direction === FlexDirectionEnum.COLUMN}" :style="{'--flex-direction': direction, '--flex-position': position, '--flex-gap': gap}">
+  <slot></slot>
+</div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @use '@/assets/css/index' as mylib;
-.button-container-row {
+
+.input-container-row {
   @include mylib.flex-row;
 }
 
-.button-container-column {
+.input-container-column {
   @include mylib.flex-column;
 }
 </style>

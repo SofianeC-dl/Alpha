@@ -1,23 +1,60 @@
 @use "index_mixins" as mylib;
 /* POSITION */
-@mixin center-block {
+@mixin row-center-block {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@mixin center-right-block {
+@mixin row-center-right-block {
   display: flex;
-  justify-content: right;
+  justify-content: flex-start;
   align-items: center;
 }
 
-@mixin center-left-block {
+@mixin row-center-left-block {
   display: flex;
-  justify-content: left;
+  justify-content: flex-end;
   align-items: center;
 }
 
+@mixin space-between-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-row {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: var(--flex-direction);
+  justify-content: var(--flex-position-content);
+  align-items: var(--flex-position-item);
+  gap: var(--flex-gap);
+}
+
+@mixin flex-column {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  flex-direction: var(--flex-direction);
+  align-content: var(--flex-position-content);
+  align-items: var(--flex-position-item);
+  gap: var(--flex-gap);
+}
+
+/* STYLE */
+@mixin border-style {
+  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
+  border-radius: mylib.$header-border-radius;
+  padding: mylib.$header-padding-menu;
+}
+
+@mixin border-style-unpadding {
+  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
+  border-radius: mylib.$header-border-radius;
+}
 /* LINK */
 @mixin link-menu {
   color: mylib.$color-font-global;
@@ -26,6 +63,11 @@
   &:hover {
     text-decoration: none;
   }
+}
+
+@mixin selected-style {
+  color: mylib.$color-background-global;
+  background-color: mylib.$color-font-global;
 }
 
 /* FONT */

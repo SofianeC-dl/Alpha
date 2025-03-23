@@ -4,17 +4,17 @@ import {computed, markRaw, onMounted, onUnmounted, Ref, ref} from 'vue'
 import {Router, useRouter} from "vue-router";
 import ButtonPath from "@/components/button/ButtonPath.vue";
 import LogoView from "@/components/logo/LogoView.vue";
-import ButtonsContainer from "@/components/button/ButtonsContainer.vue";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
 import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
 import ButtonAction from "@/components/button/ButtonAction.vue";
 import {Store} from "pinia";
-import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
+import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
 import {useMenuStore} from "@/stores/menu/menuStore.js";
 import IconMenu from "@/components/icons/IconMenu.vue";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
-import SearchModal from "@/components/modal/custom/SearchModal.vue";
+import AddTagModal from "@/components/modal/custom/AddTagModal.vue";
 import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
+import ContainerSlot from "@/components/container/ContainerSlot.vue";
 
 defineProps({})
 
@@ -63,18 +63,19 @@ const logoutMessage = () => {
 };
 
 const openSearchModal = () => {
-  modalCustomStore.open(markRaw(SearchModal));
+  modalCustomStore.modalSize = SizeEnum.LARGER;
+  modalCustomStore.open(markRaw(AddTagModal));
 }
 </script>
 
 <template>
   <header role="banner">
 
-      <div class="border-group">
-        <ButtonsContainer>
-          <ButtonAction id="search" label-button="Search" :size="SizeEnum.SMALL" :function-click="openSearchModal"/>
-        </ButtonsContainer>
-      </div>
+    <div class="border-group" >
+      <ContainerSlot v-if="isAdmin" :position-item="FlexPositionEnum.CENTER">
+        <ButtonAction label-button="Add Tag" :size="SizeEnum.SMALL" :function-click="openSearchModal" />
+      </ContainerSlot>
+    </div>
 
       <div v-if="!isMediaPhone" class="center-group">
         <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :active-path="['Admin']" :size="SizeEnum.SMALL"/>
@@ -87,7 +88,7 @@ const openSearchModal = () => {
     <div v-if="isMediaPhone" class="center-group">
         <LogoView class="grid-logo" text="Archive.rar" />
 
-        <ButtonsContainer class="button-container" :direction="FlexDirectionEnum.ROW">
+        <ContainerSlot class="button-container" :direction="FlexDirectionEnum.ROW">
           <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin"  :active-path="['Admin']" :size="SizeEnum.SMALL"/>
 
           <div class="border-group-menu-burger">
@@ -97,14 +98,14 @@ const openSearchModal = () => {
           </div>
 
           <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About"  :size="SizeEnum.SMALL"/>
-        </ButtonsContainer>
+        </ContainerSlot>
       </div>
 
       <div class="border-group">
-        <ButtonsContainer gap="100px" v-if="isAdmin">
+        <ContainerSlot gap="10px" v-if="isAdmin" :direction="FlexDirectionEnum.ROW" :position-item="FlexPositionEnum.CENTER">
           <ButtonPath id="api" routing-path="Api" label-button="Api" :size="SizeEnum.SMALL"/>
           <ButtonAction id="logout-action" label-button="log out" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.SMALL"/>
-        </ButtonsContainer>
+        </ContainerSlot>
       </div>
   </header>
 
@@ -131,11 +132,9 @@ header {
 }
 
 .space-container-header {
-  display: flex;
-  align-items: center;
+  @include mylib.space-between-block;
   width: 100%;
   box-sizing: border-box;
-  justify-content: space-between;
   position: relative;
   height: mylib.$header-height-size;
 }

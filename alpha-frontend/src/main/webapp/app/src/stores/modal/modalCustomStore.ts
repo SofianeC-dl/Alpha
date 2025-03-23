@@ -1,9 +1,11 @@
 import {defineStore} from "pinia";
 import {Ref, ref} from "vue";
+import {SizeEnum} from "../../assets/enum/sizeEnum.js";
 
 export const useModalCustomStore = defineStore('modalCustomStore', () => {
   const modalComponent: Object = null
 
+  let modalSize: SizeEnum = SizeEnum.MEDIUM;
   const isOpen: Ref<boolean, boolean> = ref(false);
   const modalOption: Ref<Object, Object> = ref(modalComponent);
 
@@ -13,6 +15,7 @@ export const useModalCustomStore = defineStore('modalCustomStore', () => {
   }
 
   function close() {
+    modalSize = SizeEnum.MEDIUM;
     isOpen.value = false;
     modalOption.value = modalComponent;
   }
@@ -20,6 +23,7 @@ export const useModalCustomStore = defineStore('modalCustomStore', () => {
   return {
     isOpen,
     modalOption,
+    modalSize,
     open,
     close
   }

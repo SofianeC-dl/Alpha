@@ -94,7 +94,7 @@
                         <id>filter-openapi</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>resources</goal>
+                            <goal>copy-resources</goal>
                         </goals>
                         <configuration>
                             <!-- Répertoire de sortie où seront copiés les fichiers filtrés -->
