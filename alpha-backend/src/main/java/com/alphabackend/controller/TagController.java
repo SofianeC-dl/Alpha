@@ -18,6 +18,17 @@ import java.net.URI;
 public class TagController implements TagApi {
     public final TagService tagService;
 
+    @Override public ResponseEntity<TagList> _addManyTag(TagList tagList){
+        TagList tagListResult = new TagList(this.tagService.addManyTag(tagList.getTagList()));
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .buildAndExpand(tagListResult.getTagList())
+                .toUri();
+
+        return ResponseEntity.created(location).body(tagListResult);
+    }
+
     @Override
     @CrossOrigin
     public ResponseEntity<TagDto> _addTag(TagDto tagDto) {

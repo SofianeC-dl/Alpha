@@ -1,6 +1,6 @@
 -- Création d'exemples de tags
-INSERT INTO alpha_db_schema.tag (id, label) VALUES (2,'Tag A');
-INSERT INTO alpha_db_schema.tag (id, label) VALUES (3, 'Tag B');
+INSERT INTO alpha_db_schema.tag (id, label, color) VALUES (3,'Tag A', '#ddd');
+INSERT INTO alpha_db_schema.tag (id, label, color) VALUES (4, 'Tag B', '#ffffff');
 
 -- Insertion d'une image d'illustration
 -- Ici, la valeur X'48656C6C6F' correspond à la chaîne "Hello" en hexadécimal
@@ -29,16 +29,16 @@ VALUES ( 'Username User Test', 'Password User Test', 'USER');
 -- Insertion dans la table de jointure Project <-> Tag
 -- Associe le projet (id=1) aux tags (id=1 et id=2)
 INSERT INTO alpha_db_schema.project_xxxx_tag (id_project, id_tag)
-VALUES (3, 2);
-INSERT INTO alpha_db_schema.project_xxxx_tag (id_project, id_tag)
 VALUES (3, 3);
+INSERT INTO alpha_db_schema.project_xxxx_tag (id_project, id_tag)
+VALUES (3, 4);
 
 -- Insertion dans la table de jointure ImageProject <-> Tag
 -- Associe l'image de projet (id=1) au tag (id=1)
 INSERT INTO alpha_db_schema.image_project_xxxx_tag (id_image, id_tag)
-VALUES (3, 2);
+VALUES (3, 3);
 
 -- Insertion dans la table de jointure ImageIllustration <-> Tag
 -- Associe l'image d'illustration (id=1) au tag (id=2)
 INSERT INTO alpha_db_schema.image_illustration_xxxx_tag (id_image, id_tag)
-VALUES (2, 3);
+VALUES (2, 4);

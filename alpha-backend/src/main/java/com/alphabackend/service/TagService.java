@@ -1,8 +1,6 @@
 package com.alphabackend.service;
 
-import com.alpha.generated.model.ResultDto;
-import com.alpha.generated.model.ResultEnum;
-import com.alpha.generated.model.TagDto;
+import com.alpha.generated.model.*;
 import com.alphabackend.exception.ResourceNotFoundException;
 import com.alphabackend.mapper.TagMapper;
 import com.alphabackend.model.entity.ParamsError;
@@ -73,6 +71,17 @@ public class TagService {
     }
 
     /**
+     * Ajoute un objet "Tag" dans la table "Tag"
+     * @param tagDtoList List objets "Tag" à ajouter dans la table "Tag"
+     * @return La liste de nouveaux objets "Tag" avec son ID
+     */
+    public List<TagDto> addManyTag(List<TagDto> tagDtoList) {
+        List<TagEntity> tagEntityList = this.tagMapper.mapTagDtoListToTagEntityList(tagDtoList);
+
+        return this.tagMapper.mapTagEntityListToTagDtoList(this.tagRepository.saveAll(tagEntityList));
+    }
+
+    /**
      * Supprime l'objet "Tag" de la table "Tag"
      * @param id ID de l'object" Tag" à supprimer
      * @return "Validate" si l'objet "Tag" à bien été supprimé, sinon "Invalidate" si non supprimé
@@ -118,6 +127,7 @@ public class TagService {
                 ));
 
         existingTag.setLabel(tagEntity.getLabel());
+        existingTag.setColor(tagEntity.getColor());
 
         TagEntity updatedTagEntity = this.tagRepository.save(existingTag);
 

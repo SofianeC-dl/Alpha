@@ -90,7 +90,7 @@ class ImageIllustrationControllerITest{
                 {
                     "datas": "SGVsbG8=",
                     "uploadDate": "2025-02-26T22:00:00Z",
-                    "tagSet": [2]
+                    "tagSet": [3]
                 }
                 """;
 
@@ -113,7 +113,7 @@ class ImageIllustrationControllerITest{
             "id": 2,
             "datas": "SGVsbG8=",
             "uploadDate": "2025-02-26T22:00:00Z",
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 
@@ -136,7 +136,7 @@ class ImageIllustrationControllerITest{
             "id": 9999,
             "datas": "SGVsbG8=",
             "uploadDate": "2025-02-26T22:00:00Z",
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 

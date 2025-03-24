@@ -90,7 +90,7 @@ class ImageProjectControllerITest{
                     "datas": "SGVsbG8=",
                     "uploadDate": "2025-02-26T22:00:00Z",
                     "idProject": 3,
-                    "tagSet": [2]
+                    "tagSet": [3]
                 }
                 """;
 
@@ -114,7 +114,7 @@ class ImageProjectControllerITest{
                     "datas": "SGVsbG8=",
                     "uploadDate": "2025-02-26T22:00:00Z",
                     "idProject": 9999,
-                    "tagSet": [2]
+                    "tagSet": [3]
                 }
                 """;
 
@@ -135,13 +135,13 @@ class ImageProjectControllerITest{
                             "datas": "SGVsbG8=",
                             "uploadDate": "2025-02-26T22:00:00Z",
                             "idProject": 3,
-                            "tagSet": [2]
+                            "tagSet": [3]
                         },
                         {
                             "datas": "SGVsbG8=",
                             "uploadDate": "2025-02-26T22:00:00Z",
                             "idProject": 3,
-                            "tagSet": [2]
+                            "tagSet": [3]
                         }
                     ]
                 }
@@ -165,7 +165,7 @@ class ImageProjectControllerITest{
             "datas": "SGVsbG8=",
             "uploadDate": "2025-02-26T22:00:00Z",
             "idProject": 3,
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 
@@ -190,7 +190,7 @@ class ImageProjectControllerITest{
             "datas": "SGVsbG8=",
             "uploadDate": "2025-02-26T22:00:00Z",
             "idProject": 9999,
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 
@@ -210,7 +210,7 @@ class ImageProjectControllerITest{
             "datas": "SGVsbG8=",
             "uploadDate": "2025-02-26T22:00:00Z",
             "idProject": 3,
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 

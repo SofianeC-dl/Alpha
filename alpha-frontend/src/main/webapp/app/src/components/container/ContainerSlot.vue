@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
+import {FormatEnum} from "@/assets/enum/FormatEnum.js";
 
 const props = defineProps({
   gap: {
@@ -17,19 +18,19 @@ const props = defineProps({
   positionItem: {
     type: String as PropType<FlexPositionEnum>
   },
+  width: {
+    type: String as PropType<FormatEnum>,
+    default: FormatEnum.FULL
+  }
 });
 </script>
 
 <template>
-  <div :class="{
-    'slot-container-row': direction === FlexDirectionEnum.ROW,
-    'slot-container-column': direction === FlexDirectionEnum.COLUMN
-  }"
-       :style="{
-    '--flex-direction':         direction,
-    '--flex-position-content':  positionContent,
-    '--flex-position-item':     positionItem,
-    '--flex-gap': props.gap
+  <div
+    :class="`main-container-slot flex-${direction}-content-${positionContent} flex-items-${positionItem} flex-${direction}`"
+    :style="{
+      '--width-mode': width,
+      '--flex-gap': props.gap
   }">
     <slot></slot>
   </div>
@@ -38,11 +39,54 @@ const props = defineProps({
 <style lang="scss">
 @use '@/assets/css/index' as mylib;
 
-.slot-container-row {
-  @include mylib.flex-row;
+.main-container-slot {
+  display: flex;
+  width: var(--width-mode);
+  flex-wrap: wrap;
+  gap: var(--flex-gap);
 }
 
-.slot-container-column {
-  @include mylib.flex-column;
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row-content-flex-start {
+  justify-content: flex-start;
+}
+
+.flex-row-content-center {
+  justify-content: flex-start;
+}
+
+.flex-row-content-flex-end {
+  justify-content: flex-end;
+}
+
+.flex-column-content-flex-start {
+  align-content: flex-start;
+}
+
+.flex-column-content-center {
+  align-content: flex-start;
+}
+
+.flex-column-content-flex-end {
+  align-content: flex-end;
+}
+
+.flex-items-flex-start {
+  align-items: flex-start;
+}
+
+.flex-items-center {
+  align-items: center;
+}
+
+.flex-items-flex-end {
+  align-items: flex-end;
 }
 </style>

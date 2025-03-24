@@ -62,8 +62,8 @@ const logoutMessage = () => {
   }
 };
 
-const openSearchModal = () => {
-  modalCustomStore.modalSize = SizeEnum.LARGER;
+const openAddTagModal = () => {
+  modalCustomStore.modalSize = SizeEnum.MEDIUM;
   modalCustomStore.open(markRaw(AddTagModal));
 }
 </script>
@@ -73,7 +73,7 @@ const openSearchModal = () => {
 
     <div class="border-group" >
       <ContainerSlot v-if="isAdmin" :position-item="FlexPositionEnum.CENTER">
-        <ButtonAction label-button="Add Tag" :size="SizeEnum.SMALL" :function-click="openSearchModal" />
+        <ButtonAction label-button="Add Tag" :size="SizeEnum.SMALL" :function-click="openAddTagModal" />
       </ContainerSlot>
     </div>
 

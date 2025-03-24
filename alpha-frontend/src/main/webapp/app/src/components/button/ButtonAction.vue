@@ -24,6 +24,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  invisibleSelectedBox: {
+    type: Boolean,
+    default: false
+  },
   notSelectedBox: {
     type: Boolean,
     default: false
@@ -37,6 +41,10 @@ const props = defineProps({
   size: {
     type: String as PropType<SizeEnum>,
     default: SizeEnum.DEFAULT
+  },
+  colorText: {
+    type: String,
+    default: '#dddddd'
   }
 })
 
@@ -70,13 +78,9 @@ onMounted(() => {
 
 <template>
   <div class="button-container">
-    <div class="main-button clickable selector-menu effect" :class="{'invisibility-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
+    <div class="main-button clickable selector-menu effect" :class="{'invisibility-selector': invisibleSelectedBox, 'not-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
       <div @click="clicked">
-        <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml"
-             style="
-                color: white;
-                white-space: pre-wrap;
-                overflow: hidden;">
+        <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml" :style="{'--color-text': colorText}">
           {{ props.labelButton }}
         </span>
         <div v-if="isIconButton" class="icon-center" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
@@ -89,9 +93,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @use '@/assets/css/index' as mylib;
+
 .button-container {
   width: max-content;
 }
+
 .main-button {
   @include mylib.row-center-block;
   flex-wrap: wrap;
@@ -106,6 +112,10 @@ onMounted(() => {
 
   justify-content: center;
   align-content: center;
+
+  color: var(--color-text);
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
 .icon-center {
@@ -127,6 +137,11 @@ onMounted(() => {
 
 .invisibility-selector {
   border-color: transparent;
+}
+
+.not-selector {
+  border: none;
+  padding: 0;
 }
 
 .effect {

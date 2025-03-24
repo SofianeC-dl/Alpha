@@ -39,6 +39,9 @@ paths:
   /tag/post:
     $ref: './components/api/tag.yaml#/tagAdd'
 
+  /tag/post/all:
+    $ref: './components/api/tag.yaml#/tagAddMany'
+
   /tag/put/{idTag}:
     $ref: './components/api/tag.yaml#/tagUpdate'
 

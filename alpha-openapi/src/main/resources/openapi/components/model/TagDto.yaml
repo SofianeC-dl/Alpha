@@ -11,6 +11,9 @@ TagDto:
     label:
       type: string
       description: Labelle du tag
+    color:
+      type: string
+      pattern: '^#(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$'
 
 TagList:
   type: object

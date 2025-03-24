@@ -3,15 +3,12 @@ package com.alphabackend.service;
 import com.alpha.generated.model.*;
 import com.alphabackend.UtilsTest.Utils;
 import com.alphabackend.exception.ResourceNotFoundException;
-import com.alphabackend.mapper.*;
 import com.alphabackend.model.entity.TagEntity;
 import com.alphabackend.repository.TagRepository;
-import com.alphabackend.repository.ProjectRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -31,15 +28,6 @@ class TagServiceTest {
 
     @Mock
     private TagRepository tagRepository;
-
-    @Mock
-    private ProjectRepository projectRepository;
-
-    @Spy
-    private TagMapper tagMapper = new TagMapperImpl();
-
-    @Spy
-    private ProjectMapper projectMapper = new ProjectMapperImpl();
     
 
     @Test
@@ -70,9 +58,7 @@ class TagServiceTest {
         when(this.tagRepository.findById(idTest)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            tagService.getTag(idTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> tagService.getTag(idTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Tag object id 1 : Not found in database|Tag|GET", exception.getMessage());
@@ -104,9 +90,7 @@ class TagServiceTest {
         when(this.tagRepository.findAll()).thenReturn(List.of());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            tagService.getAllTags();
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> tagService.getAllTags());
 
         // Result
         assertEquals("ResourceNotFoundException: No Tag objects found in database|Tag|GET", exception.getMessage());
@@ -128,6 +112,30 @@ class TagServiceTest {
 
         // Result
         assertEquals(tagDtoCompareTest, tagDtoResultTest);
+    }
+
+    @Test
+    void testAddManyTagSuccess() {
+        // Data
+        TagDto tagDtoEntryTest = Utils.getTagDtoTest();
+
+        List<TagDto> tagDtoListEntryTest = List.of(tagDtoEntryTest);
+
+        TagDto tagDtoCompareTest = Utils.getTagDtoTest();
+
+        List<TagDto> tagDtoListCompareTest = List.of(tagDtoCompareTest);
+
+        TagEntity tagEntityResultTest = Utils.getTagEntityTest();
+
+        List<TagEntity> tagEntryListEntryTest = List.of(tagEntityResultTest);
+        // When
+        when(this.tagRepository.saveAll(any())).thenReturn(tagEntryListEntryTest);
+
+        // Test
+        List<TagDto> tagDtoListResultTest = this.tagService.addManyTag(tagDtoListEntryTest);
+
+        // Result
+        assertEquals(tagDtoListCompareTest, tagDtoListResultTest);
     }
 
     @Test
@@ -161,9 +169,7 @@ class TagServiceTest {
         when(this.tagRepository.findById(idTest)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.tagService.deleteTag(idTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.tagService.deleteTag(idTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Tag object id 1 : Not found, could not be deleted|Tag|DELETE", exception.getMessage());
@@ -202,9 +208,7 @@ class TagServiceTest {
         when(this.tagRepository.findById(idTest)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.tagService.updateTag(idTest, tagDtoEntryTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.tagService.updateTag(idTest, tagDtoEntryTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Tag object id 1 : Not found, could not be update|Tag|PUT", exception.getMessage());

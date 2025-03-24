@@ -128,6 +128,20 @@ public class ImageProjectService {
         Instant now = Instant.now();
         imageProjectEntityList.forEach(imageProjectEntity -> imageProjectEntity.setUploadDate(now));
 
+        if(imageProjectEntityList.get(0).getProjectEntity() != null && imageProjectEntityList.get(0).getProjectEntity().getId() != null) {
+            Optional<ProjectEntity> projectImage = this.projectRepository.findById(imageProjectEntityList.get(0).getProjectEntity().getId());
+            projectImage.ifPresentOrElse(project -> imageProjectEntityList.forEach(imageProjectEntity -> imageProjectEntity.setProjectEntity(project)), () -> {
+                throw new ResourceNotFoundException(
+                        ParamsError.builder()
+                                .errorText(ErrorTextEnum.OBJECT_NOT_FOUND)
+                                .labelObject(NameObject.PROJECT_MAJ)
+                                .typeRequestHttp(TypeRequestHttpEnum.GET_REQUEST)
+                                .arg(imageProjectEntityList.get(0).getProjectEntity().getId())
+                                .build()
+                );
+            });
+        }
+
         return this.imageProjectMapper.mapImageProjectEntityListToImageProjectDtoList(this.imageProjectRepository.saveAll(imageProjectEntityList));
     }
 

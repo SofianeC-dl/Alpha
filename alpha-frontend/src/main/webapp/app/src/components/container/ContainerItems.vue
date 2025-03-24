@@ -10,12 +10,15 @@
 
 <style scoped lang="scss">
 @use '@/assets/css/index' as mylib;
+
 .main-container-item {
   @include mylib.border-style-unpadding;
-  width: max-content;
+  width: auto;
+  min-height: 20px;
   height: max-content;
   display: flex;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: inherit;
   padding: 5px;
 }
 </style>

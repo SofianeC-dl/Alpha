@@ -18,17 +18,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
 @Sql(scripts = {"/cleanup.sql", "/schema.sql", "/data.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class TagControllerITest{
+class TagControllerITest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     void testGetTagById() throws Exception {
-        mockMvc.perform(get("/tag/get/2"))
+        mockMvc.perform(get("/tag/get/3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.id").value(2))
+                .andExpect(jsonPath("$.id").value(3))
                 .andExpect(jsonPath("$.label").value("Tag A"));
 
     }
@@ -68,7 +68,8 @@ class TagControllerITest{
         String tagJson =
                 """
                 {
-                    "label": "Tag C"
+                    "label": "Tag C",
+                    "color": "#eeE"
                 }
                 """;
 
@@ -82,27 +83,54 @@ class TagControllerITest{
     }
 
     @Test
+    void testAddManyTag() throws Exception {
+        String tagJson = """
+                {
+                    "tagList": [
+                        {
+                            "label": "Tag C",
+                            "color": "#eeE"
+                        },
+                        {
+                            "label": "Tag D",
+                            "color": "#eeE"
+                        }
+                    ]
+                }
+                """;
+
+        mockMvc.perform(post("/tag/post/all")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(tagJson))
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.tagList").isArray())
+                .andExpect(jsonPath("$.tagList.length()").value(Matchers.greaterThan(0)));
+    }
+
+    @Test
     void testUpdateTag() throws Exception {
         // Exemple de payload pour la mise à jour du projet
         String updateJson = """
         {
-            "id": 2,
-            "label": "Tag Update"
+            "id": 3,
+            "label": "Tag Update",
+            "color": "#eeE"
         }
-        """;
+       \s""";
 
-        mockMvc.perform(put("/tag/put/2")
+        mockMvc.perform(put("/tag/put/3")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updateJson))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(2))
+                .andExpect(jsonPath("$.id").value(3))
                 .andExpect(jsonPath("$.label").value("Tag Update"));
     }
 
     @Test
     void testDeleteTag() throws Exception {
-        mockMvc.perform(delete("/tag/delete/{id}", 2))
+        mockMvc.perform(delete("/tag/delete/{id}", 4))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.result").value("Validate"));

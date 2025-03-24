@@ -35,9 +35,6 @@ class ImageProjectServiceTest {
     private ImageProjectService imageProjectService;
 
     @Mock
-    private ProjectService projectService;
-
-    @Mock
     private ImageProjectRepository imageProjectRepository;
 
     @Mock
@@ -89,9 +86,7 @@ class ImageProjectServiceTest {
         when(this.imageProjectRepository.findById(idTest)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            imageProjectService.getImageProject(idTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> imageProjectService.getImageProject(idTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Image_project object id 1 : Not found in database|Image_project|GET", exception.getMessage());
@@ -123,9 +118,7 @@ class ImageProjectServiceTest {
         when(this.imageProjectRepository.findAll()).thenReturn(List.of());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            imageProjectService.getAllImageProjects();
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> imageProjectService.getAllImageProjects());
 
         // Result
         assertEquals("ResourceNotFoundException: No Image_project objects found in database|Image_project|GET", exception.getMessage());
@@ -159,9 +152,7 @@ class ImageProjectServiceTest {
         when(this.imageProjectRepository.findByProjectEntity_Id(idProjectTest)).thenReturn(List.of());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.imageProjectService.getAllImageProjectByProjectId(idProjectTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.imageProjectService.getAllImageProjectByProjectId(idProjectTest));
 
         // Result
         assertEquals("ResourceNotFoundException: No Image_project objects found in database|Image_project|GET", exception.getMessage());
@@ -197,14 +188,40 @@ class ImageProjectServiceTest {
         // When
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.imageProjectService.addImageProject(imageProjectDtoEntryTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.imageProjectService.addImageProject(imageProjectDtoEntryTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Project object id 1 : Not found in database|Project|GET", exception.getMessage());
     }
 
+    @Test
+    void testAddManyImageProjectSuccess() {
+        // Data
+        Long idProjectTest = 1L;
+
+        ImageProjectDto imageProjectDtoEntryTest = Utils.getImageProjectDtoTest();
+
+        List<ImageProjectDto> imageProjectDtoListEntryTest = List.of(imageProjectDtoEntryTest);
+
+        ImageProjectDto imageProjectDtoCompareTest = Utils.getImageProjectDtoTest();
+
+        List<ImageProjectDto> imageProjectDtoListCompareTest = List.of(imageProjectDtoCompareTest);
+
+        ProjectEntity projectEntityResultTest = Utils.getProjectEntityTest();
+
+        ImageProjectEntity imageProjectEntityResultTest = Utils.getImageProjectEntityTest();
+
+        List<ImageProjectEntity> imageProjectEntityListEntryTest = List.of(imageProjectEntityResultTest);
+
+        // When
+        when(this.imageProjectRepository.saveAll(any())).thenReturn(imageProjectEntityListEntryTest);
+        when(this.projectRepository.findById(idProjectTest)).thenReturn(Optional.of(projectEntityResultTest));
+        // Test
+        List<ImageProjectDto> imageProjectDtoListResultTest = this.imageProjectService.addManyImageProject(imageProjectDtoListEntryTest);
+
+        // Result
+        assertEquals(imageProjectDtoListCompareTest, imageProjectDtoListResultTest);
+    }
 
     @Test
     void testDeleteImageProjectSuccess() {
@@ -237,9 +254,7 @@ class ImageProjectServiceTest {
         when(this.imageProjectRepository.findById(idTest)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.imageProjectService.deleteImageProject(idTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.imageProjectService.deleteImageProject(idTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Image_project object id 1 : Not found, could not be deleted|Image_project|DELETE", exception.getMessage());
@@ -292,9 +307,7 @@ class ImageProjectServiceTest {
         when(this.projectRepository.findById(idProject)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.imageProjectService.updateImageProject(idTest, imageProjectDtoEntryTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.imageProjectService.updateImageProject(idTest, imageProjectDtoEntryTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Project object id 1 : Not found, could not be update|Project|PUT", exception.getMessage());
@@ -315,9 +328,7 @@ class ImageProjectServiceTest {
         when(this.imageProjectRepository.findById(idTest)).thenReturn(Optional.empty());
 
         // Test
-        Exception exception = assertThrows(ResourceNotFoundException.class, () -> {
-            this.imageProjectService.updateImageProject(idTest, imageProjectDtoEntryTest);
-        });
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> this.imageProjectService.updateImageProject(idTest, imageProjectDtoEntryTest));
 
         // Result
         assertEquals("ResourceNotFoundException: Image_project object id 1 : Not found, could not be update|Image_project|PUT", exception.getMessage());

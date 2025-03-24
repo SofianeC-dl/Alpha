@@ -75,7 +75,7 @@ class ProjectControllerITest{
                     "idImageIllustration": 2,
                     "uploadDate": "2025-02-26T22:00:00Z",
                     "updateDate": "2025-02-26T22:00:00Z",
-                    "tagSet": [2, 3]
+                    "tagSet": [3, 4]
                 }
                 """;
 
@@ -97,7 +97,7 @@ class ProjectControllerITest{
                     "idImageIllustration": 9999,
                     "uploadDate": "2025-02-26T22:00:00Z",
                     "updateDate": "2025-02-26T22:00:00Z",
-                    "tagSet": [2, 3]
+                    "tagSet": [3, 4]
                 }
                 """;
 
@@ -117,12 +117,12 @@ class ProjectControllerITest{
                         "description": "Nouveau projet de test",
                         "uploadDate": "2025-02-26T22:00:00Z",
                         "updateDate": "2025-02-26T22:00:00Z",
-                        "tagSet": [2, 3]
+                        "tagSet": [3, 4]
                     },
                     "imageIllustrationDto": {
                         "datas": "SGVsbG8=",
                         "uploadDate": "2025-02-26T22:00:00Z",
-                        "tagSet": [2]
+                        "tagSet": [3]
                     }
                 }
                 """;
@@ -145,7 +145,7 @@ class ProjectControllerITest{
             "idImageIllustration": 2,
             "uploadDate": "2025-02-26T22:00:00Z",
             "updateDate": "2025-02-26T22:00:00Z",
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 
@@ -169,7 +169,7 @@ class ProjectControllerITest{
             "idImageIllustration": 9999,
             "uploadDate": "2025-02-26T22:00:00Z",
             "updateDate": "2025-02-26T22:00:00Z",
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 
@@ -190,7 +190,7 @@ class ProjectControllerITest{
             "idImageIllustration": 2,
             "uploadDate": "2025-02-26T22:00:00Z",
             "updateDate": "2025-02-26T22:00:00Z",
-            "tagSet": [2]
+            "tagSet": [3]
         }
         """;
 

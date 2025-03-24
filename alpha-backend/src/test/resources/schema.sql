@@ -3,7 +3,9 @@ CREATE SCHEMA IF NOT EXISTS alpha_db_schema;
 
 CREATE TABLE IF NOT EXISTS alpha_db_schema.tag (
                                                    id BIGSERIAL PRIMARY KEY,
-                                                   label VARCHAR(100) NOT NULL
+                                                   label VARCHAR(100) NOT NULL,
+                                                   color VARCHAR(7) NOT NULL,
+                                                   CHECK (color ~ '^#(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$')
     );
 
 CREATE TABLE IF NOT EXISTS alpha_db_schema.image_illustration (

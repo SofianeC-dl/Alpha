@@ -6,6 +6,7 @@ import {PropsInput} from "@/assets/enum/PropsEnum.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import ContainerSlot from "@/components/container/ContainerSlot.vue";
 import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
+import {FormatEnum} from "@/assets/enum/FormatEnum.js";
 
 
 // Définition des props
@@ -40,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ContainerSlot :direction="FlexDirectionEnum.COLUMN" :position-item="props.positionLabel" gap="0">
+  <ContainerSlot :direction="FlexDirectionEnum.COLUMN" :position-item="props.positionLabel" gap="0" :width="FormatEnum.AUTO">
     {{ props.labelInput }}
     <input v-model="localInput" :placeholder="placeHolder" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}"/>
   </ContainerSlot>

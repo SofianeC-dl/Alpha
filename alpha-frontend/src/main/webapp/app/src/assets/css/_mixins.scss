@@ -26,7 +26,7 @@
 
 @mixin flex-row {
   display: flex;
-  width: 100%;
+  width: var(--width-mode);
   flex-wrap: wrap;
   flex-direction: var(--flex-direction);
   justify-content: var(--flex-position-content);
@@ -36,7 +36,7 @@
 
 @mixin flex-column {
   display: flex;
-  width: 100%;
+  width: var(--width-mode);
   flex-wrap: wrap;
   flex-direction: var(--flex-direction);
   align-content: var(--flex-position-content);
