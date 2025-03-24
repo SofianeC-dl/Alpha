@@ -2,16 +2,24 @@
 
 import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
 import {ModalUtils} from "@/composables/utils/modal/ModalUtils.js";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 
 const modalCustomStore = useModalCustomStore();
 
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="modal">
-      <div v-if="modalCustomStore.isOpen" class="modal-mask">
-        <div class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalCustomStore.modalSize)}">
+  <Teleport :id="'teleport-modal-custom-' + id" to="body">
+    <Transition :id="'transition-modal-custom-' + id" name="modal">
+      <div :id="'modal-custom-' + id" v-if="modalCustomStore.isOpen" class="modal-mask">
+        <div :id="'container-teleport-modal-custom-' + id" class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalCustomStore.modalSize)}">
           <component :is="modalCustomStore.modalOption" />
         </div>
       </div>

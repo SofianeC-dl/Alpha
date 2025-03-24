@@ -2,8 +2,13 @@
 import {PropType} from "vue";
 import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
 import {FormatEnum} from "@/assets/enum/FormatEnum.js";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  },
   gap: {
     type: String,
     default: '10px'
@@ -27,6 +32,7 @@ const props = defineProps({
 
 <template>
   <div
+    :id="'container-slot-' + id"
     :class="`main-container-slot flex-${direction}-content-${positionContent} flex-items-${positionItem} flex-${direction}`"
     :style="{
       '--width-mode': width,

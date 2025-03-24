@@ -3,25 +3,33 @@
 import {useModalStore} from "@/stores/modal/modalStore.js";
 import {ModalUtils} from "@/composables/utils/modal/ModalUtils.js";
 import ButtonAction from "@/components/button/ButtonAction.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 
 const modalStore = useModalStore();
 
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="modal">
-      <div v-if="modalStore.isOpen" class="modal-mask">
-        <div class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}">
-          <div class="modal-header">
+  <Teleport :id="'teleport-modal-' + id" to="body">
+    <Transition :id="'transition-modal-' + id" name="modal">
+      <div :id="'modal-' + id" v-if="modalStore.isOpen" class="modal-mask">
+        <div :id="'container-modal-' + id" class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}">
+          <div :id="'header-modal-' + id" class="modal-header">
             {{ modalStore.modalOption.title }}
           </div>
 
-          <div class="modal-body">
+          <div :id="'body-modal-' + id" class="modal-body">
            {{ modalStore.modalOption.body }}
           </div>
 
-          <div class="modal-footer">
+          <div :id="'footer-modal-' + id" class="modal-footer">
               <ButtonAction class="modal-default-button" :function-click="modalStore.close" label-button="ok"/>
           </div>
         </div>

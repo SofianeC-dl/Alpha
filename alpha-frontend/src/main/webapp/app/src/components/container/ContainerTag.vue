@@ -1,8 +1,13 @@
 <script setup lang="ts">
 
 import Tag from "@/components/tag/Tag.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  },
   tagList: {
     type: Array,
     default: () => []
@@ -18,7 +23,7 @@ const removeTag = (tagEmit: string) => {
 </script>
 
 <template>
-  <div class="main-container-tag">
+  <div :id="'container-tag-' + id" class="main-container-tag">
     <Tag v-for="tag of tagList" :label="tag.label" :color="tag.color" @remove-tag="removeTag"/>
   </div>
 </template>

@@ -4,10 +4,15 @@ import { useRoute } from "vue-router";
 import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import {SizeBox} from "@/composables/object/SizeBox.js";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const emits = defineEmits(['clicked']);
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  },
   typeRouteActive: {
     type: String,
     default: ''
@@ -77,13 +82,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="button-container">
-    <div class="main-button clickable selector-menu effect" :class="{'invisibility-selector': invisibleSelectedBox, 'not-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
-      <div @click="clicked">
-        <span v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml" :style="{'--color-text': colorText}">
+  <div :id="'button-action-' + id" class="button-container">
+    <div :id="'sub-button-action-' + id" class="main-button clickable selector-menu effect" :class="{'invisibility-selector': invisibleSelectedBox, 'not-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
+      <div :id="'click-button-action-' + id" @click="clicked">
+        <span :id="'span-button-action-' + id" v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml" :style="{'--color-text': colorText}">
           {{ props.labelButton }}
         </span>
-        <div v-if="isIconButton" class="icon-center" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
+        <div :id="'icon-button-action-' + id" v-if="isIconButton" class="icon-center" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
           <slot ></slot>
         </div>
       </div>

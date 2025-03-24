@@ -7,10 +7,12 @@ import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import ContainerSlot from "@/components/container/ContainerSlot.vue";
 import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
 import {FormatEnum} from "@/assets/enum/FormatEnum.js";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 
 // Définition des props
 const props = withDefaults(defineProps<PropsInput>(), {
+  id: IdUtils.generateRandomId(),
   labelInput: '[NO_LABEL]',
   placeHolder: '',
   size: SizeEnum.DEFAULT

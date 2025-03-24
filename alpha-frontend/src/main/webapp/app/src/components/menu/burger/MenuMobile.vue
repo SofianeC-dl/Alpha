@@ -2,17 +2,25 @@
 
 import {useMenuStore} from "@/stores/menu/menuStore.js";
 import ButtonAction from "@/components/button/ButtonAction.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const menuStore = useMenuStore();
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 </script>
 
 <template>
-    <nav v-if="menuStore.isMenuOpen" class="menu-navbar">
-      <div class="button-close-menu">
+    <nav :id="'nav-menu-mobile-' + id" v-if="menuStore.isMenuOpen" class="menu-navbar">
+      <div :id="'button-exit-menu-mobile-' + id" class="button-close-menu">
         <ButtonAction  :function-click="menuStore.toggleMenu" :not-selected-box="true" />
       </div>
 
-      <div class="button-menu">
+      <div :id="'menu-mobile-' + id" class="button-menu">
         <slot class="button"></slot>
       </div>
     </nav>

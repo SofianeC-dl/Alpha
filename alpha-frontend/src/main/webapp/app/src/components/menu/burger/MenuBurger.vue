@@ -13,12 +13,20 @@ import ContainerSlot from "@/components/container/ContainerSlot.vue";
 import MenuMobile from "@/components/menu/burger/MenuMobile.vue";
 import ButtonAction from "@/components/button/ButtonAction.vue";
 import ButtonPath from "@/components/button/ButtonPath.vue";
-import AddTagModal from "@/components/modal/custom/AddTagModal.vue";
+import AddTagModal from "@/views/modal/AddTagModal.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const authStore: Store = useAuthStore();
 const router: Router = useRouter();
 const modalCustomStore = useModalCustomStore();
 const menuStore = useMenuStore();
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 
 const deconnect = () => {
   authStore.setToken(null);
@@ -42,7 +50,7 @@ const openAddTagModal = () => {
 </script>
 
 <template>
-  <Teleport to="body">
+  <Teleport :id="'teleport-menu-burger-' + id" to="body">
     <MenuMobile>
       <ContainerSlot :direction="FlexDirectionEnum.COLUMN">
         <ButtonAction label-button="Add Tag" :size="SizeEnum.MEDIUM" :function-click="openAddTagModal" function-click=""/>

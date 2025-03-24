@@ -4,16 +4,24 @@ import { computed } from 'vue'
 import HeaderMessage from '@/components/message/HeaderMessage.vue'
 import MessageToastToast from '@/components/message/MessageToast.vue'
 import ButtonAction from "@/components/button/ButtonAction.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
-const globalMessageStore = useGlobalMessageStore()
+const globalMessageStore = useGlobalMessageStore();
 
-const type = computed(() => globalMessageStore.type)
-const isOpen = computed(() => globalMessageStore.isOpenned)
+const type = computed(() => globalMessageStore.type);
+const isOpen = computed(() => globalMessageStore.isOpenned);
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 </script>
 
 <template>
-  <Teleport to="body">
-    <div v-if="isOpen" :class="['global-message-params', type]">
+  <Teleport :id="'teleport-global-message-' + id" to="body">
+    <div :id="'global-message-' + id" v-if="isOpen" :class="['global-message-params', type]">
       <ButtonAction :function-click="globalMessageStore.clearMessage" class="item-button" :not-selected-box="true"/>
       <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />

@@ -4,10 +4,15 @@ import { useRoute } from "vue-router";
 import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import {SizeBox} from "@/composables/object/SizeBox.js";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const emits = defineEmits(['clicked'])
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  },
   routingPath: {
     type: String,
     default: ''
@@ -68,10 +73,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-link :to="routePath" class="button-style" v-if="isButtonPath">
-    <div class="main-button selector-menu effect" :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
-      <div @click="clicked">
-          <span>{{ props.labelButton }}</span>
+  <router-link :id="'router-button-path-' + id" :to="routePath" class="button-style" v-if="isButtonPath">
+    <div :id="'button-path-' + id" class="main-button selector-menu effect" :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
+      <div :id="'click-button-path-' + id" @click="clicked">
+          <span :id="'span-button-path-' + id">{{ props.labelButton }}</span>
       </div>
     </div>
   </router-link>

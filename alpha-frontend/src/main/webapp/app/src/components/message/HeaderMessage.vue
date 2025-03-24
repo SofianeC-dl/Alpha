@@ -5,39 +5,47 @@ import IconSuccess from "@/components/icons/IconSuccess.vue";
 import IconError from "@/components/icons/IconError.vue";
 import IconWarn from "@/components/icons/IconWarn.vue";
 import IconInfo from "@/components/icons/IconInfo.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
-const globalMessageStore = useGlobalMessageStore()
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 
-const type = computed(() => globalMessageStore.type)
+const globalMessageStore = useGlobalMessageStore();
 
-const title = computed(() => globalMessageStore.title)
+const type = computed(() => globalMessageStore.type);
 
-const isErrorMessage = () => {
+const title = computed(() => globalMessageStore.title);
+
+const isErrorMessage = (): string => {
   return type.value === 'error';
-}
+};
 
-const isSuccessMessage = () => {
+const isSuccessMessage = (): string => {
   return type.value === 'success';
-}
+};
 
-const isInfoMessage = () => {
+const isInfoMessage = (): string => {
   return type.value === 'info';
-}
+};
 
-const isWarnMessage = () => {
+const isWarnMessage = (): string => {
   return type.value === 'warn';
-}
+};
 </script>
 
 <template>
-  <div class="main-button">
-    <div class="item-icon">
+  <div :id="'header-message-' + id" class="main-button">
+    <div :id="'icon-header-message-' + id" class="item-icon">
       <IconError v-if="isErrorMessage()" class="item-icon" />
       <IconSuccess v-if="isSuccessMessage()" class="item-icon" />
       <IconInfo v-if="isInfoMessage()" class="item-icon" />
       <IconWarn v-if="isWarnMessage()" class="item-icon" />
     </div>
-    <a class="item-title">
+    <a :id="'title-header-message-' + id" class="item-title">
       {{ title }}
     </a>
   </div>

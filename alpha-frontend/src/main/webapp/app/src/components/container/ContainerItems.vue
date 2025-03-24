@@ -1,9 +1,17 @@
 <script setup lang="ts">
 
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 </script>
 
 <template>
-  <div class="main-container-item">
+  <div :id="'container-items-' + id" class="main-container-item">
     <slot style="gap: 50px"></slot>
   </div>
 </template>

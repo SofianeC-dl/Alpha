@@ -2,18 +2,25 @@
 
 import {useLoadingStore} from "@/stores/loading/loadingStore.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const loadingStore = useLoadingStore();
 
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="loading">
-      <div v-if="loadingStore.isLoading" class="modal-mask">
-        <div class="modal-container" :style="{ '--size-modal': SizeEnum.SMALL}">
-          <div class="loading-overlay">
-            <div class="spinner">
+  <Teleport :id="'teleport-loading-' + id" to="body">
+    <Transition :id="'transition-loading-' + id" name="loading">
+      <div :id="'loading-' + id" v-if="loadingStore.isLoading" class="modal-mask">
+        <div :id="'container-loading-' + id" class="modal-container" :style="{ '--size-modal': SizeEnum.SMALL}">
+          <div :id="'overlay-loading-' + id" class="loading-overlay">
+            <div :id="'spinner-loading-' + id" class="spinner">
               Chargement...
             </div>
           </div>

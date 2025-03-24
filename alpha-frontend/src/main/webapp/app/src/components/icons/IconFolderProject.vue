@@ -1,9 +1,21 @@
+<script setup lang="ts">
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
+</script>
 <template>
   <svg
+    :id="'icon-folder-project-' + id"
     viewBox="0 0 64 48"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
+      :id="'path-icon-folder-project-' + id"
       d="
       M 8,44
       H 58
@@ -21,6 +33,7 @@
     />
 
     <line
+      :id="'line-icon-folder-project-' + id"
       x1="8"
       y1="14"
       x2="58"

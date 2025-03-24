@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import {computed, nextTick, onMounted, Ref, ref} from 'vue'
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  },
   title: {
     type: String,
     default: '[NO_TITTLE]'
@@ -40,19 +45,19 @@ const bodyStyle = computed(() => {
 
 <template>
   <div
+    :id="'menu-section-' + id"
     class="dropdown"
     :class="{ active: isOpen }"
   >
-    <div class="container-title">
-      <div class="title" @click="toggleSection">
-        <h3>{{ props.title }}</h3>
+    <div :id="'container-title-menu-section-' + id" class="container-title">
+      <div :id="'click-menu-section-' + id" class="title" @click="toggleSection">
+        <h3 :id="'title-menu-section-' + id">{{ props.title }}</h3>
       </div>
     </div>
-    <div class="body" :style="bodyStyle">
-      <div ref="container" class="body-container">
+    <div :id="'body-menu-section-' + id" class="body" :style="bodyStyle">
+      <div :id="'container-body-menu-section-' + id" ref="container" class="body-container">
         <slot></slot>
       </div>
-
     </div>
   </div>
 </template>

@@ -1,8 +1,13 @@
 <script setup lang="ts">
 
 import ButtonAction from "@/components/button/ButtonAction.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  },
   label: {
     type: String,
     default: '[No_label]'
@@ -21,7 +26,7 @@ const removeTag = () => {
 </script>
 
 <template>
-  <div class="main-tag" :style="{'--color-tag': color}">
+  <div :id="'tag-' + id" class="main-tag" :style="{'--color-tag': color}">
     {{ label }}
     <ButtonAction :not-selected-box="true" color-text="#222222" :function-click="removeTag"/>
   </div>

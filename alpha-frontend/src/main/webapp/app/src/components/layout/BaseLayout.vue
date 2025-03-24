@@ -10,8 +10,14 @@ import Modal from "@/components/modal/Modal.vue";
 import MenuBurger from "@/components/menu/burger/MenuBurger.vue";
 import Loading from "@/components/loading/Loading.vue";
 import ModalCustom from "@/components/modal/ModalCustom.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
-defineProps({})
+defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+})
 
 /** Methods **/
 onMounted(() => {
@@ -20,7 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="main-layout">
+    <div :id="'base-layout-' + id" class="main-layout">
       <Loading />
       <GlobalMessage />
       <Modal />

@@ -1,9 +1,17 @@
 <script setup lang="ts">
 
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+});
 </script>
 
 <template>
- <div class="container">
+ <div :id="'menu-section-container-' + id" class="container">
    <slot></slot>
  </div>
 </template>

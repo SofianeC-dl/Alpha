@@ -1,10 +1,18 @@
 <script setup lang="ts">
 
 import IconFolderProject from "@/components/icons/IconFolderProject.vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: IdUtils.generateRandomId()
+  }
+})
 </script>
 
 <template>
-  <button class="icon-button" aria-label="Mon bouton">
+  <button :id="'button-folder-' + id" class="icon-button" aria-label="Mon bouton">
     <IconFolderProject />
   </button>
 </template>

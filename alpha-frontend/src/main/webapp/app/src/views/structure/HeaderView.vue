@@ -3,7 +3,7 @@
 import {computed, markRaw, onMounted, onUnmounted, Ref, ref} from 'vue'
 import {Router, useRouter} from "vue-router";
 import ButtonPath from "@/components/button/ButtonPath.vue";
-import LogoView from "@/components/logo/LogoView.vue";
+import ButtonLogo from "@/components/button/ButtonLogo.vue";
 import {useAuthStore} from "@/stores/auth/AuthStore.js";
 import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
 import ButtonAction from "@/components/button/ButtonAction.vue";
@@ -12,7 +12,7 @@ import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
 import {useMenuStore} from "@/stores/menu/menuStore.js";
 import IconMenu from "@/components/icons/IconMenu.vue";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
-import AddTagModal from "@/components/modal/custom/AddTagModal.vue";
+import AddTagModal from "@/views/modal/AddTagModal.vue";
 import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
 import ContainerSlot from "@/components/container/ContainerSlot.vue";
 
@@ -80,13 +80,13 @@ const openAddTagModal = () => {
       <div v-if="!isMediaPhone" class="center-group">
         <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin" :active-path="['Admin']" :size="SizeEnum.SMALL"/>
 
-        <LogoView class="grid-logo" text="Archive.rar" />
+        <ButtonLogo class="grid-logo" text="Archive.rar" />
 
         <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="About"  :size="SizeEnum.SMALL"/>
       </div>
 
     <div v-if="isMediaPhone" class="center-group">
-        <LogoView class="grid-logo" text="Archive.rar" />
+        <ButtonLogo class="grid-logo" text="Archive.rar" />
 
         <ContainerSlot class="button-container" :direction="FlexDirectionEnum.ROW">
           <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="Admin"  :active-path="['Admin']" :size="SizeEnum.SMALL"/>

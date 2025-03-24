@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import {nextTick, onMounted, ref, watch} from "vue";
+import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
-const props = defineProps<{
-  textInput?: string
-}>();
+const props = withDefaults(defineProps<{
+  textInput?: string,
+  id?: string
+}>(), {
+  textInput: 'Archive.rar',
+  id: IdUtils.generateRandomId()
+});
 
 const svgRef = ref<SVGSVGElement | null>(null);
 const textRef = ref<SVGTextElement | null>(null);
@@ -33,8 +38,9 @@ function measureText() {
 </script>
 
 <template>
-  <div class="svg-wrapper">
+  <div :id="'wrapper-icon-logo-' + id" class="svg-wrapper">
     <svg
+      :id="'icon-logo-' + id"
       ref="svgRef"
       :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
       preserveAspectRatio="xMidYMid meet"
@@ -42,6 +48,7 @@ function measureText() {
     >
 
       <text
+        :id="'text-icon-logo-' + id"
         ref="textRef"
         x="50%"
         y="50%"
