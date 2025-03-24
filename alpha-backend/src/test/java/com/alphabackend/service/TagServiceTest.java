@@ -3,12 +3,18 @@ package com.alphabackend.service;
 import com.alpha.generated.model.*;
 import com.alphabackend.UtilsTest.Utils;
 import com.alphabackend.exception.ResourceNotFoundException;
+import com.alphabackend.mapper.ProjectMapper;
+import com.alphabackend.mapper.ProjectMapperImpl;
+import com.alphabackend.mapper.TagMapper;
+import com.alphabackend.mapper.TagMapperImpl;
 import com.alphabackend.model.entity.TagEntity;
+import com.alphabackend.repository.ProjectRepository;
 import com.alphabackend.repository.TagRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -28,7 +34,15 @@ class TagServiceTest {
 
     @Mock
     private TagRepository tagRepository;
-    
+
+    @Mock
+    private ProjectRepository projectRepository;
+
+    @Spy
+    private TagMapper tagMapper = new TagMapperImpl();
+
+    @Spy
+    private ProjectMapper projectMapper = new ProjectMapperImpl();
 
     @Test
     void testGetTag() {

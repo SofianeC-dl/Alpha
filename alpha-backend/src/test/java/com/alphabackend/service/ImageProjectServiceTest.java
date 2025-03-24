@@ -41,6 +41,9 @@ class ImageProjectServiceTest {
     private ProjectRepository           projectRepository;
 
     @Mock
+    private ProjectService projectService;
+
+    @Mock
     private TagRepository      tagRepository;
 
     @Spy
