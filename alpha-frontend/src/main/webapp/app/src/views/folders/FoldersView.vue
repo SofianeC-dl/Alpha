@@ -22,7 +22,7 @@ const inputText : Ref<string, string> = ref<string>('');
         </ContainerSlot>
     </MenuSection>
   </MenuSectionContainer>
-  <div class="container-folders">
+  <div class="container-folders" role="group">
     <div class="group-folder">
       {{ inputText }}
       <FolderDetail />

@@ -12,7 +12,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <button :id="'button-folder-' + id" class="icon-button" aria-label="Mon bouton">
+  <button :id="'button-folder-' + id" class="icon-button" aria-label="Mon bouton" role="button">
     <IconFolderProject />
   </button>
 </template>

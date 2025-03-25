@@ -82,7 +82,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :id="'button-action-' + id" class="button-container">
+  <div :id="'button-action-' + id" class="button-container" role="button">
     <div :id="'sub-button-action-' + id" class="main-button clickable selector-menu effect" :class="{'invisibility-selector': invisibleSelectedBox, 'not-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
       <div :id="'click-button-action-' + id" @click="clicked">
         <span :id="'span-button-action-' + id" v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml" :style="{'--color-text': colorText}">

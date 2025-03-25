@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<{
 </script>
 
 <template>
-      <router-link to="/" >
+      <router-link to="/" role="button">
         <IconLogo :text-input="text" />
       </router-link>
 </template>

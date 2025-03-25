@@ -26,7 +26,7 @@ const removeTag = () => {
 </script>
 
 <template>
-  <div :id="'tag-' + id" class="main-tag" :style="{'--color-tag': color}">
+  <div :id="'tag-' + id" class="main-tag" :style="{'--color-tag': color}" role="listitem">
     {{ label }}
     <ButtonAction :not-selected-box="true" color-text="#222222" :function-click="removeTag"/>
   </div>

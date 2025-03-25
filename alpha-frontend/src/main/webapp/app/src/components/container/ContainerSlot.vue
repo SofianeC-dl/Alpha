@@ -42,7 +42,7 @@ const props = defineProps({
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 @use '@/assets/css/index' as mylib;
 
 .main-container-slot {

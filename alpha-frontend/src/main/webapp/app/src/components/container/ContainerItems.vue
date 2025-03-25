@@ -11,7 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div :id="'container-items-' + id" class="main-container-item">
+  <div :id="'container-items-' + id" class="main-container-item" role="group">
     <slot style="gap: 50px"></slot>
   </div>
 </template>

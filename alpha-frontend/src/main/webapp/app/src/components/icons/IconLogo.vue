@@ -38,7 +38,7 @@ function measureText() {
 </script>
 
 <template>
-  <div :id="'wrapper-icon-logo-' + id" class="svg-wrapper">
+  <div :id="'wrapper-icon-logo-' + id" class="svg-wrapper" role="img">
     <svg
       :id="'icon-logo-' + id"
       ref="svgRef"

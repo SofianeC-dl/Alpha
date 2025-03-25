@@ -23,7 +23,7 @@ const removeTag = (tagEmit: string) => {
 </script>
 
 <template>
-  <div :id="'container-tag-' + id" class="main-container-tag">
+  <div :id="'container-tag-' + id" class="main-container-tag" role="list">
     <Tag v-for="tag of tagList" :label="tag.label" :color="tag.color" @remove-tag="removeTag"/>
   </div>
 </template>

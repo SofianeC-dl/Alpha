@@ -11,6 +11,7 @@ const props = defineProps({
 <template>
   <svg
     :id="'icon-folder-project-' + id"
+    role="img"
     viewBox="0 0 64 48"
     xmlns="http://www.w3.org/2000/svg"
   >

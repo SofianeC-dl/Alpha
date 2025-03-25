@@ -17,11 +17,15 @@ const props = defineProps({
     default: IdUtils.generateRandomId()
   }
 });
+
+const roleMessage = computed(() => {
+  return type.value === TypeMessageEnum.ERROR ? 'alert' : 'status';
+});
 </script>
 
 <template>
   <Teleport :id="'teleport-global-message-' + id" to="body">
-    <div :id="'global-message-' + id" v-if="isOpen" :class="['global-message-params', type]">
+    <div :id="'global-message-' + id" v-if="isOpen" :class="['global-message-params', type]" :role="roleMessage">
       <ButtonAction :function-click="globalMessageStore.clearMessage" class="item-button" :not-selected-box="true"/>
       <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />

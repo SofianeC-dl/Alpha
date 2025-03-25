@@ -73,7 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-link :id="'router-button-path-' + id" :to="routePath" class="button-style" v-if="isButtonPath">
+  <router-link :id="'router-button-path-' + id" :to="routePath" class="button-style" v-if="isButtonPath" role="link">
     <div :id="'button-path-' + id" class="main-button selector-menu effect" :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
       <div :id="'click-button-path-' + id" @click="clicked">
           <span :id="'span-button-path-' + id">{{ props.labelButton }}</span>

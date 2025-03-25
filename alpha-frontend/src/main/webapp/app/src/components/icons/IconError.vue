@@ -12,6 +12,7 @@ const props = defineProps({
 
 <template>
   <svg :id="'icon-error-' + id"
+       role="img"
        xmlns="http://www.w3.org/2000/svg"
        viewBox="0 0 50 50"
        xml:space="preserve"

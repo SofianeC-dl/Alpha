@@ -20,7 +20,7 @@ const modalStore = useModalStore();
   <Teleport :id="'teleport-modal-' + id" to="body">
     <Transition :id="'transition-modal-' + id" name="modal">
       <div :id="'modal-' + id" v-if="modalStore.isOpen" class="modal-mask">
-        <div :id="'container-modal-' + id" class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}">
+        <div :id="'container-modal-' + id" class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}" role="dialog">
           <div :id="'header-modal-' + id" class="modal-header">
             {{ modalStore.modalOption.title }}
           </div>

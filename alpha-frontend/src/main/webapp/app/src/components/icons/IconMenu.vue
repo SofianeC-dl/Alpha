@@ -12,6 +12,7 @@ const props = defineProps({
 <template>
   <svg
     :id="'icon-menu-' + id"
+    role="img"
     xmlns="http://www.w3.org/2000/svg"
     x="0px" y="0px"
     viewBox="0 0 50 50">

@@ -17,7 +17,7 @@ const props = defineProps({
 <template>
   <Teleport :id="'teleport-loading-' + id" to="body">
     <Transition :id="'transition-loading-' + id" name="loading">
-      <div :id="'loading-' + id" v-if="loadingStore.isLoading" class="modal-mask">
+      <div :id="'loading-' + id" v-if="loadingStore.isLoading" class="modal-mask" role="status">
         <div :id="'container-loading-' + id" class="modal-container" :style="{ '--size-modal': SizeEnum.SMALL}">
           <div :id="'overlay-loading-' + id" class="loading-overlay">
             <div :id="'spinner-loading-' + id" class="spinner">

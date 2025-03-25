@@ -48,9 +48,10 @@ const bodyStyle = computed(() => {
     :id="'menu-section-' + id"
     class="dropdown"
     :class="{ active: isOpen }"
+    role="group"
   >
     <div :id="'container-title-menu-section-' + id" class="container-title">
-      <div :id="'click-menu-section-' + id" class="title" @click="toggleSection">
+      <div :id="'click-menu-section-' + id" class="title" @click="toggleSection" role="button">
         <h3 :id="'title-menu-section-' + id">{{ props.title }}</h3>
       </div>
     </div>
