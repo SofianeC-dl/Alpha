@@ -1,3 +1,3 @@
-export type ErrorJsonDict = {
-  [key: string]: string | ErrorJsonDict;
+export type TypeJsonDict = {
+  [key: string]: string | TypeJsonDict;
 };

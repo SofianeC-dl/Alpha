@@ -3,6 +3,7 @@
 import {useLoadingStore} from "@/stores/loading/loadingStore.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 const loadingStore = useLoadingStore();
 
@@ -12,6 +13,7 @@ const props = defineProps({
     default: IdUtils.generateRandomId()
   }
 });
+
 </script>
 
 <template>
@@ -21,7 +23,7 @@ const props = defineProps({
         <div :id="'container-loading-' + id" class="modal-container" :style="{ '--size-modal': SizeEnum.SMALL}">
           <div :id="'overlay-loading-' + id" class="loading-overlay">
             <div :id="'spinner-loading-' + id" class="spinner">
-              Chargement...
+              {{ JsonParseUtils.getTextFromTextJsonDict('component.loading') }}
             </div>
           </div>
         </div>

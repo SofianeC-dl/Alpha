@@ -20,7 +20,7 @@ export const useTagStore = defineStore('tagStore', () => {
   function addTag(newTag: TagDto) {
     const tagDto: TagApiAddTagRequest = {
       tagDto: {
-        label: newTag.label,
+        labelTag: newTag.label,
         color: newTag.color
       },
     }

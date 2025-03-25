@@ -1,0 +1,45 @@
+{
+  "view": {
+    "header": {
+    }
+  },
+  "component": {
+    "button": {
+      "default": "[X]",
+      "about": "About",
+      "add": "Add",
+      "admin": "Admin",
+      "addtags": "Add Tags",
+      "api": "Api",
+      "exit": "Exit",
+      "logout": "Log Out",
+      "ok": "Ok"
+    },
+    "input": {
+      "label": {
+        "default": "[No_Label]",
+        "newtag": "New Tag Name"
+      },
+      "placeholder": {
+        "default": "",
+        "newtag": "Nature, Amis, ..."
+      }
+    },
+    "loading": "Loading...",
+    "menu": {
+      "section": {
+        "title": {
+          "default": "[No_Title]",
+          "search": "Search"
+        }
+      }
+    },
+    "tag": {
+      "default": "[No_Label]"
+    }
+  },
+  "logo": {
+    "default": "[No_Title_Logo]",
+    "title": "Archive.rar"
+  }
+}

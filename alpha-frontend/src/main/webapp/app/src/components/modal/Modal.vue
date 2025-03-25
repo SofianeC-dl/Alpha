@@ -30,7 +30,7 @@ const modalStore = useModalStore();
           </div>
 
           <div :id="'footer-modal-' + id" class="modal-footer">
-              <ButtonAction class="modal-default-button" :function-click="modalStore.close" label-button="ok"/>
+              <ButtonAction class="modal-default-button" :function-click="modalStore.close" label-button="component.button.ok"/>
           </div>
         </div>
       </div>

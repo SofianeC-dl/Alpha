@@ -5,6 +5,7 @@ import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import {SizeBox} from "@/composables/object/SizeBox.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 const emits = defineEmits(['clicked']);
 
@@ -19,7 +20,7 @@ const props = defineProps({
   },
   labelButton: {
     type: String,
-    default: `[X]`
+    default: 'component.button.default'
   },
   isIconButton: {
     type: Boolean,
@@ -69,7 +70,9 @@ const isActiveButtonCurrentRoute = computed(() => {
 const clicked = () => {
   if (props.functionClick) props.functionClick();
   emits('clicked');
-}
+};
+
+const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelButton));
 
 onMounted(() => {
   const result: SizeBox = ButtonUtils.convertSize(props.size);
@@ -82,11 +85,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :id="'button-action-' + id" class="button-container" role="button">
+  <div :id="'button-action-' + id" class="button-container" role="button" aria-label="Fermer la fenêtre">
     <div :id="'sub-button-action-' + id" class="main-button clickable selector-menu effect" :class="{'invisibility-selector': invisibleSelectedBox, 'not-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
       <div :id="'click-button-action-' + id" @click="clicked">
         <span :id="'span-button-action-' + id" v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml" :style="{'--color-text': colorText}">
-          {{ props.labelButton }}
+          {{ convertLabelName }}
         </span>
         <div :id="'icon-button-action-' + id" v-if="isIconButton" class="icon-center" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
           <slot ></slot>

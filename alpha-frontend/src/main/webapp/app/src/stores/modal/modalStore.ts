@@ -5,7 +5,7 @@ import {SizeEnum} from "../../assets/enum/sizeEnum.js";
 
 export const useModalStore = defineStore('modalStore', () => {
   const defaultModalOption: ModalOption = {
-    title: '[no_title]',
+    titleSection: '[no_title]',
     size: SizeEnum.MEDIUM,
     body: '[no_body]'
   };

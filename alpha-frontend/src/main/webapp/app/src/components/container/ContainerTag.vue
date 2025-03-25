@@ -19,12 +19,12 @@ const emits = defineEmits(['update:tagList']);
 const removeTag = (tagEmit: string) => {
   const newList = props.tagList.filter(tag => tag.label !== tagEmit);
   emits('update:tagList', newList);
-}
+};
 </script>
 
 <template>
   <div :id="'container-tag-' + id" class="main-container-tag" role="list">
-    <Tag v-for="tag of tagList" :label="tag.label" :color="tag.color" @remove-tag="removeTag"/>
+    <Tag v-for="tag of tagList" :label-tag="tag.label" :color="tag.color" @remove-tag="removeTag"/>
   </div>
 </template>
 

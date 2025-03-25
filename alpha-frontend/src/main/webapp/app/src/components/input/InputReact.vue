@@ -8,13 +8,14 @@ import ContainerSlot from "@/components/container/ContainerSlot.vue";
 import {FlexDirectionEnum} from "@/assets/enum/FlexEnum.js";
 import {FormatEnum} from "@/assets/enum/FormatEnum.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 
 // Définition des props
 const props = withDefaults(defineProps<PropsInput>(), {
   id: IdUtils.generateRandomId(),
-  labelInput: '[NO_LABEL]',
-  placeHolder: '',
+  labelInput: 'component.input.label.default',
+  placeHolder: 'component.input.placeholder.default',
   size: SizeEnum.DEFAULT
 });
 
@@ -34,6 +35,9 @@ const localInput = computed({
   }
 });
 
+const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelInput));
+const convertPlaceHolderName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.placeHolder));
+
 onMounted(() => {
   const result: SizeBox = InputUtils.convertSize(props.size);
 
@@ -44,8 +48,8 @@ onMounted(() => {
 
 <template>
   <ContainerSlot :direction="FlexDirectionEnum.COLUMN" :position-item="props.positionLabel" gap="0" :width="FormatEnum.AUTO">
-    {{ props.labelInput }}
-    <input v-model="localInput" :placeholder="placeHolder" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}"/>
+    {{ convertLabelName }}
+    <input v-model="localInput" :placeholder="convertPlaceHolderName" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}"/>
   </ContainerSlot>
 </template>
 

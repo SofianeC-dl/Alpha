@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import IconLogo from "@/components/icons/IconLogo.vue";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {computed} from "vue";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 const props = withDefaults(defineProps<{
   id?: string,
   text?: string
 }>(), {
   id: IdUtils.generateRandomId(),
-  text: 'Archive.rar'
+  text: 'logo.default'
 });
+
+const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.text));
+
 </script>
 
 <template>
       <router-link to="/" role="button">
-        <IconLogo :text-input="text" />
+        <IconLogo :text-input="convertLabelName" />
       </router-link>
 </template>
 

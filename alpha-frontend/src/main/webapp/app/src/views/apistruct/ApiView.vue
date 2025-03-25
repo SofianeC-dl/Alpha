@@ -81,7 +81,7 @@ const getAllTags = () => {
 const postTag = () => {
   const tagDto: TagApiAddTagRequest = {
     tagDto: {
-      label: 'Tag',
+      labelTag: 'Tag',
     },
   }
   consoleLog(tagApi.addTag(tagDto), 'Tag Add')
@@ -92,7 +92,7 @@ const putTag = () => {
     idTag: tagId.value,
     tagDto: {
       id: tagId.value,
-      label: 'updateTag',
+      labelTag: 'updateTag',
     },
   }
   consoleLog(tagApi.updateTag(tagDto), 'Tag update')
@@ -292,19 +292,19 @@ const deleteImageProject = () => {
     </div>
 
     <button @click="() => modalStore.open({
-      title: 'test',
+      titleSection: 'test',
       size: SizeEnum.SMALL,
       body: 'body test'
     })" >Modal Small</button>
 
     <button @click="() => modalStore.open({
-      title: 'test',
+      titleSection: 'test',
       size: SizeEnum.MEDIUM,
       body: 'body test'
     })" >Modal Medium</button>
 
     <button @click="() => modalStore.open({
-      title: 'test',
+      titleSection: 'test',
       size: SizeEnum.LARGER,
       body: 'body test'
     })" >Modal Larger</button>

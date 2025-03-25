@@ -13,7 +13,7 @@ const inputText : Ref<string, string> = ref<string>('');
 
 <template>
   <MenuSectionContainer>
-    <MenuSection title="Search">
+    <MenuSection title-section="component.menu.section.title.search">
         <ContainerSlot :direction="FlexDirectionEnum.COLUMN" :position-content="FlexPositionEnum.LEFT" gap="10px">
           <InputReact v-model="inputText" :size="SizeEnum.SMALL"/>
           <InputReact v-model="inputText" :size="SizeEnum.SMALL"/>

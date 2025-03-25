@@ -5,6 +5,7 @@ import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
 import {SizeEnum} from "@/assets/enum/sizeEnum.js";
 import {SizeBox} from "@/composables/object/SizeBox.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 const emits = defineEmits(['clicked'])
 
@@ -23,7 +24,7 @@ const props = defineProps({
   },
   labelButton: {
     type: String,
-    default: `[X]`
+    default: 'component.button.default'
   },
   isButtonPath: {
     type: Boolean,
@@ -57,6 +58,8 @@ const isActiveButtonCurrentRoute = computed(() => {
   return route.path === routePath || normalizedPathArray.includes(route.path);
 });
 
+const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelButton));
+
 const clicked = () => {
   if (props.functionClick) props.functionClick();
   emits('clicked');
@@ -76,7 +79,7 @@ onMounted(() => {
   <router-link :id="'router-button-path-' + id" :to="routePath" class="button-style" v-if="isButtonPath" role="link">
     <div :id="'button-path-' + id" class="main-button selector-menu effect" :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
       <div :id="'click-button-path-' + id" @click="clicked">
-          <span :id="'span-button-path-' + id">{{ props.labelButton }}</span>
+          <span :id="'span-button-path-' + id">{{ convertLabelName }}</span>
       </div>
     </div>
   </router-link>

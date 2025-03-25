@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import {computed, nextTick, onMounted, Ref, ref} from 'vue'
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 const props = defineProps({
   id: {
     type: String,
     default: IdUtils.generateRandomId()
   },
-  title: {
+  titleSection: {
     type: String,
-    default: '[NO_TITTLE]'
+    default: 'component.menu.section.title.default'
   }
 });
 
@@ -24,7 +25,9 @@ const toggleSection = async () => {
     containerHeight.value = container.value.offsetHeight;
   }
   isOpen.value = !isOpen.value;
-}
+};
+
+const convertTitleSectionName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.titleSection));
 
 onMounted(() => {
   nextTick(() => {
@@ -52,7 +55,7 @@ const bodyStyle = computed(() => {
   >
     <div :id="'container-title-menu-section-' + id" class="container-title">
       <div :id="'click-menu-section-' + id" class="title" @click="toggleSection" role="button">
-        <h3 :id="'title-menu-section-' + id">{{ props.title }}</h3>
+        <h3 :id="'title-menu-section-' + id">{{ convertTitleSectionName }}</h3>
       </div>
     </div>
     <div :id="'body-menu-section-' + id" class="body" :style="bodyStyle">

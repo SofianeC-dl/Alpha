@@ -8,9 +8,9 @@ const props = defineProps({
     type: String,
     default: IdUtils.generateRandomId()
   },
-  label: {
+  labelTag: {
     type: String,
-    default: '[No_label]'
+    default: '[No_Label]'
   },
   color: {
     type: String,
@@ -21,13 +21,14 @@ const props = defineProps({
 const emit = defineEmits(['removeTag']);
 
 const removeTag = () => {
-  emit('removeTag', props.label);
+  emit('removeTag', props.labelTag);
 }
+
 </script>
 
 <template>
   <div :id="'tag-' + id" class="main-tag" :style="{'--color-tag': color}" role="listitem">
-    {{ label }}
+    {{ labelTag }}
     <ButtonAction :not-selected-box="true" color-text="#222222" :function-click="removeTag"/>
   </div>
 </template>
