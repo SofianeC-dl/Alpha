@@ -29,7 +29,7 @@ const removeTag = () => {
 <template>
   <div :id="'tag-' + id" class="main-tag" :style="{'--color-tag': color}" role="listitem">
     {{ labelTag }}
-    <ButtonAction :not-selected-box="true" color-text="#222222" :function-click="removeTag"/>
+    <ButtonAction :not-selected-box="true" color-text="#222222" :function-click="removeTag" aria-label-button="component.button.removetag"/>
   </div>
 </template>
 

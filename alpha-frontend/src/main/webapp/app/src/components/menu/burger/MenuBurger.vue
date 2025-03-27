@@ -53,9 +53,9 @@ const openAddTagModal = () => {
   <Teleport :id="'teleport-menu-burger-' + id" to="body">
     <MenuMobile>
       <ContainerSlot :direction="FlexDirectionEnum.COLUMN">
-        <ButtonAction label-button="component.button.addtags" :size="SizeEnum.MEDIUM" :function-click="openAddTagModal" function-click=""/>
-        <ButtonPath id="api" routing-path="Api" label-button="menu.burger.button.api" :size="SizeEnum.MEDIUM" v-if="authStore.isAdmin"/>
-        <ButtonAction id="logout-action" label-button="menu.burger.button.logout" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.MEDIUM" v-if="authStore.isAdmin"/>
+        <ButtonAction label-button="component.button.addtags" :size="SizeEnum.MEDIUM" :function-click="openAddTagModal" function-click="" aria-label-button="component.button.addtagsmenu"/>
+        <ButtonPath id="api" routing-path="Api" label-button="menu.burger.button.api" :size="SizeEnum.MEDIUM" v-if="authStore.isAdmin" aria-label-button="component.button.api"/>
+        <ButtonAction id="logout-action" label-button="menu.burger.button.logout" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.MEDIUM" v-if="authStore.isAdmin" aria-label-button="component.button.logout"/>
       </ContainerSlot>
     </MenuMobile>
   </Teleport>

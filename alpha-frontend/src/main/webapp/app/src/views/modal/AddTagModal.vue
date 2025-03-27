@@ -46,15 +46,15 @@ const addTagAndExit = () => {
 <template>
   <ContainerSlot :direction="FlexDirectionEnum.COLUMN">
     <ContainerSlot :position-content="FlexPositionEnum.LEFT" :position-item="FlexPositionEnum.RIGHT" :width="FormatEnum.AUTO">
-      <InputReact place-holder="component.input.placeholder.newtag" label-input="component.input.label.newtag" v-model="inputTag"/>
-      <ButtonAction label-button="component.button.add" :size="SizeEnum.DEFAULT" :function-click="addTag"/>
+      <InputReact place-holder="component.input.placeholder.newtag" label-input="component.input.label.newtag" v-model="inputTag" aria-label-input="component.input.addtag"/>
+      <ButtonAction label-button="component.button.add" :size="SizeEnum.DEFAULT" :function-click="addTag" aria-label-button="component.button.addtag"/>
     </ContainerSlot>
     <ContainerItems>
       <ContainerTag v-model:tag-list="tagList" @update:tagList="val => tagList = val"/>
     </ContainerItems>
     <ContainerSlot :position-content="FlexPositionEnum.RIGHT" :position-item="FlexPositionEnum.RIGHT">
-      <ButtonAction :function-click="addTagAndExit" label-button="component.button.addtags" />
-      <ButtonAction :function-click="closeModal" label-button="component.button.exit" />
+      <ButtonAction :function-click="addTagAndExit" label-button="component.button.addtags" aria-label-button="component.button.addtags"/>
+      <ButtonAction :function-click="closeModal" label-button="component.button.exit" aria-label-button="component.button.exitmodal"/>
     </ContainerSlot>
   </ContainerSlot>
 </template>

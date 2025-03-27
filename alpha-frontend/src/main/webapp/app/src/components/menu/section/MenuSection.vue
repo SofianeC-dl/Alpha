@@ -11,7 +11,11 @@ const props = defineProps({
   titleSection: {
     type: String,
     default: 'component.menu.section.title.default'
-  }
+  },
+  ariaLabelSection: {
+    type: String,
+    default: 'component.button.default'
+  },
 });
 
 const isOpen: Ref<boolean, boolean> = ref<boolean>(false);
@@ -28,6 +32,7 @@ const toggleSection = async () => {
 };
 
 const convertTitleSectionName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.titleSection));
+const convertAriaLabel = computed(() => JsonParseUtils.getTextFromAriaJsonDict(props.ariaLabelSection));
 
 onMounted(() => {
   nextTick(() => {
@@ -51,15 +56,18 @@ const bodyStyle = computed(() => {
     :id="'menu-section-' + id"
     class="dropdown"
     :class="{ active: isOpen }"
-    role="group"
+    role="button"
+    :aria-expanded="isOpen"
+    tabindex="0"
+    :aria-label="convertAriaLabel"
   >
     <div :id="'container-title-menu-section-' + id" class="container-title">
-      <div :id="'click-menu-section-' + id" class="title" @click="toggleSection" role="button">
+      <div :id="'click-menu-section-' + id" class="title" @click="toggleSection">
         <h3 :id="'title-menu-section-' + id">{{ convertTitleSectionName }}</h3>
       </div>
     </div>
     <div :id="'body-menu-section-' + id" class="body" :style="bodyStyle">
-      <div :id="'container-body-menu-section-' + id" ref="container" class="body-container">
+      <div :id="'container-body-menu-section-' + id" ref="container" class="body-container" role="group">
         <slot></slot>
       </div>
     </div>

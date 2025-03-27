@@ -17,7 +17,7 @@ const props = defineProps({
 const emits = defineEmits(['update:tagList']);
 
 const removeTag = (tagEmit: string) => {
-  const newList = props.tagList.filter(tag => tag.label !== tagEmit);
+  props.tagList.filter(tag => tag.label !== tagEmit);
   emits('update:tagList', newList);
 };
 </script>

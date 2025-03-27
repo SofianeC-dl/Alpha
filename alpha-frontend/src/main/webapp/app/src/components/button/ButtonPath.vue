@@ -26,6 +26,10 @@ const props = defineProps({
     type: String,
     default: 'component.button.default'
   },
+  ariaLabelButton: {
+    type: String,
+    default: 'component.button.defaultpath'
+  },
   isButtonPath: {
     type: Boolean,
     default: true
@@ -59,6 +63,7 @@ const isActiveButtonCurrentRoute = computed(() => {
 });
 
 const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelButton));
+const convertAriaLabel = computed(() => JsonParseUtils.getTextFromAriaJsonDict(props.ariaLabelButton));
 
 const clicked = () => {
   if (props.functionClick) props.functionClick();
@@ -76,9 +81,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-link :id="'router-button-path-' + id" :to="routePath" class="button-style" v-if="isButtonPath" role="link">
+  <router-link :id="'router-button-path-' + id" :to="routePath" class="button-style" v-if="isButtonPath" role="link" :aria-label="convertAriaLabel">
     <div :id="'button-path-' + id" class="main-button selector-menu effect" :class="{'invisibility-selector': isActiveButtonCurrentRoute && !notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
-      <div :id="'click-button-path-' + id" @click="clicked">
+      <div :id="'click-button-path-' + id" @click="clicked" @keydown.enter="clicked">
           <span :id="'span-button-path-' + id">{{ convertLabelName }}</span>
       </div>
     </div>

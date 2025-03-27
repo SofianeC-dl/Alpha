@@ -22,6 +22,10 @@ const props = defineProps({
     type: String,
     default: 'component.button.default'
   },
+  ariaLabelButton: {
+    type: String,
+    default: 'component.button.default'
+  },
   isIconButton: {
     type: Boolean,
     default: false
@@ -72,7 +76,8 @@ const clicked = () => {
   emits('clicked');
 };
 
-const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelButton));
+const convertLabel = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelButton));
+const convertAriaLabel = computed(() => JsonParseUtils.getTextFromAriaJsonDict(props.ariaLabelButton));
 
 onMounted(() => {
   const result: SizeBox = ButtonUtils.convertSize(props.size);
@@ -85,11 +90,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div :id="'button-action-' + id" class="button-container" role="button" aria-label="Fermer la fenêtre">
+  <div :id="'button-action-' + id" class="button-container" role="button" tabindex="0" :aria-label="convertAriaLabel">
     <div :id="'sub-button-action-' + id" class="main-button clickable selector-menu effect" :class="{'invisibility-selector': invisibleSelectedBox, 'not-selector': notSelectedBox}" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" >
-      <div :id="'click-button-action-' + id" @click="clicked">
+      <div :id="'click-button-action-' + id" @click="clicked" @keydown.enter="clicked">
         <span :id="'span-button-action-' + id" v-if="!isIconButton" xmlns="http://www.w3.org/1999/xhtml" :style="{'--color-text': colorText}">
-          {{ convertLabelName }}
+          {{ convertLabel }}
         </span>
         <div :id="'icon-button-action-' + id" v-if="isIconButton" class="icon-center" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}">
           <slot ></slot>

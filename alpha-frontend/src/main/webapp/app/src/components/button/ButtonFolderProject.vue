@@ -2,17 +2,21 @@
 
 import IconFolderProject from "@/components/icons/IconFolderProject.vue";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {computed} from "vue";
+import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 
 const props = defineProps({
   id: {
     type: String,
     default: IdUtils.generateRandomId()
   }
-})
+});
+
+const convertAriaLabel = computed(() => JsonParseUtils.getTextFromAriaJsonDict('component.button.folder'));
 </script>
 
 <template>
-  <button :id="'button-folder-' + id" class="icon-button" aria-label="Mon bouton" role="button">
+  <button :id="'button-folder-' + id" class="icon-button" :aria-label="convertAriaLabel" role="button">
     <IconFolderProject />
   </button>
 </template>

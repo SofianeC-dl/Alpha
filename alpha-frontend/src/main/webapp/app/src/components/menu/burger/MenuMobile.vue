@@ -17,7 +17,7 @@ const props = defineProps({
 <template>
     <nav :id="'nav-menu-mobile-' + id" v-if="menuStore.isMenuOpen" class="menu-navbar">
       <div :id="'button-exit-menu-mobile-' + id" class="button-close-menu">
-        <ButtonAction  :function-click="menuStore.toggleMenu" :not-selected-box="true" />
+        <ButtonAction :function-click="menuStore.toggleMenu" :not-selected-box="true" aria-label-button="component.button.closedmenumobile"/>
       </div>
 
       <div :id="'menu-mobile-' + id" class="button-menu">

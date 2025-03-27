@@ -17,9 +17,9 @@ const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(p
 </script>
 
 <template>
-      <router-link to="/" role="button">
-        <IconLogo :text-input="convertLabelName" />
-      </router-link>
+    <router-link to="/" role="button">
+      <IconLogo :text-input="convertLabelName" />
+    </router-link>
 </template>
 
 <style lang="scss" scoped>

@@ -73,38 +73,38 @@ const openAddTagModal = () => {
 
     <div class="border-group" >
       <ContainerSlot v-if="isAdmin" :position-item="FlexPositionEnum.CENTER">
-        <ButtonAction label-button="component.button.addtags" :size="SizeEnum.SMALL" :function-click="openAddTagModal" />
+        <ButtonAction label-button="component.button.addtags" :size="SizeEnum.SMALL" :function-click="openAddTagModal" aria-label-button="component.button.addtagsheader"/>
       </ContainerSlot>
     </div>
 
       <div v-if="!isMediaPhone" class="center-group">
-        <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="component.button.admin" :active-path="['Admin']" :size="SizeEnum.SMALL"/>
+        <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="component.button.admin" :active-path="['Admin']" :size="SizeEnum.SMALL" aria-label-button="component.button.admin"/>
 
         <ButtonLogo class="grid-logo" text="logo.title" />
 
-        <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="component.button.about"  :size="SizeEnum.SMALL"/>
+        <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="component.button.about"  :size="SizeEnum.SMALL" aria-label-button="component.button.about"/>
       </div>
 
     <div v-if="isMediaPhone" class="center-group">
         <ButtonLogo class="grid-logo" text="logo.title" />
 
         <ContainerSlot class="button-container" :direction="FlexDirectionEnum.ROW">
-          <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="component.button.admin"  :active-path="['Admin']" :size="SizeEnum.SMALL"/>
+          <ButtonPath id="admin" class="grid-menu-admin" routing-path="Login" label-button="component.button.admin"  :active-path="['Admin']" :size="SizeEnum.SMALL" aria-label-button="component.button.admin"/>
 
           <div class="border-group-menu-burger">
-            <ButtonAction :function-click="menuStore.toggleMenu" :is-icon-button="true" :not-selected-box="true">
+            <ButtonAction :function-click="menuStore.toggleMenu" :is-icon-button="true" :not-selected-box="true" aria-label-button="component.button.menuheader">
               <IconMenu />
             </ButtonAction>
           </div>
 
-          <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="component.button.about"  :size="SizeEnum.SMALL"/>
+          <ButtonPath id="about" class="grid-menu-about" routing-path="About" label-button="component.button.about"  :size="SizeEnum.SMALL" aria-label-button="component.button.about"/>
         </ContainerSlot>
       </div>
 
       <div class="border-group">
         <ContainerSlot gap="10px" v-if="isAdmin" :direction="FlexDirectionEnum.ROW" :position-item="FlexPositionEnum.CENTER">
-          <ButtonPath id="api" routing-path="Api" label-button="component.button.api" :size="SizeEnum.SMALL"/>
-          <ButtonAction id="logout-action" label-button="component.button.logout" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.SMALL"/>
+          <ButtonPath id="api" routing-path="Api" label-button="component.button.api" :size="SizeEnum.SMALL" aria-label-button="component.button.api"/>
+          <ButtonAction id="logout-action" label-button="component.button.logout" :function-click="deconnect" @clicked="logoutMessage" :size="SizeEnum.SMALL" aria-label-button="component.button.logout"/>
         </ContainerSlot>
       </div>
   </header>

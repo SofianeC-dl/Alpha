@@ -4,6 +4,7 @@ import {useModalStore} from "@/stores/modal/modalStore.js";
 import {ModalUtils} from "@/composables/utils/modal/ModalUtils.js";
 import ButtonAction from "@/components/button/ButtonAction.vue";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {nextTick, watch} from "vue";
 
 const props = defineProps({
   id: {
@@ -14,13 +15,38 @@ const props = defineProps({
 
 const modalStore = useModalStore();
 
+watch(modalStore.isOpen, async (newVal) => {
+  if (newVal) {
+    await nextTick()
+    firstElement.value.focus()
+  }
+})
+
+const handleTabKey = (event) => {
+  const focusableElements = modal.value.querySelectorAll(
+    'ButtonAction'
+  )
+  const focusable = Array.from(focusableElements).filter(el => !el.disabled)
+  const first = focusable[0]
+  const last = focusable[focusable.length - 1]
+
+  if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first.focus()
+  }
+
+  else if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last.focus()
+  }
+}
 </script>
 
 <template>
-  <Teleport :id="'teleport-modal-' + id" to="body">
-    <Transition :id="'transition-modal-' + id" name="modal">
-      <div :id="'modal-' + id" v-if="modalStore.isOpen" class="modal-mask">
-        <div :id="'container-modal-' + id" class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}" role="dialog">
+  <Teleport :id="'teleport-modal-' + id" to="body" aria-modal="true">
+    <Transition :id="'transition-modal-' + id" name="modal" role="dialog" aria-modal="true">
+      <div :id="'modal-' + id" v-if="modalStore.isOpen" class="modal-mask" @keydown.tab="handleTabKey">
+        <div :id="'container-modal-' + id" class="modal-container" :style="{ '--size-modal': ModalUtils.convertSize(modalStore.modalOption.size)}">
           <div :id="'header-modal-' + id" class="modal-header">
             {{ modalStore.modalOption.title }}
           </div>
@@ -30,7 +56,7 @@ const modalStore = useModalStore();
           </div>
 
           <div :id="'footer-modal-' + id" class="modal-footer">
-              <ButtonAction class="modal-default-button" :function-click="modalStore.close" label-button="component.button.ok"/>
+              <ButtonAction class="modal-default-button" :function-click="modalStore.close" label-button="component.button.ok" aria-label-button="component.button.okmodal"/>
           </div>
         </div>
       </div>

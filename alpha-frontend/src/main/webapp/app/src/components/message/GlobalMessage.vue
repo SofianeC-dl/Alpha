@@ -26,7 +26,7 @@ const roleMessage = computed(() => {
 <template>
   <Teleport :id="'teleport-global-message-' + id" to="body">
     <div :id="'global-message-' + id" v-if="isOpen" :class="['global-message-params', type]" :role="roleMessage">
-      <ButtonAction :function-click="globalMessageStore.clearMessage" class="item-button" :not-selected-box="true"/>
+      <ButtonAction :function-click="globalMessageStore.clearMessage" class="item-button" :not-selected-box="true" aria-label-button="component.button.closedtoast"/>
       <HeaderMessage class="item-header" :class="type"/>
       <MessageToastToast />
     </div>

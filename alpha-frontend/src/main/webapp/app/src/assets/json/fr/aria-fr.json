@@ -1,7 +1,38 @@
 {
-  "button": {
-    "action": {
-
+  "component": {
+    "button": {
+      "default": "Bouton action",
+      "defaultpath": "Bouton de redirection",
+      "closedtoast": "Fermer la popup",
+      "addtag": "Ajouter le tag de l'input",
+      "addtags": "Ajouter les tags",
+      "addtagsmenu": "Ouvre la modal d'ajout de tag",
+      "removetag": "Supprime le tag",
+      "logout": "déconnexion",
+      "okmodal": "Fermer la modal",
+      "closedmenumobile": "Fermer le menu",
+      "addtagsheader": "Ouvre la modal d'ajout de tag",
+      "menuheader": "Ouvre le menu mobile",
+      "exitmodal": "Fermer la modal",
+      "api": "Redirige vers la page d'Api",
+      "admin": "Redirige vers la page d'Admin",
+      "about": "Redirige vers la page About",
+      "folder": "Ouvre un projet"
+    },
+    "input": {
+      "default": "Input",
+      "addtag": "Input ajouter un tag"
+    },
+    "menu": {
+      "section": {
+        "title": {
+          "default": "Section déroulante",
+          "search": "Section déroulante de recherche de projet"
+        }
+      }
     }
+  },
+  "logo": {
+    "title": "Retour page principale"
   }
 }

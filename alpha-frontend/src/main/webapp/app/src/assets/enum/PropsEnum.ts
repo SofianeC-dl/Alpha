@@ -5,6 +5,7 @@ export interface PropsInput {
   id?: string,
   modelValue: string;
   labelInput?: string;
+  ariaLabelInput?: string;
   placeHolder?: string;
   size?: SizeEnum;
   positionLabel?: FlexPositionEnum;

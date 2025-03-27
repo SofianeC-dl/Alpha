@@ -1,8 +1,4 @@
 {
-  "view": {
-    "header": {
-    }
-  },
   "component": {
     "button": {
       "default": "[X]",

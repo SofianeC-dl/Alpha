@@ -15,6 +15,7 @@ import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 const props = withDefaults(defineProps<PropsInput>(), {
   id: IdUtils.generateRandomId(),
   labelInput: 'component.input.label.default',
+  ariaLabelInput: 'component.input.default',
   placeHolder: 'component.input.placeholder.default',
   size: SizeEnum.DEFAULT
 });
@@ -37,6 +38,7 @@ const localInput = computed({
 
 const convertLabelName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.labelInput));
 const convertPlaceHolderName = computed(() => JsonParseUtils.getTextFromTextJsonDict(props.placeHolder));
+const convertAriaLabel = computed(() => JsonParseUtils.getTextFromAriaJsonDict(props.ariaLabelInput));
 
 onMounted(() => {
   const result: SizeBox = InputUtils.convertSize(props.size);
@@ -49,7 +51,7 @@ onMounted(() => {
 <template>
   <ContainerSlot :direction="FlexDirectionEnum.COLUMN" :position-item="props.positionLabel" gap="0" :width="FormatEnum.AUTO">
     {{ convertLabelName }}
-    <input v-model="localInput" :placeholder="convertPlaceHolderName" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}"/>
+    <input v-model="localInput" :placeholder="convertPlaceHolderName" :style="{'--size-button-width': widthButton, '--size-button-height': heightButton}" :aria-label="convertAriaLabel"/>
   </ContainerSlot>
 </template>
 
