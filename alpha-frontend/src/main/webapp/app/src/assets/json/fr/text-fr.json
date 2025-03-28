@@ -9,7 +9,8 @@
       "api": "Api",
       "exit": "Exit",
       "logout": "Log Out",
-      "ok": "Ok"
+      "ok": "Ok",
+      "settings": "Settings"
     },
     "input": {
       "label": {
@@ -32,6 +33,9 @@
     },
     "tag": {
       "default": "[No_Label]"
+    },
+    "hexcolor": {
+      "inputhex": "Hex (R G B A)"
     }
   },
   "logo": {

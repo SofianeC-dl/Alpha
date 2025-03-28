@@ -3,5 +3,8 @@ export enum SizeEnum {
   SMALL = 'sm',
   MEDIUM = 'md',
   LARGER = 'lg',
-  DEFAULT = 'default'
+  DEFAULT = 'default',
+  AUTO = 'auto',
+  MAX_CONTENT = 'max-content',
+  CUSTOM = 'custom'
 }

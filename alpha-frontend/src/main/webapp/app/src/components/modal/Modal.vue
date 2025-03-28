@@ -15,12 +15,12 @@ const props = defineProps({
 
 const modalStore = useModalStore();
 
-watch(modalStore.isOpen, async (newVal) => {
+watch(() => modalStore.isOpen, async (newVal) => {
   if (newVal) {
     await nextTick()
     firstElement.value.focus()
   }
-})
+});
 
 const handleTabKey = (event) => {
   const focusableElements = modal.value.querySelectorAll(

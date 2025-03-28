@@ -1,4 +1,4 @@
-import {SizeEnum} from "../../../assets/enum/sizeEnum.js";
+import {SizeEnum} from "../../enum/sizeEnum.js";
 
 export class ModalUtils {
 

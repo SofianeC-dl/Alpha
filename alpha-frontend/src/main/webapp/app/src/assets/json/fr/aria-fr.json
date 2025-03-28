@@ -17,7 +17,8 @@
       "api": "Redirige vers la page d'Api",
       "admin": "Redirige vers la page d'Admin",
       "about": "Redirige vers la page About",
-      "folder": "Ouvre un projet"
+      "folder": "Ouvre un projet",
+      "settings": "Redirige vers la page des Settings"
     },
     "input": {
       "default": "Input",

@@ -1,29 +1,28 @@
 import {SizeEnum} from "../../enum/sizeEnum.js";
 import {SizeBox} from "../../object/SizeBox.js";
 
-export class ButtonUtils {
-
-  static convertSize(size: SizeEnum): SizeBox {
+export class HexColorSquareUtils {
+  static convertSize(size: SizeEnum): string {
     let resultSize: SizeBox = {
       width: 'auto',
       height: 'auto'
     };
     switch (size) {
       case SizeEnum.SMALL:
-        resultSize.width = '6rem';
-        resultSize.height = '1.5rem';
+        resultSize.width = '10rem';
+        resultSize.height = '5rem';
         break;
       case SizeEnum.MEDIUM:
-        resultSize.width = '8rem';
-        resultSize.height = '2rem';
+        resultSize.width = '12.5rem';
+        resultSize.height = '7rem';
         break;
       case SizeEnum.LARGER:
-        resultSize.width = '10rem';
-        resultSize.height = '3rem';
+        resultSize.width = '15rem';
+        resultSize.height = '9rem';
         break;
       case SizeEnum.DEFAULT:
-        resultSize.width = 'max-content';
-        resultSize.height = 'max-content';
+        resultSize.width = 'auto';
+        resultSize.height = 'auto';
         break;
       default:
         return resultSize;

@@ -21,6 +21,7 @@ const props = defineProps({
 
 .main-container-item {
   @include mylib.border-style-unpadding;
+  flex: 1;
   width: auto;
   min-height: 20px;
   height: max-content;

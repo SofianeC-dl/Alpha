@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {useLoadingStore} from "@/stores/loading/loadingStore.js";
-import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import {SizeEnum} from "@/composables/enum/sizeEnum.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
 import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";
 

@@ -1,5 +1,5 @@
 import errorJson from "../../../assets/json/fr/error-fr.json";
-import {TypeJsonDict} from "../../../assets/TypeGlobal.js";
+import {TypeJsonDict} from "../../object/JsonType.js";
 import textJson from "../../../assets/json/fr/text-fr.json";
 import ariaJson from "../../../assets/json/fr/aria-fr.json";
 

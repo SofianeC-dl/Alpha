@@ -70,10 +70,4 @@ const modalCustomStore = useModalCustomStore();
 .modal-leave-to {
   opacity: 0;
 }
-
-.modal-enter-from .modal-container,
-.modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
 </style>

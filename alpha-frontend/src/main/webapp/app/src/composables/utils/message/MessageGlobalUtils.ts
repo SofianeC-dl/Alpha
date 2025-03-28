@@ -1,5 +1,5 @@
 import {useGlobalMessageStore} from "../../../stores/globalMesage/globalMessageStore.js";
-import {TypeMessageEnum} from "../../../assets/enum/TypeMessageEnum.js";
+import {TypeMessageEnum} from "../../enum/TypeMessageEnum.js";
 
 export class MessageGlobalToastUtils {
   static errorMessage(message: string) {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
-import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
-import {FormatEnum} from "@/assets/enum/FormatEnum.js";
+import {FlexDirectionEnum, FlexPositionEnum} from "@/composables/enum/FlexEnum.js";
+import {FormatEnum} from "@/composables/enum/FormatEnum.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
 
 const props = defineProps({
@@ -26,6 +26,10 @@ const props = defineProps({
   width: {
     type: String as PropType<FormatEnum>,
     default: FormatEnum.FULL
+  },
+  activeFlex: {
+    type: Boolean,
+    default: false
   }
 });
 </script>
@@ -37,6 +41,7 @@ const props = defineProps({
     :style="{
       '--width-mode': width,
       '--flex-gap': props.gap
+
   }">
     <slot></slot>
   </div>

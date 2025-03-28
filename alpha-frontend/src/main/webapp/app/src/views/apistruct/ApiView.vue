@@ -28,7 +28,7 @@ import {MessageGlobalToastUtils} from '@/composables/utils/message/MessageGlobal
 import {type Ref, ref} from 'vue'
 import {useCatch} from '@/composables/utils/api/ApiUtils.js'
 import {useModalStore} from "@/stores/modal/modalStore.js";
-import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import {SizeEnum} from "@/composables/enum/sizeEnum.js";
 
 const tagApi: TagApi = new TagApi()
 const imageIllustrationApi: ImageIllustrationApi = new ImageIllustrationApi()

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { type Ref, ref } from 'vue'
-import { TypeMessageEnum } from '@/assets/enum/TypeMessageEnum.ts'
-import { TitleMessageEnum } from '@/assets/enum/TitleMessageEnum.ts'
+import {TypeMessageEnum} from "../../composables/enum/TypeMessageEnum.js";
+import {TitleMessageEnum} from "../../composables/enum/TitleMessageEnum.js";
 
 export const useGlobalMessageStore = defineStore('globalMessages', () => {
   const status: Ref<number, number> = ref(-1)

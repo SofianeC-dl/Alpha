@@ -2,6 +2,7 @@
 
 import Tag from "@/components/tag/Tag.vue";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
+import {TagDto} from "@/generated/index.js";
 
 const props = defineProps({
   id: {
@@ -17,7 +18,7 @@ const props = defineProps({
 const emits = defineEmits(['update:tagList']);
 
 const removeTag = (tagEmit: string) => {
-  props.tagList.filter(tag => tag.label !== tagEmit);
+  const newList: TagDto[] = props.tagList.filter(tag => tag.label !== tagEmit);
   emits('update:tagList', newList);
 };
 </script>
@@ -32,6 +33,7 @@ const removeTag = (tagEmit: string) => {
 @use '@/assets/css/index' as mylib;
 
 .main-container-tag {
+  flex: 1;
   width: 100%;
   height: max-content;
   display: flex;

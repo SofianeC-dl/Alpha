@@ -4,8 +4,8 @@ import MenuSection from "@/components/menu/section/MenuSection.vue";
 import MenuSectionContainer from "@/components/menu/section/MenuSectionContainer.vue";
 import InputReact from "@/components/input/InputReact.vue";
 import {Ref, ref} from "vue";
-import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
-import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import {FlexDirectionEnum, FlexPositionEnum} from "@/composables/enum/FlexEnum.js";
+import {SizeEnum} from "@/composables/enum/sizeEnum.js";
 import ContainerSlot from "@/components/container/ContainerSlot.vue";
 
 const inputText : Ref<string, string> = ref<string>('');

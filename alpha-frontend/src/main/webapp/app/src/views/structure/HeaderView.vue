@@ -1,6 +1,6 @@
 <script setup lang="ts">
 /** Imports **/
-import {computed, markRaw, onMounted, onUnmounted, Ref, ref} from 'vue'
+import {computed, onMounted, onUnmounted, Ref, ref} from 'vue'
 import {Router, useRouter} from "vue-router";
 import ButtonPath from "@/components/button/ButtonPath.vue";
 import ButtonLogo from "@/components/button/ButtonLogo.vue";
@@ -8,12 +8,10 @@ import {useAuthStore} from "@/stores/auth/AuthStore.js";
 import {MessageGlobalToastUtils} from "@/composables/utils/message/MessageGlobalUtils.js";
 import ButtonAction from "@/components/button/ButtonAction.vue";
 import {Store} from "pinia";
-import {FlexDirectionEnum, FlexPositionEnum} from "@/assets/enum/FlexEnum.js";
+import {FlexDirectionEnum, FlexPositionEnum} from "@/composables/enum/FlexEnum.js";
 import {useMenuStore} from "@/stores/menu/menuStore.js";
 import IconMenu from "@/components/icons/IconMenu.vue";
-import {SizeEnum} from "@/assets/enum/sizeEnum.js";
-import AddTagModal from "@/views/modal/AddTagModal.vue";
-import {useModalCustomStore} from "@/stores/modal/modalCustomStore.js";
+import {SizeEnum} from "@/composables/enum/sizeEnum.js";
 import ContainerSlot from "@/components/container/ContainerSlot.vue";
 
 defineProps({})
@@ -22,7 +20,6 @@ defineProps({})
 const router: Router = useRouter();
 const authStore: Store = useAuthStore();
 const menuStore = useMenuStore();
-const modalCustomStore = useModalCustomStore();
 
 const isAdmin = computed(() => {
   menuStore.closeMenu();
@@ -61,11 +58,6 @@ const logoutMessage = () => {
     MessageGlobalToastUtils.successMessage('Log out success');
   }
 };
-
-const openAddTagModal = () => {
-  modalCustomStore.modalSize = SizeEnum.MEDIUM;
-  modalCustomStore.open(markRaw(AddTagModal));
-}
 </script>
 
 <template>
@@ -73,7 +65,7 @@ const openAddTagModal = () => {
 
     <div class="border-group" >
       <ContainerSlot v-if="isAdmin" :position-item="FlexPositionEnum.CENTER">
-        <ButtonAction label-button="component.button.addtags" :size="SizeEnum.SMALL" :function-click="openAddTagModal" aria-label-button="component.button.addtagsheader"/>
+        <ButtonPath label-button="component.button.settings" :size="SizeEnum.SMALL" routing-path="Settings" aria-label-button="component.button.settings" />
       </ContainerSlot>
     </div>
 

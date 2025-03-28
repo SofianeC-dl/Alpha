@@ -1,5 +1,6 @@
-import {SizeEnum} from "./sizeEnum.js";
-import {FlexPositionEnum} from "./FlexEnum.js";
+import {SizeEnum} from "../enum/sizeEnum.js";
+import {FlexPositionEnum} from "../enum/FlexEnum.js";
+import {SizeBox} from "./SizeBox.js";
 
 export interface PropsInput {
   id?: string,
@@ -8,5 +9,7 @@ export interface PropsInput {
   ariaLabelInput?: string;
   placeHolder?: string;
   size?: SizeEnum;
+  sizeCustom?: SizeBox;
+  maxSize? : string;
   positionLabel?: FlexPositionEnum;
 }

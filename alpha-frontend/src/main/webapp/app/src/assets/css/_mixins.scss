@@ -55,6 +55,11 @@
   border: mylib.$header-border-menu-size solid mylib.$color-font-global;
   border-radius: mylib.$header-border-radius;
 }
+
+@mixin border-style-unpadding-noradius {
+  border: mylib.$header-border-menu-size solid mylib.$color-font-global;
+}
+
 /* LINK */
 @mixin link-menu {
   color: mylib.$color-font-global;

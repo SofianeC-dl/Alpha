@@ -1,6 +1,6 @@
 import type {MessageError} from "@/assets/object/MessageError.ts";
 import errorJson from "../../../assets/json/fr/error-fr.json";
-import type {ErrorJsonDict} from "@/assets/TypeGlobal.ts";
+import type {ErrorJsonDict} from "@/assets/JsonType.ts";
 import {MessageGlobalToastUtils} from "../message/MessageGlobalUtils.js";
 import {useLoadingStore} from "../../../stores/loading/loadingStore.js";
 import {JsonParseUtils} from "../json/JsonParseUtils.js";

@@ -2,7 +2,7 @@
 import {computed, onMounted, PropType, Ref, ref} from "vue";
 import { useRoute } from "vue-router";
 import {ButtonUtils} from "@/composables/utils/button/buttonUtils.js";
-import {SizeEnum} from "@/assets/enum/sizeEnum.js";
+import {SizeEnum} from "@/composables/enum/sizeEnum.js";
 import {SizeBox} from "@/composables/object/SizeBox.js";
 import {IdUtils} from "@/composables/utils/id/idUtils.js";
 import {JsonParseUtils} from "@/composables/utils/json/JsonParseUtils.js";

@@ -37,20 +37,17 @@ export const useTagStore = defineStore('tagStore', () => {
   }
 
   function addTagList(newTagList: Array<TagDto>) {
-    console.log('TEST : ', newTagList);
     const tagDto: TagApiAddManyTagRequest = {
       tagList: {
         tagList: newTagList
       }
     }
 
-    console.log(tagDto);
     loadingStore.activeLoading();
     useCatch(
         tagApi.addManyTag(tagDto).then((axiosData: AxiosResponse<TagList, any>) => {
         tagList.value.push(axiosData.data);
 
-        console.log(tagList.value);
         loadingStore.disabledLoading();
         MessageGlobalToastUtils.successMessage(`Les Tags "${axiosData.data}" ont bien été ajouté`);
       })
