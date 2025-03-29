@@ -21,7 +21,7 @@ public class TagEntity {
     private String label;
 
     @NotNull
-    @Pattern(regexp = "^#(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$", message = "Le code couleur doit être au format hexadécimal (#RRGGBB)")
+    @Column(length = 9)
     private String color;
 
     @ManyToMany(mappedBy = "tagEntitySet", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

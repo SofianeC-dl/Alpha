@@ -38,7 +38,6 @@ const addTag = () => {
 };
 
 const addTagAndExit = () => {
-  console.log(tagList.value);
   tagStore.addTagList(tagList.value);
 
   closeModal();

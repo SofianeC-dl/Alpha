@@ -1,6 +1,6 @@
 -- Création d'exemples de tags
-INSERT INTO alpha_db_schema.tag (id, label, color) VALUES (3,'Tag A', '#ddd');
-INSERT INTO alpha_db_schema.tag (id, label, color) VALUES (4, 'Tag B', '#ffffff');
+INSERT INTO alpha_db_schema.tag (id, label, color) VALUES (3,'Tag A', '#ddddddFF');
+INSERT INTO alpha_db_schema.tag (id, label, color) VALUES (4, 'Tag B', '#ffffffFF');
 
 -- Insertion d'une image d'illustration
 -- Ici, la valeur X'48656C6C6F' correspond à la chaîne "Hello" en hexadécimal

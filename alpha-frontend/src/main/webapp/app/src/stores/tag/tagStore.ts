@@ -15,7 +15,7 @@ export const useTagStore = defineStore('tagStore', () => {
   const tagApi: TagApi = new TagApi()
   const loadingStore = useLoadingStore();
 
-  const tagList: Ref<Array<TagDto>, Array<TagDto>> = ref<TagDto>([]);
+  const tagList: Ref<TagDto[], TagDto[]> = ref<TagDto[]>([]);
 
   function addTag(newTag: TagDto) {
     const tagDto: TagApiAddTagRequest = {
@@ -36,7 +36,7 @@ export const useTagStore = defineStore('tagStore', () => {
     )
   }
 
-  function addTagList(newTagList: Array<TagDto>) {
+  function addTagList(newTagList: TagDto[]) {
     const tagDto: TagApiAddManyTagRequest = {
       tagList: {
         tagList: newTagList
@@ -46,8 +46,7 @@ export const useTagStore = defineStore('tagStore', () => {
     loadingStore.activeLoading();
     useCatch(
         tagApi.addManyTag(tagDto).then((axiosData: AxiosResponse<TagList, any>) => {
-        tagList.value.push(axiosData.data);
-
+        tagList.value.push(...axiosData.data.tagList);
         loadingStore.disabledLoading();
         MessageGlobalToastUtils.successMessage(`Les Tags "${axiosData.data}" ont bien été ajouté`);
       })
@@ -77,7 +76,7 @@ export const useTagStore = defineStore('tagStore', () => {
     loadingStore.activeLoading();
     useCatch(
       tagApi.getAllTag().then((axiosData) => {
-        tagList.value = axiosData.data;
+        tagList.value = axiosData.data.tagList;
         loadingStore.disabledLoading();
       })
     )

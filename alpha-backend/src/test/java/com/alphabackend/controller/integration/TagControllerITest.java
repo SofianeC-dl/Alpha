@@ -69,7 +69,7 @@ class TagControllerITest {
                 """
                 {
                     "label": "Tag C",
-                    "color": "#eeE"
+                    "color": "#dddddd"
                 }
                 """;
 
@@ -89,11 +89,11 @@ class TagControllerITest {
                     "tagList": [
                         {
                             "label": "Tag C",
-                            "color": "#eeE"
+                            "color": "#dddddd"
                         },
                         {
                             "label": "Tag D",
-                            "color": "#eeE"
+                            "color": "#dddddd"
                         }
                     ]
                 }
@@ -115,9 +115,9 @@ class TagControllerITest {
         {
             "id": 3,
             "label": "Tag Update",
-            "color": "#eeE"
+            "color": "#ddddddff"
         }
-       \s""";
+       """;
 
         mockMvc.perform(put("/tag/put/3")
                         .contentType(MediaType.APPLICATION_JSON)

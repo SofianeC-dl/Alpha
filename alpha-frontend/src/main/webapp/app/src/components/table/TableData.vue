@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {defineProps, PropType} from 'vue'
 import {TableEnumTextAlign, TableEnumVerticalAlign} from "@/composables/enum/TableEnum.js";
-import {DataRow, TableHeader} from "@/composables/object/TableObject.js";
+import {TableHeader} from "@/composables/object/TableObject.js";
 
 const props = defineProps({
   data: {
-    type: Array as PropType<DataRow[]>,
+    type: Array,
     default: () => [],
   },
   header: {
